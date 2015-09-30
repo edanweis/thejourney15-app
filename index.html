@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			thejourney.aila.org.au
+		</title>
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no, width=device-width'>
+		<link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' type="text/css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js' type="text/javascript"></script>
+		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+		<style type="text/css">
+		/*
+		$color1: #f67e72;
+		$color2: #91c0e2;
+		$color3: #ffe680;
+		$color4: #8ccc98;
+		$color5: #f0aeef;
+		$color6: #a9e0d8;
+		$color7: #916dbd;
+		$color8: #db8d61;
+		$color9: #747167;
+		*/
+
+		body { margin:0; padding:0; }
+		.leaflet-container i{
+			/*color:green;*/
+			vertical-align: middle;
+			font-size: 1.4em;
+			margin-right:0.4em;
+		}
+
+		i{
+			vertical-align: middle;
+		}
+		#map { position:absolute; top:0; bottom:0; width:100%; }
+
+		.navbar-fixed nav{
+
+		}
+		.navbar-fixed nav, .navbar-fixed{
+			background-color: transparent;
+			box-shadow: none;
+			width:100px;
+			right:0;
+
+		}
+		.button-collapse{
+			color: #F26122;
+			padding: 0 1em 0 1em;
+			background-color: transparent;
+		}
+		 *::selection {
+		  background: transparent;
+		  /*color: #ffffff;*/
+		}
+		*::-moz-selection {
+		  background: transparent;
+		  /*color: #ffffff;*/
+		}
+		*::-webkit-selection {
+		  background: transparent;
+		  /*color: #ffffff;*/
+		}
+		 .leaflet-container h1, .leaflet-container h2, .leaflet-container h3, .leaflet-container h4, .leaflet-container h5, .leaflet-container h6, .leaflet-container p{
+			/*font-size: inherit !important;*/
+			line-height: inherit !important;
+			margin: inherit !important;
+		 }
+
+		.custom-popup .leaflet-popup-content-wrapper {
+		  background:#333;
+		  color:#fff;
+		  /*overflow: hidden;*/
+/*		  font-size:12px;*/
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper h2 {
+		  font-size:16px;
+		  font-weight: bold;
+		  line-height: 14px;
+		  /*margin:0 0 1em 0;*/
+		  }
+		  .leaflet-popup-close-button{
+			display: none;
+		  }
+		  .year {
+			font-weight: normal;
+
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper ul.properties{
+			margin-left: 3em;
+			margin-top:1.5em;
+		  }
+
+		.custom-popup .leaflet-popup-content-wrapper li {
+			content= "";
+			/*text-indent: 2em hanging;*/
+			margin-bottom: 1em;
+		  }
+
+		 .custom-popup .leaflet-popup-content-wrapper li:before { 
+			font-family: 'Material Icons';
+			font-size: 1.6em;
+			vertical-align: middle;
+			margin: 0px 17px 0px -37px;
+			color: #9E9E9E;
+		 }
+
+		 .custom-popup .leaflet-popup-content-wrapper li.people:before {    
+			content: '';
+			}
+
+			.custom-popup .leaflet-popup-content-wrapper li.address:before {    
+			content: '';
+			}
+		
+		.custom-popup .leaflet-popup-content-wrapper li.info:before {    
+			content: '';
+			}
+
+			.custom-popup .leaflet-popup-content-wrapper li.tags:before {    
+			content: '';
+			}
+
+		  .custom-popup .leaflet-popup-content-wrapper h3 {
+		  font-size:10px;
+		  font-weight: normal;
+		  line-height: 14px;
+		  margin:4px;
+		  color:#D4D4D4;
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper i {
+			font-size: 10;
+		  }
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper p {
+		  font-size:10px;
+		  font-weight: normal;
+		  line-height: 12px;
+		  color:#fff;
+		  }
+		.custom-popup .leaflet-popup-content-wrapper a {
+		  /*color:rgba(255,255,255,0.5);*/
+		  }
+		.custom-popup .leaflet-popup-tip-container {
+		  /*width:30px;
+		  height:15px;*/
+		  }
+		.custom-popup .leaflet-popup-tip {
+		  border-left:15px solid transparent;
+		  border-right:15px solid transparent;
+		  border-top:15px solid #333;
+		  }
+		 .custom-popup .leaflet-popup-content-wrapper li.popup-info{
+			margin-top: 1em !important;
+		  }
+
+		  #walks {
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: #fff;
+				width: 150px;
+				padding:5px;
+			}
+		.nav-wrapper{
+			z-index: 999;
+		}
+
+		.side-nav li{
+			background-color: transparent;
+			color: #444;
+			content=""
+		}
+
+		.side-nav li a{
+			color:inherit;
+			margin-left: 0;
+			padding-left: 0;
+		}		
+
+		.side-nav li.divider{
+			border-bottom: 2px #ddd solid
+		}
+
+		.side-nav li[data-walk]{
+			border: solid white;
+			border-width: 1em 1em 0 1em;
+		}
+
+		.side-nav li.nav-subheading:hover, .side-nav li.nav-subheading.active:hover{
+			background-color: transparent;
+		}
+
+		a.try-again:hover{
+			text-decoration: underline;
+			color:#65B6FF;
+		}
+
+		.side-nav li[data-walk='ecology']{
+			color: #8ccc98;
+		}
+		.side-nav li[data-walk='ecology'].active{
+			background-color: #8ccc98;
+			color: white;
+		}
+		.side-nav li[data-walk='ecology']:hover{
+			background-color: #8ccc98;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='citizens']{
+			color: #91c0e2;
+		}
+		.side-nav li[data-walk='citizens'].active{
+			background-color: #91c0e2;
+			color: white;
+		}
+		.side-nav li[data-walk='citizens']:hover{
+			background-color: #91c0e2;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='political']{
+			color: #FF8585;
+		}
+		.side-nav li[data-walk='political'].active{
+			background-color: #FF8585;
+			color: white;
+		}
+		.side-nav li[data-walk='political']:hover{
+			background-color: #FF8585;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='art']{
+			color: #a9e0d8;
+		}
+		.side-nav li[data-walk='art'].active{
+			background-color: #a9e0d8;
+			color: white;
+		}
+		.side-nav li[data-walk='art']:hover{
+			background-color: #a9e0d8;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='intervetion']{
+			color: #916dbd;
+		}
+		.side-nav li[data-walk='intervetion'].active{
+			background-color: #916dbd;
+			color: white;
+		}
+		.side-nav li[data-walk='intervetion']:hover{
+			background-color: #916dbd;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='sport']{
+			color: #ffe680;
+		}
+		.side-nav li[data-walk='sport'].active{
+			background-color: #ffe680;
+			color: white;
+		}
+		.side-nav li[data-walk='sport']:hover{
+			background-color: #ffe680;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		
+
+		.side-nav li[data-walk='urban']{
+			color: #db8d61;
+		}
+		.side-nav li[data-walk='urban'].active{
+			background-color: #db8d61;
+			color: white;
+		}
+		.side-nav li[data-walk='urban']:hover{
+			background-color: #db8d61;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='history']{
+			color: #747167;
+		}
+		.side-nav li[data-walk='history'].active{
+			background-color: #747167;
+			color: white;
+		}
+		.side-nav li[data-walk='history']:hover{
+			background-color: #747167;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='miscellaneous']{
+			color: #f0aeef;
+		}
+		.side-nav li[data-walk='miscellaneous'].active{
+			background-color: #f0aeef;
+			color: white;
+		}
+		.side-nav li[data-walk='miscellaneous']:hover{
+			background-color: #f0aeef;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav li[data-walk='uncategorized']{
+			color: #444444;
+		}
+		.side-nav li[data-walk='uncategorized'].active{
+			background-color: #444444;
+			color: white;
+		}
+		.side-nav li[data-walk='uncategorized']:hover{
+			background-color: #444444;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		#sidenav-overlay{
+			background-color: rgba(0,0,0,0.2) !important;
+		}
+
+		#slide-out li.search .search-wrapper input#search{
+		    display: inline-block;
+		    font-size: 16px;
+		    font-weight: 300;
+		    /*width: 100%;*/
+		    height: 45px;
+		    /*padding: 0 45px 0 15px;*/
+		    border: 0;
+	    }
+
+	    li.search:hover{
+			background-color: white !important;
+		}
+		input#search:focus {
+			outline-width: 0;
+		}
+		
+		#close_search{
+			cursor: pointer;
+		}
+
+		.filter-label{
+			color:#fff;
+		}
+
+		input[type="checkbox"]+label:before{
+			border:	2px solid #fff;
+		}
+
+		input[type="checkbox"]:checked+label:before{
+		  border-right: 2px solid #fff;
+		  border-bottom: 2px solid #fff 
+		  }
+
+		 /* input[type="checkbox"].dark+label:before{
+			border:	2px solid #444;
+		}*/
+
+
+		/*how to make this work?? */
+		
+		/*input[type="checkbox"]:checked+label:before{
+		  border-right: 2px solid #444 !important;
+		  border-bottom: 2px solid #444 !important;
+		  }*/
+
+		
+		/*.filter-label-dark{
+			color:#444;
+		}*/
+
+		
+		
+		</style>
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+	</head>
+	<body>
+	
+		<div class="navbar-fixed">
+		<nav>
+		  <ul id="slide-out" class="side-nav show-on-large">
+		  	<li class="search">
+		  		<div class="search-wrapper">
+		  			<i class="material-icons">search</i>
+		  			<input id='search' class='' placeholder='Search..' />
+		  			<i id="close_search" class="material-icons" style="display:none" onclick="clearFilters()">close</i>
+		  		</div>
+		  	</li>
+		  	<li class="nav-subheading divider"></li>
+			<li class=""><a href="#" id="geolocate"><i class="material-icons">gps_not_fixed</i><strong> Show my location</strong></a></li>
+			<li class="nav-subheading divider"></li>
+			<li class="nav-subheading"><strong><i class="material-icons">filter_list</i> Filter by journey</strong></li>
+			<li class="active" data-walk='ecology'><input type="checkbox" checked id="ecology" class="filtered" onclick="filterWalk(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
+			<li class="active" data-walk='citizens'><input type="checkbox" checked id="citizens" class="filtered" onclick="filterWalk(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
+			<li class="active" data-walk='political'><input type="checkbox" checked id="political" class="filtered" onclick="filterWalk(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
+			<li class="active" data-walk='art'><input type="checkbox" checked id="art" class="filtered" onclick="filterWalk(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
+			<li class="active" data-walk='intervetion'><input type="checkbox" checked id="intervention" class="filtered" onclick="filterWalk(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
+			<li class="active" data-walk='history'><input type="checkbox" checked id="history" class="filtered" onclick="filterWalk(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
+			<li class="active" data-walk='urban'><input type="checkbox" checked id="urban" class="filtered" onclick="filterWalk(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
+			<li class="active" data-walk='sport'><input type="checkbox" checked id="sport" class="filtered dark" onclick="filterWalk(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
+			<li class="active" data-walk='miscellaneous'><input type="checkbox" checked id="miscellaneous" class="filtered" onclick="filterWalk(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
+			<li class="active" data-walk='uncategorized'><input type="checkbox" checked id="uncategorized" class="filtered" onclick="filterWalk(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li>
+			<li class="divider"></li>
+			
+			<!-- <li> <a href="#" class="leaflet-control-fullscreen-button leaflet-bar-part" title="View Fullscreen">Full Screen</a></li> -->
+		  </ul>
+		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large"><i class="mdi-navigation-menu"></i></a>
+		</nav>		
+		</div>
+		<div class="row">
+		<div id='map' class='custom-popup'></div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+		
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
+		<script src='bouncemarker.js'></script>
+
+		<script type="text/javascript">
+		$( document ).ready(function(){
+
+			$(".button-collapse").sideNav({
+				   menuWidth: 300, // Default is 240
+				  edge: 'right', // Choose the horizontal origin
+				  // closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor);
+			});
+
+			$('.side-nav input[type="checked"]').bind('click', function(){
+				$(this).trigger('click');
+
+			});
+
+			$('#menu').click(function(){
+				toast = true;
+				$('#search').focus();
+			})
+			
+			$(document).keyup(function(e) {
+			  // if (e.keyCode == 13) $('.save').click();     // enter
+			  if (e.keyCode == 27){
+			  		$('#search').blur();
+			  		esc = true;
+			  		$('.button-collapse').sideNav('hide');
+			  		clearFilters();
+			  	} else{
+			  		esc= false;
+			  	}
+			});
+
+		})
+
+		L.mapbox.accessToken = '';
+
+		var map = L.mapbox.map('map')
+		.setView([-37.8163,144.9634], 15);
+
+		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
+		  attribution: 'Mapping interface developed by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://aila.org.au">AILA Victoria</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+		}).addTo(map);
+
+		// load data from GitHub Repository 
+
+		var featureLayer = L.mapbox.featureLayer()
+		.loadURL('https://rawgit.com/edanweis/thejourney15/master/thejourney15_ew_1.geojson') // REMEMBER TO CHANGE THIS TO AILA-VIC MASTER REPO.
+		.addTo(map);
+
+		featureLayer.on('ready', function(e) {
+		});
+
+
+		var locationLayer = L.mapbox.featureLayer()
+    	.addTo(map);
+
+		L.control.fullscreen().addTo(map);
+
+		var bounce = true;
+		var toast = true;
+		var esc = false;
+
+		$('#search').keyup(search);
+
+		function search() {
+		    bounce = false;
+
+			( $('#search').val() ? $('#close_search').css("display", 'inline') : $('#close_search').css("display", 'none') )
+			
+			var filters = []
+			var list = document.getElementsByClassName('filtered')
+
+			for (var i = 0; i < list.length; i++) {
+					if (list[i].className == "filtered") filters.push(list[i].dataset.walk);
+				}
+			
+
+		    // get the value of the search input field
+		    var searchString = $('#search').val().toLowerCase();
+		    featureLayer.setFilter(showState);
+		    
+		    // here we're simply comparing the various properties of each marker
+		    // to the search string, seeing whether the former contains the latter.
+		    function showState(feature) {
+		        if (filters.indexOf(feature.properties.WALK) !== -1) {
+						return ((feature.properties.description +' '+feature.properties.client+' '+feature.properties.designer+' '+feature.properties.address)
+		            .toLowerCase()
+		            .indexOf(searchString) !== -1) && feature.properties.WALK;
+					} else{
+						return '';
+					}
+		    }
+		    
+		    
+		    if((toast) && (esc == false)){
+		    	Materialize.toast('Showing search results', 3000, 'toast', function(){toast = true; esc = true;});
+	    		toast = false;
+		    }
+		}
+
+		function clearFilters(){
+			$(	'#search').val('');
+			search();
+			$('#close_search').css('display', 'none');
+		}
+
+		// create custom markers    	
+
+		featureLayer.on('layeradd', function(e) {
+			var marker = e.layer,
+				feature = marker.feature;
+
+			// marker.bounce();
+			if (bounce == true){
+				marker.bounce();				
+			};
+			
+
+			switch (marker.feature.properties.WALK) {
+
+			  case "ECOLOGY IN THE CITY (environmental remediation)":
+				var fill_color = 'green';
+				break;
+			  case "LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens":
+				var fill_color = 'blue';
+				break;
+			  case "POLITICAL LANDSCAPES (civic demonstration & community events)":
+				var fill_color = 'red';
+				break;
+			  case "ART IN THE LANDSCAPE & LANDSCAPE AS ART":
+				var fill_color = 'acqua';
+				break;
+			  case "LANDSCAPE INTERVENTIONS - new opportunities for landscapes":
+				var fill_color = 'purple';
+				break;
+			  case "HISTORIC LANDSCAPES":
+				var fill_color = 'beige';
+				break;
+			  case "THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)":
+				var fill_color = 'orange';
+				break;
+			  case "A SPORTING CITY":
+				var fill_color = 'yellow';
+				break;
+			  case "MISCELLANEOUS":
+				var fill_color = 'pink';
+				break;
+			  case "uncategorized":
+				var fill_color = 'black';
+				break;
+			  
+			  default:
+				var fill_color ='black';
+			}
+
+			var icon = {
+				"iconUrl": "img/ic_location_on_black_24px_"+fill_color+".svg",//"https://www.iconfinder.com/icons/299087/download/svg/32",
+				"iconSize": [32, 32], // size of the icon
+				"iconAnchor": [11, 32], // point of the icon which will correspond to marker's location
+				"popupAnchor": [0, -32], // point from which the popup should open relative to the iconAnchor
+				"className": "dot"
+			}
+
+			// Style Popup and create HTML
+			var content = 	'<h2>'+marker.feature.properties.project+'<span class="year"> '+marker.feature.properties.year+'</span></h2>'
+			+'<ul class="list-unstyled properties">'+((marker.feature.properties.address) ? '<li class="address">'+marker.feature.properties.address+'</li>' : '') +
+
+				((marker.feature.properties.url) ? '<li class="people popup-info"><a href="'+marker.feature.properties.url+'</a></li>' : '<li class="people popup-info"><a href="http://www.google.com/search?q='+ encodeURIComponent(marker.feature.properties.designer)+'%20site:au&btnI" target="_blank">'+marker.feature.properties.designer+'</a>') +
+				
+				'<li class="info">' + marker.feature.properties.description+ '</li>'+
+
+				'<li class="tags">' + marker.feature.properties.tags+ '</li></ul>'+
+
+				'<button type="button" class="waves-effect waves-light btn"><i class="material-icons"></i> Add to your route</button>';
+
+				marker.setIcon(L.icon(icon)).addTo(map);
+				e.layer.bindPopup(content);			
+
+		});
+
+		
+		
+		// add hover to Popup windows
+
+		function fadeMarkers(markers, marker_category) {
+		    var i = 0;    
+	        for (var i = 0; i < markers.length; i++) {
+	        	var category = markers[i].toGeoJSON()['properties']['WALK']
+	        	if (category !== marker_category){
+	        		markers[i].setOpacity(0.2)
+	        	}
+	        }
+		}
+
+		featureLayer.on('mouseover', function(e) {
+			e.layer.openPopup();
+			var marker_category = e.layer.feature.properties.WALK
+			var markers = [];
+			featureLayer.eachLayer(function(marker) {
+				markers.push(marker); 
+			});
+			fadeMarkers(markers, marker_category);
+
+
+		});
+
+		featureLayer.on('click', function(e){
+			e.layer.openPopup();
+			var marker_category = e.layer.feature.properties.WALK
+			var markers = [];
+			fadeMarkers(markers, marker_category);
+		});
+
+
+		featureLayer.on('mouseout', function(e) {
+			// featureLayer.setFilter(featureLayer.getFilter()).addTo(map)
+			featureLayer.eachLayer(function(marker) {
+				marker.setOpacity(1);
+			});
+		})
+
+		locationLayer.on('mouseover', function(e) {
+			e.layer.openPopup();
+		}).on('click', function(e){
+			e.layer.openPopup();
+		});
+		locationLayer.on('mouseout', function(e) {
+		})
+
+		// filter
+	
+		function filterWalk(e) {
+			var searchString = $('#search').val().toLowerCase();
+
+
+			if (e.className == 'filtered'){
+				e.className = ''
+			} else{
+				e.className = 'filtered'
+			}
+			
+			var filters = []
+			var list = document.getElementsByClassName('filtered')
+
+			for (var i = 0; i < list.length; i++) {
+					if (list[i].className == "filtered") filters.push(list[i].dataset.walk);
+				}
+			featureLayer.setFilter(showState)
+
+
+			function showState(feature){
+				bounce = false;
+				  if (filters.indexOf(feature.properties.WALK) !== -1) {
+						return ((feature.properties.description +' '+feature.properties.client+' '+feature.properties.designer+' '+feature.properties.address)
+		            .toLowerCase()
+		            .indexOf(searchString) !== -1) && feature.properties.WALK;
+					} else{
+						return '';
+					}
+			}
+
+			
+		return false;
+		};
+
+		// find the user's location
+
+		if (!navigator.geolocation) {
+			geolocate.innerHTML = '<i class="material-icons">gps_off</i> Geolocation is not available <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		} else {
+			geolocate.onclick = function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				map.locate();
+			};
+		}
+
+		// Once we've got a position, zoom and center the map
+		// on it, and add a single marker.
+		map.on('locationfound', function(e) {
+			map.fitBounds(e.bounds);
+			geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found <a href="#" id="geolocate" class="try-again" style="display:inline;">(relocate)</a>';				
+			
+			locationLayer.setGeoJSON({
+				    type: "FeatureCollection",
+				    features: [{
+				        type: "Feature",
+				        geometry: {
+				            type: "Point",
+				            coordinates: [e.latlng.lng, e.latlng.lat]
+				        },
+				    }]
+				}).addTo(map);
+		});
+
+		locationLayer.on('layeradd', function(e) {
+	    	var marker = e.layer,
+				feature = marker.feature;
+			var icon_person = {
+	            "iconUrl": "img/ic_person_pin_50px.svg",
+	            "iconSize": [50, 50], // size of the icon
+	            "iconAnchor": [25, 50], // point of the icon which will correspond to marker's location
+	            "popupAnchor": [-5, -50], // point from which the popup should open relative to the iconAnchor
+	            "className": "dot"
+        	}	
+        	var content_person = '<h2>Here you are!</h2>'
+
+        	marker.setIcon(L.icon(icon_person)).addTo(map);
+			e.layer.bindPopup(content_person);
+		});
+
+		// If the user chooses not to allow their location
+		// to be shared, display an error message.
+		map.on('locationerror', function() {
+			geolocate.innerHTML = '<i class="material-icons">error</i> We lost you. <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		})
+		
+		
+
+		</script>
+	</body>
+</html>
