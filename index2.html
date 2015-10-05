@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>
+			thejourney.aila.org.au
+		</title>
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no, width=device-width'>
+		<link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' type="text/css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js' type="text/javascript"></script>
+		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.3.0/mapbox.directions.css' type='text/css' />
+		<style type="text/css">
+		/*
+		$color1: #f67e72;
+		$color2: #91c0e2;
+		$color3: #ffe680;
+		$color4: #8ccc98;
+		$color5: #f0aeef;
+		$color6: #a9e0d8;
+		$color7: #916dbd;
+		$color8: #db8d61;
+		$color9: #747167;
+		*/
+
+		body { margin:0; padding:0;	}
+		
+		.leaflet-container i{
+			/*color:green;*/
+			/*vertical-align: middle;
+			font-size: 1.4em;
+			margin-right:0.4em;*/
+		}
+
+		i{
+			vertical-align: middle;
+		}
+		
+		.card-reveal i{
+			line-height: 30px;
+		}
+
+		#map { position:absolute; top:0; bottom:0; width:100%; }
+
+		.navbar-fixed nav{
+
+		}
+		.leaflet-marker-icon, .leaflet-marker-shadow{
+			-webkit-transition: opacity 0.5s ease-in-out;
+		  -moz-transition: opacity 0.5s ease-in-out;
+		  -ms-transition: opacity 0.5s ease-in-out;
+		  -o-transition: opacity 0.5s ease-in-out;
+		  transition: opacity 0.5s ease-in-out;
+		}
+		.navbar-fixed nav, .navbar-fixed{
+			background-color: transparent;
+			box-shadow: none;
+			width:100px;
+			right:0;
+
+		}
+		.button-collapse{
+			color: #F26122;
+			padding: 0 1em 0 1em;
+			background-color: transparent;
+		}
+		 *::selection {
+		  background: transparent;
+		  /*color: #ffffff;*/
+		}
+		*::-moz-selection {
+		  background: transparent;
+		  /*color: #ffffff;*/
+		}
+		*::-webkit-selection {
+		  background: transparent;
+		  /*color: #ffffff;*/
+		}
+		 .leaflet-container h1, .leaflet-container h2, .leaflet-container h3, .leaflet-container h4, .leaflet-container h5, .leaflet-container h6, .leaflet-container p{
+			/*font-size: inherit !important;*/
+			line-height: inherit !important;
+			margin: inherit !important;
+		 }
+
+		.custom-popup .leaflet-popup-content-wrapper {
+		  /*background:#333;*/
+		  /*color:#fff;*/
+		  /*overflow-x: visible !important;*/
+/*		  font-size:12px;*/
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper h2 {
+		  font-size:16px;
+		  font-weight: bold;
+		  /*line-height: 14px;*/
+		  /*margin:0 0 1em 0;*/
+		  }
+		  .leaflet-popup-close-button{
+			display: none;
+		  }
+		  .year {
+			font-weight: normal;
+
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper ul.properties{
+			/*margin-left: 3em;*/
+			/*margin-top:1.5em;*/
+		  }
+
+		.custom-popup .leaflet-popup-content-wrapper li {
+			content= "";
+			/*text-indent: 2em hanging;*/
+			/*margin-bottom: 1em;*/
+		  }
+
+		  .leaflet-popup-content, .leaflet-popup-content-wrapper, .leaflet-popup-close-button+.leaflet-popup-content-wrapper .leaflet-popup-content{
+		  	padding:0;
+		  }
+
+		  
+
+		  .leaflet-popup-tip-container{
+
+		  }
+		 .leaflet-popup-tip-container{
+		  	display: none;
+		  }
+
+		  .card .card-content .card-title{
+		  	line-height: 24px;
+		  	
+		  }
+		  .card .card-title{
+		  	
+		  	font-size: 18px;
+		  }
+		  .card .card-content{
+		  	padding:15px;
+		  }
+
+		  .card .card-reveal {
+		  	padding: 18px 16px 20px 22px;
+		  }
+
+		  .card .card-reveal .card-title{
+		  	display:inline;
+		  }
+
+		  .project-description{
+		  	padding-top:1em;
+		  }
+
+		  .leaflet-popup-content-wrapper, .map-legends, .map-tooltip{
+		  	box-shadow: none;
+		  }
+
+		  .card-reveal p.address{
+		  	font-size: 12px;
+		  	line-height: 16px !important;
+		  	padding-top: 1em;
+		  }
+
+		  .add-to-route{
+		  	position: absolute;
+		  	/*background-color: red;*/
+		  	top:-10px;
+		  	left: 0px;
+		  	z-index: 1;
+		  	color:#FFDC00;
+		  	font-size: 30px;
+
+		  }
+
+		  
+
+
+		 .custom-popup .leaflet-popup-content-wrapper li:before { 
+			font-family: 'Material Icons';
+			font-size: 1.6em;
+			vertical-align: middle;
+			margin: 0px 17px 0px -37px;
+			color: #9E9E9E;
+		 }
+
+		 .custom-popup .leaflet-popup-content-wrapper li.people:before {    
+			content: '';
+			}
+
+			.custom-popup .leaflet-popup-content-wrapper li.address:before {    
+			content: '';
+			}
+		
+		.custom-popup .leaflet-popup-content-wrapper li.info:before {    
+			content: '';
+			}
+
+			.custom-popup .leaflet-popup-content-wrapper li.tags:before {    
+			content: '';
+			}
+
+		  .custom-popup .leaflet-popup-content-wrapper h3 {
+		  font-size:10px;
+		  font-weight: normal;
+		  line-height: 14px;
+		  margin:4px;
+		  color:#D4D4D4;
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper i {
+			font-size: 10;
+			/*padding-left: 2em;*/
+		  }
+		  }
+		  .custom-popup .leaflet-popup-content-wrapper p {
+		  font-size:10px;
+		  font-weight: normal;
+		  line-height: 12px;
+		  color:#fff;
+		  }
+		.custom-popup .leaflet-popup-content-wrapper a {
+		  /*color:rgba(255,255,255,0.5);*/
+		  }
+		.leaflet-popup-content .card{
+			width: 300px;
+			margin:10px 0 0 0;
+			overflow: hidden;
+		}
+
+		.custom-popup .leaflet-popup-tip {
+		  border-left:15px solid transparent;
+		  border-right:15px solid transparent;
+		  border-top:15px solid #333;
+		  }
+		 .custom-popup .leaflet-popup-content-wrapper li.popup-info{
+			margin-top: 1em !important;
+		  }
+
+		  #walks {
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: #fff;
+				width: 150px;
+				padding:5px;
+			}
+		.nav-wrapper{
+			z-index: 999;
+		}
+
+		.side-nav li{
+			background-color: transparent;
+			color: #444;
+		}
+
+		.side-nav i{
+			padding-right: 15px;
+		}
+
+		.side-nav i#close_search{
+			padding-right: 0;
+		}
+
+		.side-nav li a{
+			color:inherit;
+			margin-left: 0;
+			padding-left: 0;
+		}		
+
+		.side-nav li.divider{
+			border-bottom: 2px #ddd solid
+		}
+		.side-nav .collapsible-header{
+			padding-left: 0;
+		}
+
+		.side-nav .collapsible-body li[data-walk]{
+			border: solid white;
+			border-width: 0.5em 0.5em 0 0.5em;
+			padding-left:1em;
+		}
+
+		.side-nav li.nav-subheading:hover, .side-nav li.nav-subheading.active:hover{
+			background-color: transparent;
+		}
+
+		a.try-again:hover{
+			text-decoration: underline;
+			color:#65B6FF;
+		}
+
+		.side-nav .collapsible-body li[data-walk='ecology']{
+			color: #8ccc98;
+		}
+		.side-nav .collapsible-body li[data-walk='ecology'].active{
+			background-color: #8ccc98;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='ecology']:hover{
+			background-color: #8ccc98;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='citizens']{
+			color: #91c0e2;
+		}
+		.side-nav .collapsible-body li[data-walk='citizens'].active{
+			background-color: #91c0e2;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='citizens']:hover{
+			background-color: #91c0e2;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='political']{
+			color: #FF8585;
+		}
+		.side-nav .collapsible-body li[data-walk='political'].active{
+			background-color: #FF8585;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='political']:hover{
+			background-color: #FF8585;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='art']{
+			color: #a9e0d8;
+		}
+		.side-nav .collapsible-body li[data-walk='art'].active{
+			background-color: #a9e0d8;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='art']:hover{
+			background-color: #a9e0d8;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='intervetion']{
+			color: #916dbd;
+		}
+		.side-nav .collapsible-body li[data-walk='intervetion'].active{
+			background-color: #916dbd;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='intervetion']:hover{
+			background-color: #916dbd;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='sport']{
+			color: #ffe680;
+		}
+		.side-nav .collapsible-body li[data-walk='sport'].active{
+			background-color: #ffe680;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='sport']:hover{
+			background-color: #ffe680;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		
+
+		.side-nav .collapsible-body li[data-walk='urban']{
+			color: #db8d61;
+		}
+		.side-nav .collapsible-body li[data-walk='urban'].active{
+			background-color: #db8d61;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='urban']:hover{
+			background-color: #db8d61;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='history']{
+			color: #747167;
+		}
+		.side-nav .collapsible-body li[data-walk='history'].active{
+			background-color: #747167;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='history']:hover{
+			background-color: #747167;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='miscellaneous']{
+			color: #f0aeef;
+		}
+		.side-nav .collapsible-body li[data-walk='miscellaneous'].active{
+			background-color: #f0aeef;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='miscellaneous']:hover{
+			background-color: #f0aeef;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		.side-nav .collapsible-body li[data-walk='uncategorized']{
+			color: #444444;
+		}
+		.side-nav .collapsible-body li[data-walk='uncategorized'].active{
+			background-color: #444444;
+			color: white;
+		}
+		.side-nav .collapsible-body li[data-walk='uncategorized']:hover{
+			background-color: #444444;
+			color:white;
+			transition-property: background-color, color;
+			transition-duration: .3s;
+		}
+
+		#sidenav-overlay{
+			background-color: rgba(0,0,0,0.2) !important;
+		}
+
+		#slide-out li.search .search-wrapper input#search{
+		    display: inline-block;
+		    font-size: 16px;
+		    font-weight: 300;
+		    /*width: 100%;*/
+		    height: 45px;
+		    /*padding: 0 45px 0 15px;*/
+		    border: 0;
+		    margin-right: -15px;
+	    }
+
+	    li.search:hover{
+			background-color: white !important;
+		}
+		input#search:focus {
+			outline-width: 0;
+		}
+		
+		#close_search{
+			cursor: pointer;
+		}
+
+		.filter-label{
+			color:#fff;
+		}
+
+		input[type="checkbox"]+label:before{
+			border:	2px solid #fff;
+		}
+
+		input[type="checkbox"]:checked+label:before{
+		  border-right: 2px solid #fff;
+		  border-bottom: 2px solid #fff 
+		  }
+
+		 .leaflet-popup-content{
+		 	top:10px;
+		 	/*overflow-x:visible !important;*/
+		  }
+
+		  .dropdown-wrapper{
+		  	position: absolute;
+		  	right:0px;
+		  	bottom:0px;
+		  	display: block;
+		  	z-index: 999;
+		  	width: 40px;
+		  	height:20px;
+		  	/*background-color: #E0E0E0;*/
+		  	color:#444;
+		  	font-size: 12px;
+
+
+		  }
+
+		 /* input[type="checkbox"].dark+label:before{
+			border:	2px solid #444;
+		}*/
+
+
+		/*how to make this work?? */
+		
+		/*input[type="checkbox"]:checked+label:before{
+		  border-right: 2px solid #444 !important;
+		  border-bottom: 2px solid #444 !important;
+		  }*/
+
+		
+		/*.filter-label-dark{
+			color:#444;
+		}*/
+
+
+		#inputs,
+		#errors,
+		#directions {
+		    position: absolute;
+		    width: 33.3333%;
+		    max-width: 300px;
+		    min-width: 200px;
+		}
+
+		#inputs {
+		    z-index: 10;
+		    top: 10px;
+		    left: 100px;
+		}
+
+		#directions {
+		    z-index: 99;
+		    /*background: rgba(0,0,0,.8);*/
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    overflow: auto;
+		    display: none;
+		}
+
+		#errors {
+		    z-index: 8;
+		    opacity: 0;
+		    padding: 10px;
+		    border-radius: 0 0 3px 3px;
+		    background: rgba(0,0,0,.25);
+		    top: 90px;
+		    left: 10px;
+		}
+		
+
+		.mapbox-marker-drag-icon{
+		/*	background-color: transparent !important;
+			color: transparent !important;
+			box-shadow: none !important;
+			cursor: default !important;*/
+		}
+		.mapbox-marker-drag-icon {
+		    display: block;
+		    background-color: #444;
+		    border-radius: 50%;
+		    box-shadow: none !important;
+		}
+
+		.mapbox-marker-drag-icon-step {
+		    background-color: #444 !important;
+		}
+		
+		.leaflet-popup{
+			bottom:15px !important;
+		}
+
+
+		.dropdown {
+		  background-color: #fff;
+		  margin: 0;
+		  display: none;
+		  
+		  min-width: 100px;
+		  max-height: 650px;
+		  overflow-y: auto;
+		  bottom:0px;
+		  right:-30px;
+		  position: absolute;
+		  z-index: 999;
+		  will-change: width, height; }
+		  .dropdown li {
+		    clear: both;
+		    color: rgba(0, 0, 0, 0.87);
+		    cursor: pointer;
+		    line-height: 1.5rem;
+		    width: 100%;
+		    text-align: left;
+		    text-transform: none; }
+		    .dropdown li:hover, .dropdown li.active, .dropdown-content li.selected {
+		      background-color: #eee; }
+		    .dropdown li.active.selected {
+		      background-color: #e1e1e1; }
+		    .dropdown li > a, .dropdown li > span {
+		      font-size: 1.2rem;
+		      color: #26a69a;
+		      display: block;
+		      padding: .7rem .7rem; }
+		    .dropdown li > span > label {
+		      top: 1px;
+		      left: 3px;
+		      height: 18px; }
+		    .dropdown li > a > i {
+		      height: inherit;
+		      line-height: inherit;
+		  }
+
+		      .dropdown-activator{
+		      	cursor: pointer;
+
+		      }
+
+		      .dropdown li a{
+		      	font-size: 15px;
+		      	color: #444;
+
+		      }
+		      .dropdown li a:hover{
+		      	color:inherit;
+		      }
+
+		      .dropdown li a i{
+		      	/*padding-right:0.5em;*/
+		      }
+
+		      .rotate45{
+		      	-webkit-transform: rotateZ(25deg);
+        		transform: rotateZ(25deg);
+		      }
+
+
+		      .leaflet-bar, .leaflet-control-layers{
+		      	border:0 !important;
+		      	border-radius: 0 !important;
+		      	/*box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15) !important;*/
+		      	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); 
+		      }
+		      .leaflet-bar a{
+		      	border:0 !important;
+		      }
+
+		      .leaflet-marker-icon .dot .leaflet-zoom-animated .leaflet-clickable{
+		      	animation-name: spin, depth;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+				animation-duration: 1s;
+		      }
+		      @keyframes spin {
+				  from { -webkit-transform: rotateY(0deg); }
+				  to { -webkit-transform: rotateY(-360deg); }
+				}
+				@keyframes depth {
+				  0% { text-shadow: 0 0 black; }
+				  25% { text-shadow: 1px 0 black, 2px 0 black, 3px 0 black, 4px 0 black, 5px 0 black; }
+				  50% { text-shadow: 0 0 black; }
+				  75% { text-shadow: -1px 0 black, -2px 0 black, -3px 0 black, -4px 0 black, -5px 0 black; }
+				  100% { text-shadow: 0 0 black; }
+				}
+
+			.mapbox-marker-drag-icon{
+				display: none;
+			}
+		</style>
+		  
+	</head>
+	<body>
+	
+		<div class="navbar-fixed">
+		<nav>
+		  <ul id="slide-out" class="side-nav show-on-large">
+		  	<li class="search" data-position="bottom" data-tooltip="Search all sites by keyword">
+		  		<div class="search-wrapper">
+		  			<i class="material-icons">search</i>
+		  			<input id='search' class='' placeholder='Search..' />
+		  			<i id="close_search" class="material-icons" style="display:none" onclick="clearFilters()">close</i>
+		  		</div>
+		  	</li>
+		  	<li class="nav-subheading divider"></li>
+		  	<ul class="collapsible" data-collapsible="expandable"> 
+		 	<li class="">
+				<div class="collapsible-header tooltipped" data-position="top" data-tooltip="Get directions to visit these sites"><i class="material-icons">navigation</i> <a href="#" onclick="createJourney()">Start your Journey</a></div>
+				<div class="collapsible-body"></div>
+				</li>
+			</ul>
+			<li class="tooltipped" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+			
+			<ul class="collapsible" data-collapsible="expandable"> 
+		 	<li class="">
+		 		<div class="collapsible-header tooltipped" data-position="top" data-tooltip="Select the guided tour routes by theme"><strong><i class="material-icons">filter_list</i> Filter by theme</strong></div>
+				<div class="collapsible-body">
+					<ul>
+					<li class="active" data-walk='ecology'><input type="checkbox" checked id="ecology" class="filtered" onclick="filterWalk(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
+					<li class="active" data-walk='citizens'><input type="checkbox" checked id="citizens" class="filtered" onclick="filterWalk(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
+					<li class="active" data-walk='political'><input type="checkbox" checked id="political" class="filtered" onclick="filterWalk(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
+					<li class="active" data-walk='art'><input type="checkbox" checked id="art" class="filtered" onclick="filterWalk(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
+					<li class="active" data-walk='intervetion'><input type="checkbox" checked id="intervention" class="filtered" onclick="filterWalk(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
+					<li class="active" data-walk='history'><input type="checkbox" checked id="history" class="filtered" onclick="filterWalk(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
+					<li class="active" data-walk='urban'><input type="checkbox" checked id="urban" class="filtered" onclick="filterWalk(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
+					<li class="active" data-walk='sport'><input type="checkbox" checked id="sport" class="filtered dark" onclick="filterWalk(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
+					<li class="active" data-walk='miscellaneous'><input type="checkbox" checked id="miscellaneous" class="filtered" onclick="filterWalk(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
+					<li class="active" data-walk='uncategorized'><input type="checkbox" checked id="uncategorized" class="filtered" onclick="filterWalk(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li>
+				</ul>
+				</div>
+		 	</li>
+			</ul>
+			
+		 	<li class=""><i class="material-icons">help</i> Help</li>
+				
+			<ul class="collapsible" data-collapsible="expandable"> 
+		 	<li class="">
+				<div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
+				<div class="collapsible-body"></div>
+				</li>
+			</ul>
+
+			<!-- <ul class="collapsible" data-collapsible="expandable"> 
+		 	<li class="">
+				<div class="collapsible-header"><i class="material-icons">help</i> Help</div>
+				<div class="collapsible-body"></div>
+				</li>
+			</ul> -->
+
+		  </ul>
+		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large"><i class="mdi-navigation-menu"></i></a>
+		</nav>		
+		</div>
+		<!-- <a class="dropdown-button" href="#" data-activates="dropdown1">Drop Me!</a><ul id="dropdown1" class="dropdown-content"><li><a href="#!">one</a></li><li><a href="#!">two</a></li><li class="divider"></li><li><a href="#!">three</a></li></ul> -->
+		
+		<div class="row">
+ 		<div id='map' class='custom-popup'></div>
+		<!-- <div id='inputs'></div> -->
+		<div id='errors'></div>
+		<div id='directions'>
+		<div id='routes'></div>
+		<div id='instructions'></div>
+		</div>
+		</div>
+
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src='mapbox.directions.js'></script>
+		
+
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
+		<script src='bouncemarker.js'></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+
+		<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('select').material_select();
+			
+			window.onkeydown = function(e) {
+			    if (e.keyCode == 9) {
+			        e.preventDefault();
+			    }
+			}			
+
+		    $(".button-collapse").sideNav({
+		        menuWidth: 300, // Default is 240
+		        edge: 'right', // Choose the horizontal origin
+		        // closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor);
+		    });
+		    
+		    $('.side-nav input[type="checked"]').bind('click', function() {
+		        $(this).trigger('click');
+
+		    });
+
+		    $('#menu').click(function() {
+		        toast = true;
+		        $('#search').focus();
+		    })
+
+		     $('.collapsible').collapsible({
+		      	accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		    });
+
+		    $('.tooltipped').tooltip({
+		    	delay: 450,
+		    });
+
+
+			$(document).click(function(event) { 
+			    if(!$(event.target).closest('.dropdown-activator').length && (event.target.className !== "addToJourney")) {
+			        if($('#dropdown1').is(":visible")) {
+			        	$('.leaflet-popup-content .card').css("overflow", "hidden")
+			            $('#dropdown1').hide()
+			        }
+			    }        
+			})
+
+
+		    $(document).keyup(function(e) {
+		        // if (e.keyCode == 13) $('.save').click();     // enter
+		        if (e.keyCode == 27) {
+		            $('#search').blur();
+		            esc = true;
+		            $('.button-collapse').sideNav('hide');
+		            clearFilters();
+		        } else {
+		            esc = false;
+		        }
+		    });
+
+		})
+
+		 L.mapbox.accessToken = 'pk.eyJ1IjoiZWRhbndlaXMiLCJhIjoiY2lmMTVtdWQ0MDRsOHNkbTV2OXd3cDNwNiJ9.MxWj73wGNEvrPSjsh6TJjw';
+
+		var map = L.mapbox.map('map')
+		    .setView([-37.8163, 144.9634], 15);
+
+		map.attributionControl.setPosition('bottomleft');
+
+		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
+		    attribution: 'Mapping interface developed by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://aila.org.au">AILA Victoria</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+		}).addTo(map);
+
+		 // load data from GitHub Repository 
+
+		var featureLayer = L.mapbox.featureLayer()
+		    .loadURL('https://rawgit.com/edanweis/thejourney15/master/thejourney15_ew_1.geojson') // REMEMBER TO CHANGE THIS TO AILA-VIC MASTER REPO.
+
+		
+		// featureLayer.on('ready', function(e) {});
+
+
+		
+		var locationLayer = L.mapbox.featureLayer()
+
+	    var journeyLayer = L.mapbox.featureLayer()
+
+	    var allLayers = L.layerGroup([journeyLayer, featureLayer, locationLayer]).addTo(map)
+
+		L.control.fullscreen().addTo(map);
+
+		var bounce = true; // Bounce markers on map when true
+		var toast = true; // don't repeat more toasts when false
+		var esc = false; // hide side-nav when true
+
+		var journey = []; // Stores array of markers added to journey 
+		var user_location; // Stores a L.latLng() object of user's GPS location.
+		var last_added; // Marker last added, to prevent repeat of origin and destinations causing error.
+
+
+		 /// BEGIN DIRECTIONS
+		 ////////////////////
+
+		var directions = L.mapbox.directions({
+		    profile: 'mapbox.walking' // ability to change this
+		});
+
+		var directionsLayer = L.mapbox.directions.layer(directions)
+		    .addTo(map);
+
+		var directionsInputControl = L.mapbox.directions.inputControl('inputs', directions)
+		    .addTo(map);
+
+		var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', directions)
+		    .addTo(map);
+
+		var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+		    .addTo(map);
+
+		var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
+		    .addTo(map);
+
+
+		 /// BEGIN SEARCH
+		 //////////////
+
+
+		$('#search').keyup(search);
+
+		function search() {
+		    bounce = false;
+
+		    ($('#search').val() ? $('#close_search').css("display", 'inline') : $('#close_search').css("display", 'none'))
+
+		    var filters = []
+		    var list = document.getElementsByClassName('filtered')
+
+		    for (var i = 0; i < list.length; i++) {
+		        if (list[i].className == "filtered") filters.push(list[i].dataset.walk);
+		    }
+
+
+		    // get the value of the search input field
+		    var searchString = $('#search').val().toLowerCase();
+		    featureLayer.setFilter(showState);
+
+		    // here we're simply comparing the various properties of each marker
+		    // to the search string, seeing whether the former contains the latter.
+		    function showState(feature) {
+		        if (filters.indexOf(feature.properties.WALK) !== -1) {
+		            return ((feature.properties.description + ' ' + feature.properties.client + ' ' + feature.properties.designer + ' ' + feature.properties.address)
+		                .toLowerCase()
+		                .indexOf(searchString) !== -1) && feature.properties.WALK;
+		        } else {
+		            return '';
+		        }
+		    }
+
+
+		    if ((toast) && (esc == false) && $('#search').val().length > 0 ) {
+		        Materialize.toast('Showing matching sites', 3000, 'toast', function() {
+		            toast = true;
+		            esc = true;
+		        });
+		        toast = false;
+		    }
+		}
+
+		function clearFilters() {
+		    $('#search').val('');
+		    search();
+		    $('#close_search').css('display', 'none');
+		}
+
+
+		 /// END SEARCH
+		 //////////////
+		 
+		 // create custom markers    	
+
+		function addfeatureLayer(e, addedToJourney){
+
+		    var marker = e.layer,
+		        feature = marker.feature;
+
+		    // marker.bounce();
+		    if (bounce == true) {
+		        marker.bounce();
+		    };
+
+
+		    switch (marker.feature.properties.WALK) {
+		        case "ECOLOGY IN THE CITY (environmental remediation)":
+		            var fill_color = 'green';
+		            break;
+		        case "LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens":
+		            var fill_color = 'blue';
+		            break;
+		        case "POLITICAL LANDSCAPES (civic demonstration & community events)":
+		            var fill_color = 'red';
+		            break;
+		        case "ART IN THE LANDSCAPE & LANDSCAPE AS ART":
+		            var fill_color = 'acqua';
+		            break;
+		        case "LANDSCAPE INTERVENTIONS - new opportunities for landscapes":
+		            var fill_color = 'purple';
+		            break;
+		        case "HISTORIC LANDSCAPES":
+		            var fill_color = 'beige';
+		            break;
+		        case "THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)":
+		            var fill_color = 'orange';
+		            break;
+		        case "A SPORTING CITY":
+		            var fill_color = 'yellow';
+		            break;
+		        case "MISCELLANEOUS":
+		            var fill_color = 'pink';
+		            break;
+		        case "uncategorized":
+		            var fill_color = 'black';
+		            break;
+
+		        default:
+		            var fill_color = 'black';
+		    }
+
+		    var icon = {
+		        "iconUrl": "img/ic_location_on_black_24px_" + fill_color + ".svg", //"https://www.iconfinder.com/icons/299087/download/svg/32",
+		        "iconSize": [32, 32], // size of the icon
+		        "iconAnchor": [11, 32], // point of the icon which will correspond to marker's location
+		        "popupAnchor": [0, -32], // point from which the popup should open relative to the iconAnchor
+		        "className": "dot",
+		        "shadowUrl": 'img/shadow.png',
+		        "shadowAnchor": [12, 26],
+		        "shadowSize":  [32, 32],
+		    }
+
+		    // Style Popup and create HTML
+		    card = '<div class="card" id="marker'+marker.feature.properties.PK+'">'+
+		    '<div class="card-image waves-effect waves-block waves-light">'+
+		    '<img class="activator" src="'+( marker.feature.properties.photo ? marker.feature.properties.photo : "img/landscape.jpg") +'"/>'+
+		    '</div>'+
+		    '<div class="card-content">'+
+		    '<span class="card-title grey-text text-darken-4">'+
+		    '<i class="material-icons right dropdown-activator" data-activates="dropdown1" onclick="openDropdown(this)">more_vert</i>'+marker.feature.properties.project+'</span>'+
+		    '<p>'+ ((marker.feature.properties.url) ? '<a href="' + marker.feature.properties.url + '</a>' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(marker.feature.properties.designer) + '%20site:au&btnI" target="_blank">' +marker.feature.properties.designer +
+		    	'</a></p><ul id="dropdown1" class="dropdown z-depth-2"><li class="addToJourney">') +
+		    ( addedToJourney ? '<a href="#!" class="addToJourney" onclick="removeFromJourney(this,'+ marker.feature.properties.PK + ')"><i class="material-icons" style="color:red">remove_circle_outline</i> Remove from Journey</a>' : '<a href="#!" class="addToJourney" onclick="addToJourney(this,'+ marker.feature.properties.PK +')"><i class="material-icons nav-icon">navigation</i> Add to Journey</a>' )
+			+'</li>'
+			+'<li><a href="#!"><i class="material-icons">photo_camera</i> Upload photo</a></li></ul>'+
+		    	'</div>'+
+		    '<div class="card-reveal">'+
+		    '<span class="card-title grey-text text-darken-4">'+
+		    '<i class="material-icons right">close</i>'+marker.feature.properties.project+'</span>'
+				+ ((marker.feature.properties.address) ? '<p class="address">' + marker.feature.properties.address + '</p>' : '') +
+		    	'<p class="project-description">'+marker.feature.properties.description+'</p></div></div>'
+		    	//
+
+		    marker.setIcon(L.icon(icon)).addTo(map);
+		    e.layer.bindPopup(card);
+		    if(addedToJourney){
+		    	// e.layer.openPopup()
+		    }
+
+		    // $('.leaflet-popup .leaflet-zoom-animated .select').material_select();
+
+		}
+
+		featureLayer.on('layeradd', function(e) {
+			addfeatureLayer(e, false);
+		});
+
+		journeyLayer.on('layeradd', function(e){
+		 	addfeatureLayer(e, true);
+		 })
+
+		function openDropdown(e){
+			$('.leaflet-popup-content .card').css("overflow", "visible")
+			var activate = $(e).attr('data-activates')
+	    	$('#' + activate).toggle();
+		}
+
+		function createJourney(){
+			if (journey.length ==1){
+					// tell the user only 1 marker has been selected.
+        	} else if (journey.length>=2){
+				var journey_sorted = findClosest(journey, user_location);
+				directions.setOrigin(getMarker(journey_sorted[0]).getLatLng())
+				directions.setDestination(getMarker(journey_sorted[1]).getLatLng())
+        		for (i = 2; i < journey_sorted.length; ++i) {
+        				var waypoint = getMarker(journey_sorted[i]).getLatLng();
+        				directions.addWaypoint(i-2, waypoint)
+        			}	
+        		directions.query();
+        	}
+		
+        }
+		    
+		
+
+		function getMarker(pk){
+			var got_marker;
+			journeyLayer.eachLayer(function(marker) {
+		        if (marker.feature.properties.PK == pk){
+		        	got_marker = marker
+		        }
+		    })
+		   return got_marker
+		};
+
+		function addToJourney(e, pk){
+			bounce = false;
+			$(e).html('<i class="material-icons" style="color:green;">check</i> Added to Journey')
+			
+			featureLayer.eachLayer(function(marker) {
+				if (marker.feature.properties.PK == pk){
+					if(marker !== last_added){	
+			        	marker.feature.properties.addedToJourney = true;
+			        	journeyLayer.addLayer(marker)
+			        	// featureLayer.removeLayer(marker)
+		        	}	
+		        }
+			});
+
+			journeyLayer.eachLayer(function(marker) {
+				if (marker.feature.properties.PK == pk){
+					journey.push(marker);
+					last_added = marker
+				};
+			});
+
+			createJourney();
+
+		}
+
+		function removeFromJourney(e, pk){
+			$(e).html('<i class="material-icons nav-icon">navigation</i> Add to Journey')
+			journeyLayer.eachLayer(function(marker) {
+				if (marker.feature.properties.PK == pk){
+		        	journey.splice( $.inArray(marker, journey), 1 );
+		        	marker.feature.properties.addedToJourney = false;
+		        	featureLayer.addLayer(marker)
+		        	// journeyLayer.removeLayer(marker)
+		        }
+			});
+
+			createJourney();
+		}
+
+		function findClosest(journey, user_location){
+			if(!user_location){
+				user_location = journey[0].getLatLng(); // Ask the user for their location, or use the first marker selected.
+
+			}
+			var journey_sorted = []
+			for (i = 0; i < journey.length; ++i) {
+				journey_sorted[journey[i].feature.properties.PK] = distance(user_location.lat, user_location.lng, journey[i].getLatLng().lat, journey[i].getLatLng().lng)
+			}
+			journey_sorted = Object.keys(journey_sorted).sort(function(a,b){return journey_sorted[a]-journey_sorted[b]});
+			return journey_sorted
+		};
+
+		function distance(lat1, lon1, lat2, lon2) {
+		  var p = 0.017453292519943295;    // Math.PI / 180
+		  var c = Math.cos;
+		  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+		          c(lat1 * p) * c(lat2 * p) * 
+		          (1 - c((lon2 - lon1) * p))/2;
+
+		  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+		}
+
+		 // add hover to Popup windows
+
+		function fadeMarkers(markers, marker_category) {
+		    var i = 0;
+		    for (var i = 0; i < markers.length; i++) {
+		        var category = markers[i].toGeoJSON()['properties']['WALK']
+		        if (category !== marker_category) {
+		            markers[i].setOpacity(0.2)
+		        }
+		    }
+		}
+
+		allLayers.eachLayer(function(layer){
+			layer.on('mouseover', function(e) {
+			    // e.layer.openPopup();
+			    var marker_category = e.layer.feature.properties.WALK
+			    var markers = [];
+			    featureLayer.eachLayer(function(marker) {
+			        markers.push(marker);
+			    });
+			    fadeMarkers(markers, marker_category);
+			});
+		});
+
+
+		allLayers.eachLayer(function(layer){
+			layer.on('click', function(e) {
+			    var marker = e.layer
+			    var content = marker.getPopup().getContent()
+			    e.layer.openPopup();
+			    var marker_category = e.layer.feature.properties.WALK
+			    var markers = [];
+			    fadeMarkers(markers, marker_category);		    
+			});
+		});
+
+
+		allLayers.eachLayer(function(layer){
+		    layer.on('mouseout', function(e) {
+			    layer.eachLayer(function(marker) {
+			        marker.setOpacity(1);
+			    });
+			})
+		});
+
+
+
+		 locationLayer.on('mouseover', function(e) {
+		    e.layer.openPopup();
+		}).on('click', function(e) {
+		    e.layer.openPopup();
+		});
+
+		locationLayer.on('mouseout', function(e) {})
+
+
+
+		 // filter
+
+		function filterWalk(e) {
+		    var searchString = $('#search').val().toLowerCase();
+
+
+		    if (e.className == 'filtered') {
+		        e.className = ''
+		    } else {
+		        e.className = 'filtered'
+		    }
+
+		    var filters = []
+		    var list = document.getElementsByClassName('filtered')
+
+		    for (var i = 0; i < list.length; i++) {
+		        if (list[i].className == "filtered") filters.push(list[i].dataset.walk);
+		    }
+		    featureLayer.setFilter(showState)
+
+
+		    function showState(feature) {
+		        bounce = false;
+		        if (filters.indexOf(feature.properties.WALK) !== -1) {
+		            return ((feature.properties.description + ' ' + feature.properties.client + ' ' + feature.properties.designer + ' ' + feature.properties.address)
+		                .toLowerCase()
+		                .indexOf(searchString) !== -1) && feature.properties.WALK;
+		        } else {
+		            return '';
+		        }
+		    }
+
+
+		    return false;
+		};
+
+		 // find the user's location
+
+		if (!navigator.geolocation) {
+		    geolocate.innerHTML = '<i class="material-icons">gps_off</i> Geolocation is not available <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		} else {
+		    geolocate.onclick = function(e) {
+		        e.preventDefault();
+		        e.stopPropagation();
+		        map.locate();
+		    };
+		}
+
+		 // Once we've got a position, zoom and center the map
+		 // on it, and add a single marker.
+		map.on('locationfound', function(e) {
+		    map.fitBounds(e.bounds);
+		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found <a href="#" id="geolocate" class="try-again" style="display:inline;">(relocate)</a>';
+
+		    locationLayer.setGeoJSON({
+		        type: "FeatureCollection",
+		        features: [{
+		            type: "Feature",
+		            geometry: {
+		                type: "Point",
+		                coordinates: [e.latlng.lng, e.latlng.lat]
+		            },
+		        }]
+		    }).addTo(map);
+		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
+		});
+
+		locationLayer.on('layeradd', function(e) {
+		    var marker = e.layer,
+		        feature = marker.feature;
+		    var icon_person = {
+		        "iconUrl": "img/ic_person_pin_50px.svg",
+		        "iconSize": [50, 50], // size of the icon
+		        "iconAnchor": [25, 50], // point of the icon which will correspond to marker's location
+		        "popupAnchor": [-5, -50], // point from which the popup should open relative to the iconAnchor
+		        "className": "dot"
+
+		    }
+		    var content_person = '<h2>Here you are!</h2>'
+		    marker.setIcon(L.icon(icon_person)).addTo(map);
+		    e.layer.bindPopup(content_person);
+		});
+
+		 // If the user chooses not to allow their location
+		 // to be shared, display an error message.
+		map.on('locationerror', function() {
+		    geolocate.innerHTML = '<i class="material-icons">error</i> We lost you. <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		})
+		</script>
+	</body>
+</html>
