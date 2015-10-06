@@ -1384,6 +1384,10 @@ var request = require('./request'),
 var Directions = L.Class.extend({
     includes: [L.Mixin.Events],
 
+     options: {
+        units: 'metric'
+    },
+
     statics: {
         URL_TEMPLATE: 'https://api.tiles.mapbox.com/v4/directions/{profile}/{waypoints}.json?instructions=html&geometry=polyline&access_token={token}',
         GEOCODER_TEMPLATE: 'https://api.tiles.mapbox.com/v4/geocode/mapbox.places/{query}.json?proximity={proximity}&access_token={token}'
@@ -1546,12 +1550,12 @@ var Directions = L.Class.extend({
                 }
 
                 this.directions = resp;
-                this.directions.routes.forEach(function (route) {
-                    route.geometry = {
+                // this.directions.routes.forEach(function (route) {
+                    this.directions.routes[0].geometry = {
                         type: "LineString",
-                        coordinates: polyline.decode(route.geometry, 6).map(function (c) { return c.reverse(); })
+                        coordinates: polyline.decode(this.directions.routes[0].geometry, 6).map(function (c) { return c.reverse(); })
                     };
-                });
+                // });
 
                 if (!this.origin.properties.name) {
                     this.origin = this.directions.origin;
@@ -1901,7 +1905,9 @@ module.exports = function (container, directions) {
 
         steps.append('div')
             .attr('class', 'mapbox-directions-step-distance')
-            .text(function (step) { return step.distance ? format.imperial(step.distance) : ''; });
+            .text(function (step) {
+                return step.distance ? format[directions.options.units](step.distance) : '';
+            });
 
         steps.on('mouseover', function (step) {
             directions.highlightStep(step);
@@ -2300,7 +2306,9 @@ module.exports = function (container, directions) {
 
         routes.append('div')
             .attr('class', 'mapbox-directions-route-details')
-            .text(function (route) { return format.imperial(route.distance) + ', ' + format.duration(route.duration); });
+           .text(function (route) {
+                return format[directions.options.units](route.distance) + ', ' + format.duration(route.duration);
+            });
 
         routes.on('mouseover', function (route) {
             directions.highlightRoute(route);

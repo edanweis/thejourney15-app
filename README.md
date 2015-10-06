@@ -9,6 +9,21 @@ The app hasn't been thoroughly tested yet, and might have bugs and inconsistenci
 Todo
 ---
 
+**Bugs**
+
+- [ ] Side nav menu closes on filter
+- [ ] Unfocus search bar on side nav open.
+- [ ] recalculate route when userlocaiton is found and hide side nav
+- [ ] show() touchbutton after css is loaded
+- [ ] Download and resize all images.
+- [ ] Show image placeholder
+- [ ] Add spinner or fake photo behind images
+- [ ] Add calculating route toast.
+- [ ] Change vertical menu to info icon.
+- [ ] mapbox cache tiles.
+- [ ] make touch here button responsive to mobile (smaller)
+
+
 **functions**
 
 - [x] Filter by walking route
@@ -19,11 +34,15 @@ Todo
 - [x] Bouncing markers!
 - [x] Add friendly tooltips, toasts, etc.
 - [x] Warn user when 26 waypoint limit reached
-- [ ] ~~Take photo button~~ Tweet this location
+- [x] ~~Take photo button~~ Tweet this location
+- [ ] Create introduction help overlay, for first time actions.
+- [ ] Make 'next directions' appeear 
 - [ ] Create custom map tiles
-- [ ] Star/bookmark this pin
-- [ ] Share your journey link
+- [x] Star/bookmark this pin
+- [x] Load/Share your journey link
 - [ ] Pinch zoom to open modal with image.
+- [ ] Swipe popup to show next marker.
+- [ ] represent theme filters in two columns
 
 
 **Routes**

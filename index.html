@@ -8,12 +8,21 @@
 		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no, width=device-width'>
 		<link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' type="text/css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+		<link rel='stylesheet' href='mapbox.directions.css' type='text/css' />
+		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet' href='style.css' type='text/css' />
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
 		<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js' type="text/javascript"></script>
 		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-		<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.3.0/mapbox.directions.css' type='text/css' />
-		<link rel='stylesheet' href='style.css' type='text/css' />
-		  
+		 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+		 <meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@TheJourney">
+		<meta name="twitter:creator" content="@TheJourney">
+		<meta name="twitter:title" content="The Journey 2015">
+		<meta name="twitter:description" content="Interactive Landscape Tour Map">
+		<meta name="twitter:image" content="http://thejourney.aila.org.au/wp-content/uploads/2015/09/The_Journey-Logo-Colour.png">
+
 	</head>
 	<body>
 	
@@ -29,41 +38,53 @@
 		  	</li>
 		  	<li class="nav-subheading divider"></li>
 		  	<ul class="collapsible" data-collapsible="expandable"> 
-		 	<li class="">
-				<div class="collapsible-header tooltipped" data-position="top" data-tooltip="Get directions to visit these sites"><i class="material-icons">navigation</i> <a href="#" onclick="createJourney()">Start your Journey</a></div>
-				<div class="collapsible-body"></div>
+		 	<li class="journey-menu">
+				<div class="collapsible-header" data-position="top" data-tooltip="Get directions to visit these sites"><i class="material-icons">navigation</i> <span onclick="createJourney()">Start your Journey</span></div>
+				<div class="collapsible-body">
+					<div id='directions'>
+						<div id='routes'></div>
+						<div id='instructions'></div>
+						<div id='errors'></div>
+					</div>	
+				</div>
 				</li>
 			</ul>
-			<li class="tooltipped" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
 			
 			<ul class="collapsible" data-collapsible="expandable"> 
-		 	<li class="">
-		 		<div class="collapsible-header tooltipped" data-position="top" data-tooltip="Select the guided tour routes by theme"><strong><i class="material-icons">filter_list</i> Filter by theme</strong></div>
+		 	<li class="filter-menu">
+		 		<div class="collapsible-header" data-position="top" data-tooltip="Select the guided tour routes by theme"><strong><i class="material-icons">filter_list</i> Filter by theme</strong></div>
 				<div class="collapsible-body">
 					<ul>
-					<li class="active" data-walk='ecology'><input type="checkbox" checked id="ecology" class="filtered" onclick="filter(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
-					<li class="active" data-walk='citizens'><input type="checkbox" checked id="citizens" class="filtered" onclick="filter(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
-					<li class="active" data-walk='political'><input type="checkbox" checked id="political" class="filtered" onclick="filter(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
-					<li class="active" data-walk='art'><input type="checkbox" checked id="art" class="filtered" onclick="filter(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
-					<li class="active" data-walk='intervetion'><input type="checkbox" checked id="intervention" class="filtered" onclick="filter(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
-					<li class="active" data-walk='history'><input type="checkbox" checked id="history" class="filtered" onclick="filter(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
-					<li class="active" data-walk='urban'><input type="checkbox" checked id="urban" class="filtered" onclick="filter(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
-					<li class="active" data-walk='sport'><input type="checkbox" checked id="sport" class="filtered dark" onclick="filter(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
-					<li class="active" data-walk='miscellaneous'><input type="checkbox" checked id="miscellaneous" class="filtered" onclick="filter(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
-					<li class="active" data-walk='uncategorized'><input type="checkbox" checked id="uncategorized" class="filtered" onclick="filter(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li>
+					<li class="active" data-walk='ecology'><input type="checkbox" id="ecology" class="filter" onclick="filter(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
+					<li class="active" data-walk='citizens'><input type="checkbox" id="citizens" class="filter" onclick="filter(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
+					<li class="active" data-walk='political'><input type="checkbox" id="political" class="filter" onclick="filter(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
+					<li class="active" data-walk='art'><input type="checkbox" id="art" class="filter" onclick="filter(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
+					<li class="active" data-walk='intervetion'><input type="checkbox" id="intervention" class="filter" onclick="filter(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
+					<li class="active" data-walk='history'><input type="checkbox" id="history" class="filter" onclick="filter(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
+					<li class="active" data-walk='urban'><input type="checkbox" id="urban" class="filter" onclick="filter(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
+					<li class="active" data-walk='sport'><input type="checkbox" id="sport" class=" dark" onclick="filter(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
+					<li class="active" data-walk='miscellaneous'><input type="checkbox" id="miscellaneous" class="filter" onclick="filter(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
+					<li class="active" data-walk='uncategorized'><input type="checkbox" id="uncategorized" class="filter" onclick="filter(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li>
 				</ul>
 				</div>
 		 	</li>
 			</ul>
 			
-		 	<li class=""><i class="material-icons">help</i> Help</li>
+		 	<!-- <li class=""><i class="material-icons">help</i> Help</li>
 				
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="">
 				<div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
-				<div class="collapsible-body"></div>
+				<div class="collapsible-body">
+
+				</div>
 				</li>
-			</ul>
+			</ul> -->
+
+
+			<!-- <li class="divider"></li> -->
+			<!-- <li class=""><span><i class="material-icons">bookmark</i> Bookmark this journey</span></li> -->
 
 			<!-- <ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="">
@@ -80,12 +101,11 @@
 		
 		<div class="row">
  		<div id='map' class='custom-popup'></div>
+ 		<div class="touchtobegin noselect">
+ 		</div>
 		<!-- <div id='inputs'></div> -->
-		<div id='errors'></div>
-		<div id='directions'>
-		<div id='routes'></div>
-		<div id='instructions'></div>
-		</div>
+		
+		
 		</div>
 
 		
@@ -94,11 +114,31 @@
 		
 
 		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
-		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
 		<script src='bouncemarker.js'></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 		<script type="text/javascript">
+		function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		        results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		function is_touch_device() {
+		  return 'ontouchstart' in window // works on most browsers 
+		      || 'onmsgesturechange' in window; // works on ie10
+		};
+
 		$(document).ready(function() {
+
+			$('.touchtobegin').text((is_touch_device() ? 'TOUCH HERE' : 'CLICK HERE' )).click(function(){
+				activateMap(true);
+				$(this).hide()
+			})
+
+			activateMap(false);
+
+			$('.journey-menu').hide();
 
 		    $('select').material_select();
 
@@ -142,16 +182,35 @@
 		        }
 		    })
 
+		    function activateMap(state){
+		    	if (!state){
+			    	map.dragging.disable();
+					map.touchZoom.disable();
+					map.doubleClickZoom.disable();
+					map.scrollWheelZoom.disable();
+					// Disable tap handler, if present.
+					if (map.tap) map.tap.disable();
+				} else {
+					map.dragging.enable();
+					map.touchZoom.enable();
+					map.doubleClickZoom.enable();
+					map.scrollWheelZoom.enable();
+					// Enable tap handler, if present.
+					if (map.tap) map.tap.enable();
+				}
+		    }
 
 		    $(document).keyup(function(e) {
 		        // if (e.keyCode == 13) $('.save').click();     // enter
 		        if (e.keyCode == 27) {
 		            $('#search').blur();
+		            // activateMap(false);
 		            esc = true;
 		            $('.button-collapse').sideNav('hide');
 		            clearFilters();
 		        } else {
 		            esc = false;
+		            // activateMap(true)
 		        }
 		    });
 
@@ -178,6 +237,7 @@
 		var last_added; // Marker last added, to prevent repeat of origin and destinations causing error.
 		var geojson;
 		var maxWaypoints = 26;
+		var touchToStart = true;
 
 		function getData() {
 		    return $.ajax({
@@ -193,11 +253,13 @@
 		        // filter : filter
 		    })
 		    geojson.addTo(map)
+		    readJourney(getParameterByName('j')) // Example query get.
 		}
 		getData().done(handleData);
 
 		var directions = L.mapbox.directions({
-		    profile: 'mapbox.walking' // ability to change this
+		    profile: 'mapbox.walking', // ability to change this
+		    units: 'metric'
 		});
 		var directionsLayer = L.mapbox.directions.layer(directions)
 		    .addTo(map);
@@ -313,6 +375,12 @@
 
 		    }
 		    var content_person = '<div class="card-panel white" id=' + feature.properties.PK + '><span class="">You are Here!</span></div>'
+		    if (feature.properties.designer) var hashTag = encodeURIComponent(feature.properties.designer.replace(/\,\s/g, '~').replace(/\s/g, '').replace(/\~/g, ' ')) //.toProperCase()
+		    
+		    
+		    // format the url for a tweet (get rid of j parameter and create p (or pk) parameter)
+		    var uri = encodeURIComponent(UpdateQueryString("j",null, UpdateQueryString("p",feature.properties.PK)))
+		    
 
 		    // Style Popup and create HTML
 		    card = '<div class="card" id="' + feature.properties.PK + '">' +
@@ -324,13 +392,24 @@
 		        '<i class="material-icons right dropdown-activator" data-activates="dropdown1" onclick="openDropdown(this)">more_vert</i>' + feature.properties.project + '</span>' +
 		        '<p>' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '</a>' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" ><li class="addToJourney">') +
-		        ((feature.properties.addedToJourney) ? '<a href="#!" class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove_circle_outline</i> Remove from Journey</a>' : '<a href="#!" class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons nav-icon">navigation</i> Add to Journey</a>') + '</li>' + '<li><a href="#!"><i class="material-icons">photo_camera</i> Upload photo</a></li></ul>' +
+		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li></ul>' +
 		        '</div>' +
 		        '<div class="card-reveal">' +
 		        '<span class="card-title grey-text text-darken-4">' +
 		        '<i class="material-icons right">close</i>' + feature.properties.project + '</span>' + ((feature.properties.address) ? '<p class="address">' + feature.properties.address + '</p>' : '') +
 		        '<p class="project-description">' + feature.properties.description + '</p></div></div>'
 
+		  //      var cd = $('<div/>').html(c).contents();
+		  //      var card = $('<div/>').html(c).contents()[0];
+		  //      var mc = new Hammer.Manager(card);
+				// var pinch = new Hammer.Pinch();
+				// // add to the Manager
+				// mc.add([pinch]);
+				// mc.on("pinch", function(ev) {
+				//     alert('pinched')
+				// });			
+
+		       
 
 		    //it's been added to the journey layer
 		    if (feature.properties.addedToJourney) {
@@ -341,6 +420,10 @@
 		        featureLayer.removeLayer(layer)
 		        journey.push(layer);
 		        last_added = layer
+		        
+		        // updateURI() /// use this to start saving and loading route.
+		        if (journey.length>1) $('.journey-menu').show();
+
 		        // it is the location person icon
 		    } else if (feature.properties.person) {
 		        layer.setIcon(L.icon(icon_person)).addTo(locationLayer)
@@ -353,6 +436,7 @@
 		        layer.bindPopup(card);
 		        featureLayer.removeLayer(layer)
 		        layer.setIcon(L.icon(icon)).addTo(featureLayer)
+				
 		    };
 
 		    // check if max waypoints reached
@@ -363,7 +447,14 @@
 		    if (bounce == true) {
 		        layer.bounce()
 		    };
+
+
 		}
+
+
+		String.prototype.toProperCase = function () {
+		    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		};
 
 		function openDropdown(e) {
 		    $('.leaflet-popup-content .card').css("overflow", "visible")
@@ -376,7 +467,7 @@
 		            markers.push(journey[i].feature.properties.PK)
 		        }
 		        if (markers.indexOf(parseInt($(e).parents('.card').attr('id'))) == -1) {
-		            $(e).parent().parent().find('li').first().html('<a href="#!" class="addToJourney disabled tooltipped" style="color:#ddd"><i class="material-icons nav-icon" style="color:#ddd">navigation</i> Add to Journey</a>')
+		            $(e).parent().parent().find('li').first().html('<span class="addToJourney disabled tooltipped" style="color:#ddd"><i class="material-icons nav-icon" style="color:#ddd">navigation</i> Add to Journey</span>')
 		            $(e).parent().parent().find('li').first().attr('data-tooltip', 'Take a break! Or start another journey - 26 sites is the limit.')
 		            $(e).parent().parent().find('li').first().tooltip({
 		                delay: 250,
@@ -426,7 +517,10 @@
 
 		function addToJourney(e, pk) {
 		    bounce = false;
-		    $(e).html('<i class="material-icons" style="color:green;">check</i> Added to Journey')
+		    if(e){
+		    	$(e).html('<i class="material-icons" style="color:green;">check</i> Added')
+		    }
+		    
 		    featureLayer.eachLayer(function(marker) {
 		        if ((marker.feature.properties.PK == pk) && (marker !== last_added)) {
 		            var m_geojson = marker.toGeoJSON();
@@ -436,6 +530,18 @@
 		            createJourney();
 		        }
 		    });
+		}
+
+		function readJourney(journey){
+			if (journey){				
+				var route = journey.split(',');
+				featureLayer.eachLayer(function(marker) {
+					var pk = marker.feature.properties.PK
+					if (route.indexOf(String(pk)) !== -1){
+						addToJourney('', pk)
+					}
+				})
+			}
 		}
 
 		function removeFromJourney(e, pk) {
@@ -497,9 +603,21 @@
 		    });
 		});
 
+		function updateURI(){
+			var bookmark = $.map(journey, function(obj){
+				if(obj.feature.properties.PK !==0) return obj.feature.properties.PK
+			}).join(',');
+	        uri = UpdateQueryString('j',bookmark)
+	        var currentState = window.history.state;
+	        if (window.history.replaceState) {
+			   window.history.replaceState(currentState, document.title, uri);
+			}
+		};
+
 		allLayers.eachLayer(function(layer) {
 		    layer.on('click', function(e) {
 		        e.layer.openPopup();
+		        // console.log(directions.queryURL())
 		    });
 		});
 
@@ -528,17 +646,26 @@
 
 		    var searchString = $('#search').val().toLowerCase();
 		    if (e) {
-		        if (e.className == 'filtered') {
-		            e.className = ''
+		        if (e.className == 'filter filtered') {
+		            e.className = 'filter'
 		        } else {
-		            e.className = 'filtered'
+		            e.className = 'filter filtered'
 		        }
 		    }
 
 		    var filters = []
-		    var list = document.getElementsByClassName('filtered')
-		    for (var i = 0; i < list.length; i++) {
-		        if (list[i].className == "filtered") filters.push(list[i].dataset.walk);
+		    var categories_filtered = document.getElementsByClassName('filtered')
+		    var categories_all = document.getElementsByClassName('filter')
+		    console.log(categories_all)
+		    
+		    if (categories_filtered.length == 0){
+		    	var categories = categories_all;
+			} else {
+				var categories = categories_filtered
+			}
+
+		    for (var i = 0; i < categories.length; i++) {
+		        filters.push(categories[i].dataset.walk);
 		    }
 
 		    featureLayer.eachLayer(function(marker) {
@@ -578,13 +705,13 @@
 		    filter()
 
 
-		    if ((toast) && (esc == false) && $('#search').val().length > 0) {
-		        Materialize.toast('Showing matching sites', 3000, 'toast', function() {
-		            toast = true;
-		            esc = true;
-		        });
-		        toast = false;
-		    }
+		    // if ((toast) && (esc == false) && $('#search').val().length > 0) {
+		    //     Materialize.toast('Results by keyword', 3000, 'toast', function() {
+		    //         toast = true;
+		    //         esc = true;
+		    //     });
+		    //     toast = false;
+		    // }
 		}
 
 		function clearFilters() {
@@ -610,7 +737,7 @@
 		 // on it, and add a single marker.
 		map.on('locationfound', function(e) {
 		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
-		    map.fitBounds(e.bounds);
+		    map.fitBounds(e.bounds).setZoom(14);
 		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found <a href="#" id="geolocate" class="try-again" style="display:inline;">(relocate)</a>';
 		    var l_geojson = {
 		        type: "FeatureCollection",
@@ -634,6 +761,38 @@
 		map.on('locationerror', function() {
 		    geolocate.innerHTML = '<i class="material-icons">error</i> We lost you. <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
 		})
+
+
+		function UpdateQueryString(key, value, url) {
+		    if (!url) url = window.location.href;
+		    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+		        hash;
+
+		    if (re.test(url)) {
+		        if (typeof value !== 'undefined' && value !== null)
+		            return url.replace(re, '$1' + key + "=" + value + '$2$3');
+		        else {
+		            hash = url.split('#');
+		            url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+		            if (typeof hash[1] !== 'undefined' && hash[1] !== null) 
+		                url += '#' + hash[1];
+		            return url;
+		        }
+		    }
+		    else {
+		        if (typeof value !== 'undefined' && value !== null) {
+		            var separator = url.indexOf('?') !== -1 ? '&' : '?';
+		            hash = url.split('#');
+		            url = hash[0] + separator + key + '=' + value;
+		            if (typeof hash[1] !== 'undefined' && hash[1] !== null) 
+		                url += '#' + hash[1];
+		            return url;
+		        }
+		        else
+		            return url;
+		    }
+		}
+
 		</script>
 	</body>
 </html>
