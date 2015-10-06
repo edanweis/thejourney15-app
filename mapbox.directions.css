@@ -194,7 +194,7 @@ input:not(:valid) + .mapbox-close-icon {
 }
 
 .mapbox-directions-route-active .mapbox-directions-route-summary {
-    display: block;
+    /*display: block;*/
 }
 
 .mapbox-directions-route-details {

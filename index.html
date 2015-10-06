@@ -130,6 +130,13 @@
 				$(this).hide()
 			})
 
+			$('#menu').click(function(){
+				if (!map.dragging.enable()){
+					activateMap(true)
+					$('.touchtobegin').hide();
+				}
+			})
+
 			activateMap(false);
 
 			$('.journey-menu').hide();
@@ -397,8 +404,11 @@
 		        '<span class="card-title grey-text text-darken-4">' +
 		        '<i class="material-icons right dropdown-activator" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
 		        '<p>' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '</a>' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
-		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" ><li class="addToJourney">') +
-		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li><li><span>Read more</span></li></ul>' +
+		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >')+
+		           '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>'+
+ 				'<li class="addToJourney">' +
+		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>'
+		           +'<li><span class="activator"><i class="material-icons more-icon">more_horiz</i>Read more</span></li></ul>' +
 		        '</div>' +
 		        '<div class="card-reveal">' +
 		        '<span class="card-title grey-text text-darken-4">' +
@@ -430,7 +440,8 @@
 		        journey.push(layer);
 		        last_added = layer
 		        
-		        // updateURI() /// use this to start saving and loading route.
+		        if (window.location.href == 'http://xime.com.au/thejourney15-app/') updateURI() /// use this to start saving and loading route.
+
 		        if (journey.length>1) $('.journey-menu').show();
 
 		        // it is the location person icon
@@ -752,7 +763,7 @@
 		 // If the user chooses not to allow their location
 		 // to be shared, display an error message.
 		map.on('locationerror', function() {
-		    geolocate.innerHTML = '<i class="material-icons">error</i> We lost you. Is your GPS enabled? <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">error</i> Is your GPS enabled? <a href="#" id="geolocate" class="try-again" style="display:inline; font-size:0.8em">(try again)</a>';
 		})
 
 
