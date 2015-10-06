@@ -18,12 +18,7 @@ Todo
 - [x] Change vertical menu to menu icon.
 - [x] disable all interaction with map (not just zoom) until touchbutton is pressed.
 - [x] make touch here button responsive to mobile (smaller padding)
-- [ ] Download and resize all images.
-- [ ] Show image placeholder
-- [ ] Fade images in once loaded.
-- [ ] Add spinner or fake photo behind images
-- [ ] Add calculating route toast.
-- [ ] mapbox cache tiles.
+
 
 
 
@@ -38,12 +33,19 @@ Todo
 - [x] Add friendly tooltips, toasts, etc.
 - [x] Warn user when 26 waypoint limit reached
 - [x] ~~Take photo button~~ Tweet this location
+- [x] Star/bookmark this pin
+- [x] Load/Share your journey link
+
 - [ ] clear filters button in side nav.
 - [ ] Create introduction help overlay, for first time actions.
 - [ ] Make 'next directions' appeear 
 - [ ] Create custom map tiles
-- [x] Star/bookmark this pin
-- [x] Load/Share your journey link
+- [ ] Download and resize all images.
+- [ ] Show image placeholder
+- [ ] Fade images in once loaded.
+- [ ] Add spinner or fake photo behind images
+- [ ] Add calculating route toast.
+- [ ] mapbox cache tiles.
 - [ ] Pinch zoom to open modal with image.
 - [ ] Swipe popup to show next marker.
 - [ ] represent theme filters in two columns
@@ -56,7 +58,6 @@ Todo
 - [ ] Choose Walk, Cycle, Drive.
 - [ ] Nearest site to me
 - [ ] Drop pin to suggest site
-- [ ] Save route in cookie
 
 **Data**
 
