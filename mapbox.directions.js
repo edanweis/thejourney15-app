@@ -1550,12 +1550,12 @@ var Directions = L.Class.extend({
                 }
 
                 this.directions = resp;
-                // this.directions.routes.forEach(function (route) {
-                    this.directions.routes[0].geometry = {
+                this.directions.routes.forEach(function (route) {
+                    route.geometry = {
                         type: "LineString",
-                        coordinates: polyline.decode(this.directions.routes[0].geometry, 6).map(function (c) { return c.reverse(); })
+                        coordinates: polyline.decode(route.geometry, 6).map(function (c) { return c.reverse(); })
                     };
-                // });
+                });
 
                 if (!this.origin.properties.name) {
                     this.origin = this.directions.origin;

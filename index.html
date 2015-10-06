@@ -26,7 +26,7 @@
 	</head>
 	<body>
 	
-		<div class="navbar-fixed">
+		
 		<nav>
 		  <ul id="slide-out" class="side-nav show-on-large">
 		  	<li class="search" data-position="bottom" data-tooltip="Search all sites by keyword">
@@ -49,7 +49,7 @@
 				</div>
 				</li>
 			</ul>
-			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate()"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
 			
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="filter-menu">
@@ -96,7 +96,7 @@
 		  </ul>
 		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large"><i class="mdi-navigation-menu"></i></a>
 		</nav>		
-		</div>
+		
 		<!-- <a class="dropdown-button" href="#" data-activates="dropdown1">Drop Me!</a><ul id="dropdown1" class="dropdown-content"><li><a href="#!">one</a></li><li><a href="#!">two</a></li><li class="divider"></li><li><a href="#!">three</a></li></ul> -->
 		
 		<div class="row">
@@ -117,21 +117,15 @@
 		<script src='bouncemarker.js'></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 		<script type="text/javascript">
-		function getParameterByName(name) {
-		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-		        results = regex.exec(location.search);
-		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-		}
 
-		function is_touch_device() {
-		  return 'ontouchstart' in window // works on most browsers 
-		      || 'onmsgesturechange' in window; // works on ie10
-		};
+		
+		//JQUERY TO BIND EVENTS TO NON-DYNAMIC ELEMENTS.
 
 		$(document).ready(function() {
 
-			$('.touchtobegin').text((is_touch_device() ? 'TOUCH HERE' : 'CLICK HERE' )).click(function(){
+			$('#search').keyup(search);
+
+			$('.touchtobegin').text((is_touch_device() ? 'TOUCH HERE' : 'CLICK HERE' )).show().click(function(){
 				activateMap(true);
 				$(this).hide()
 			})
@@ -139,8 +133,6 @@
 			activateMap(false);
 
 			$('.journey-menu').hide();
-
-		    $('select').material_select();
 
 		    window.onkeydown = function(e) {
 		        if (e.keyCode == 9) {
@@ -151,6 +143,7 @@
 		    $(".button-collapse").sideNav({
 		        menuWidth: 300, // Default is 240
 		        edge: 'right', // Choose the horizontal origin
+		        closeOnClick: false
 		        // closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor);
 		    });
 
@@ -161,7 +154,7 @@
 
 		    $('#menu').click(function() {
 		        toast = true;
-		        $('#search').focus();
+		        if (!is_touch_device) $('#search').focus();
 		    })
 
 		    $('.collapsible').collapsible({
@@ -188,9 +181,11 @@
 					map.touchZoom.disable();
 					map.doubleClickZoom.disable();
 					map.scrollWheelZoom.disable();
+					$('#map').css("pointer-events","none");
 					// Disable tap handler, if present.
 					if (map.tap) map.tap.disable();
 				} else {
+					$('#map').css("pointer-events","auto");
 					map.dragging.enable();
 					map.touchZoom.enable();
 					map.doubleClickZoom.enable();
@@ -216,19 +211,23 @@
 
 		})
 
-		 L.mapbox.accessToken = 'pk.eyJ1IjoiZWRhbndlaXMiLCJhIjoiY2lmMTVtdWQ0MDRsOHNkbTV2OXd3cDNwNiJ9.MxWj73wGNEvrPSjsh6TJjw';
-
+		// GLOBAL VARS AND INITIALIZATION
+		
+		L.mapbox.accessToken = 'pk.eyJ1IjoiZWRhbndlaXMiLCJhIjoiY2lmMTVtdWQ0MDRsOHNkbTV2OXd3cDNwNiJ9.MxWj73wGNEvrPSjsh6TJjw';
+		
 		var map = L.mapbox.map('map').setView([-37.8163, 144.9634], 15);
 		map.attributionControl.setPosition('bottomleft');
 		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
 		    attribution: 'Designed and coded by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://aila.org.au">AILA Victoria</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
 		}).addTo(map);
+
+		L.control.fullscreen().addTo(map);
+
 		var featureLayer = L.mapbox.featureLayer()
 		var locationLayer = L.mapbox.featureLayer()
 		var journeyLayer = L.mapbox.featureLayer()
 		var allLayers = L.featureGroup([journeyLayer, featureLayer, locationLayer]).addTo(map)
 		var jfLayers = L.featureGroup([journeyLayer])
-		 L.control.fullscreen().addTo(map);
 		var bounce = true; // Bounce markers on map when true
 		var toast = true; // don't repeat more toasts when false
 		var esc = false; // hide side-nav when true
@@ -238,6 +237,10 @@
 		var geojson;
 		var maxWaypoints = 26;
 		var touchToStart = true;
+
+
+
+		// GET GEOJSON DATA FROM GITHUB USING AJAX
 
 		function getData() {
 		    return $.ajax({
@@ -257,6 +260,9 @@
 		}
 		getData().done(handleData);
 
+		
+		// INITIALIZE DIRECTIONS
+
 		var directions = L.mapbox.directions({
 		    profile: 'mapbox.walking', // ability to change this
 		    units: 'metric'
@@ -273,21 +279,18 @@
 		    .addTo(map);
 
 
-		$('#search').keyup(search);
-
-
+		// BIND LAYER ADD FUNCTION TO EACH MARKER (LAYER/FEATURE)
 
 		function onEachFeature(feature, layer) {
 		    layer.on({
-		        // mouseover: mouseover,
-		        // mouseout: mouseout,
 		        layeradd: onLayerAdd(feature, layer)
 		    });
 		}
 
 
-		function getIcon(layer) {
+		// SET ICON FOR DIFFERENT CONTEXTS (PERSON, JOURNEY, STANDARD)
 
+		function getIcon(layer) {
 		    var feature = layer.feature
 		    switch (feature.properties.WALK) {
 		        case "ECOLOGY IN THE CITY (environmental remediation)":
@@ -363,6 +366,9 @@
 		    }
 		}
 
+
+		// LAYER ADD CALLS AS NEW MARKERS ARE ADDED
+
 		function onLayerAdd(feature, layer) {
 		    var icon = getIcon(layer);
 
@@ -389,15 +395,18 @@
 		        '</div>' +
 		        '<div class="card-content">' +
 		        '<span class="card-title grey-text text-darken-4">' +
-		        '<i class="material-icons right dropdown-activator" data-activates="dropdown1" onclick="openDropdown(this)">more_vert</i>' + feature.properties.project + '</span>' +
+		        '<i class="material-icons right dropdown-activator" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
 		        '<p>' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '</a>' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" ><li class="addToJourney">') +
-		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li></ul>' +
+		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li><li><span>Read more</span></li></ul>' +
 		        '</div>' +
 		        '<div class="card-reveal">' +
 		        '<span class="card-title grey-text text-darken-4">' +
 		        '<i class="material-icons right">close</i>' + feature.properties.project + '</span>' + ((feature.properties.address) ? '<p class="address">' + feature.properties.address + '</p>' : '') +
 		        '<p class="project-description">' + feature.properties.description + '</p></div></div>'
+
+
+		       // HAMMER.JS NOT CURRRENTLY WORKING. 
 
 		  //      var cd = $('<div/>').html(c).contents();
 		  //      var card = $('<div/>').html(c).contents()[0];
@@ -452,9 +461,7 @@
 		}
 
 
-		String.prototype.toProperCase = function () {
-		    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-		};
+		
 
 		function openDropdown(e) {
 		    $('.leaflet-popup-content .card').css("overflow", "visible")
@@ -575,15 +582,7 @@
 		    return journey_sorted
 		};
 
-		function distance(lat1, lon1, lat2, lon2) {
-		    var p = 0.017453292519943295; // Math.PI / 180
-		    var c = Math.cos;
-		    var a = 0.5 - c((lat2 - lat1) * p) / 2 +
-		        c(lat1 * p) * c(lat2 * p) *
-		        (1 - c((lon2 - lon1) * p)) / 2;
-
-		    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-		}
+		
 
 		 // add hover to Popup windows
 		allLayers.eachLayer(function(layer) {
@@ -602,17 +601,7 @@
 		        });
 		    });
 		});
-
-		function updateURI(){
-			var bookmark = $.map(journey, function(obj){
-				if(obj.feature.properties.PK !==0) return obj.feature.properties.PK
-			}).join(',');
-	        uri = UpdateQueryString('j',bookmark)
-	        var currentState = window.history.state;
-	        if (window.history.replaceState) {
-			   window.history.replaceState(currentState, document.title, uri);
-			}
-		};
+		
 
 		allLayers.eachLayer(function(layer) {
 		    layer.on('click', function(e) {
@@ -632,6 +621,8 @@
 		    })
 		});
 
+		
+
 		locationLayer.on('mouseover', function(e) {
 		    e.layer.openPopup();
 		}).on('click', function(e) {
@@ -640,7 +631,13 @@
 
 		locationLayer.on('mouseout', function(e) {})
 
-		 // filter
+		featureLayer.on('mouseover', function(e) {
+		    e.layer.openPopup();
+		})
+
+		 
+
+		// FILTER
 
 		function filter(e) {
 
@@ -656,7 +653,6 @@
 		    var filters = []
 		    var categories_filtered = document.getElementsByClassName('filtered')
 		    var categories_all = document.getElementsByClassName('filter')
-		    console.log(categories_all)
 		    
 		    if (categories_filtered.length == 0){
 		    	var categories = categories_all;
@@ -691,19 +687,15 @@
 		    var filters = []
 		    var list = document.getElementsByClassName('filtered')
 
+		    // here we're simply comparing the various properties of each marker
+		    // to the search string, seeing whether the former contains the latter.
 		    for (var i = 0; i < list.length; i++) {
 		        if (list[i].className == "filtered") filters.push(list[i].dataset.walk);
 		    }
-
-
 		    // get the value of the search input field
 		    var searchString = $('#search').val().toLowerCase();
 		    // featureLayer.setFilter(showState);
-
-		    // here we're simply comparing the various properties of each marker
-		    // to the search string, seeing whether the former contains the latter.
 		    filter()
-
 
 		    // if ((toast) && (esc == false) && $('#search').val().length > 0) {
 		    //     Materialize.toast('Results by keyword', 3000, 'toast', function() {
@@ -720,25 +712,23 @@
 		    $('#close_search').css('display', 'none');
 		}
 
+		// FIND THE USER'S LOCATION
 
-
-		 // find the user's location
-
-		if (!navigator.geolocation) {
-		    geolocate.innerHTML = '<i class="material-icons">gps_off</i> Geolocation is not available <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
-		} else {
-		    geolocate.onclick = function(e) {
-		        e.preventDefault();
-		        e.stopPropagation();
-		        map.locate();
-		    };
-		}
+		// if (!navigator.geolocation) {
+		//     geolocate.innerHTML = '<i class="material-icons">gps_off</i> Geolocation is not available <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		// } else {
+		//     geolocate.onclick = function(e) {
+		//         e.preventDefault();
+		//         e.stopPropagation();
+		        
+		//     };
+		// }
 		 // Once we've got a position, zoom and center the map
 		 // on it, and add a single marker.
 		map.on('locationfound', function(e) {
 		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
 		    map.fitBounds(e.bounds).setZoom(14);
-		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found <a href="#" id="geolocate" class="try-again" style="display:inline;">(relocate)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found You<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
 		    var l_geojson = {
 		        type: "FeatureCollection",
 		        features: [{
@@ -754,13 +744,23 @@
 		        }]
 		    }
 		    geojson.addData(l_geojson)
+		    createJourney();
+		    $('.button-collapse').sideNav('hide');
+
 		});
 
 		 // If the user chooses not to allow their location
 		 // to be shared, display an error message.
 		map.on('locationerror', function() {
-		    geolocate.innerHTML = '<i class="material-icons">error</i> We lost you. <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">error</i> We lost you. Is your GPS enabled? <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
 		})
+
+
+
+
+
+
+		// UTILITY FUNCTIONS
 
 
 		function UpdateQueryString(key, value, url) {
@@ -792,6 +792,45 @@
 		            return url;
 		    }
 		}
+
+
+		function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		        results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		function is_touch_device() {
+		  return 'ontouchstart' in window // works on most browsers 
+		      || 'onmsgesturechange' in window; // works on ie10
+		};
+
+		String.prototype.toProperCase = function () {
+		    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		};
+
+		function updateURI(){
+			var bookmark = $.map(journey, function(obj){
+				if(obj.feature.properties.PK !==0) return obj.feature.properties.PK
+			}).join(',');
+	        uri = UpdateQueryString('j',bookmark)
+	        var currentState = window.history.state;
+	        if (window.history.replaceState) {
+			   window.history.replaceState(currentState, document.title, uri);
+			}
+		};
+
+		function distance(lat1, lon1, lat2, lon2) {
+		    var p = 0.017453292519943295; // Math.PI / 180
+		    var c = Math.cos;
+		    var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+		        c(lat1 * p) * c(lat2 * p) *
+		        (1 - c((lon2 - lon1) * p)) / 2;
+
+		    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+		}
+
 
 		</script>
 	</body>

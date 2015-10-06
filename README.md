@@ -11,17 +11,20 @@ Todo
 
 **Bugs**
 
-- [ ] Side nav menu closes on filter
-- [ ] Unfocus search bar on side nav open.
-- [ ] recalculate route when userlocaiton is found and hide side nav
-- [ ] show() touchbutton after css is loaded
+- [x] Side nav menu closes on filter
+- [x] Unfocus search bar on side nav open.
+- [x] recalculate route when userlocaiton is found and hide side nav
+- [x] show() touchbutton after css is loaded
+- [x] Change vertical menu to menu icon.
+- [x] disable all interaction with map (not just zoom) until touchbutton is pressed.
+- [x] make touch here button responsive to mobile (smaller padding)
 - [ ] Download and resize all images.
 - [ ] Show image placeholder
+- [ ] Fade images in once loaded.
 - [ ] Add spinner or fake photo behind images
 - [ ] Add calculating route toast.
-- [ ] Change vertical menu to info icon.
 - [ ] mapbox cache tiles.
-- [ ] make touch here button responsive to mobile (smaller)
+
 
 
 **functions**
@@ -35,6 +38,7 @@ Todo
 - [x] Add friendly tooltips, toasts, etc.
 - [x] Warn user when 26 waypoint limit reached
 - [x] ~~Take photo button~~ Tweet this location
+- [ ] clear filters button in side nav.
 - [ ] Create introduction help overlay, for first time actions.
 - [ ] Make 'next directions' appeear 
 - [ ] Create custom map tiles
