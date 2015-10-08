@@ -14,6 +14,7 @@
 		<link rel='stylesheet' href='style.css' type='text/css' />
 		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
 		<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js' type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="nouislider.css">
 		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
 		 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 		 <meta name="twitter:card" content="summary_large_image">
@@ -22,13 +23,13 @@
 		<meta name="twitter:title" content="The Journey 2015">
 		<meta name="twitter:description" content="Interactive Landscape Tour Map">
 		<meta name="twitter:image" content="http://thejourney.aila.org.au/wp-content/uploads/2015/09/The_Journey-Logo-Colour.png">
-
 	</head>
 	<body>
 	
+	 		<!-- <div id="darken"></div> -->
 		
-		<nav>
-		  <ul id="slide-out" class="side-nav show-on-large">
+		<nav class="noselect">
+		  <ul id="slide-out" class="side-nav show-on-large select">
 		  	<li class="search" data-position="bottom" data-tooltip="Search all sites by keyword">
 		  		<div class="search-wrapper">
 		  			<i class="material-icons">search</i>
@@ -56,16 +57,16 @@
 		 		<div class="collapsible-header" data-position="top" data-tooltip="Select the guided tour routes by theme"><strong><i class="material-icons">filter_list</i> Filter by theme</strong></div>
 				<div class="collapsible-body">
 					<ul>
-					<li class="active" data-walk='ecology'><input type="checkbox" id="ecology" class="filter" onclick="filter(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
-					<li class="active" data-walk='citizens'><input type="checkbox" id="citizens" class="filter" onclick="filter(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
-					<li class="active" data-walk='political'><input type="checkbox" id="political" class="filter" onclick="filter(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
-					<li class="active" data-walk='art'><input type="checkbox" id="art" class="filter" onclick="filter(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
-					<li class="active" data-walk='intervetion'><input type="checkbox" id="intervention" class="filter" onclick="filter(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
-					<li class="active" data-walk='history'><input type="checkbox" id="history" class="filter" onclick="filter(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
-					<li class="active" data-walk='urban'><input type="checkbox" id="urban" class="filter" onclick="filter(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
-					<li class="active" data-walk='sport'><input type="checkbox" id="sport" class=" dark" onclick="filter(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
-					<li class="active" data-walk='miscellaneous'><input type="checkbox" id="miscellaneous" class="filter" onclick="filter(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
-					<li class="active" data-walk='uncategorized'><input type="checkbox" id="uncategorized" class="filter" onclick="filter(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li>
+					<li class="active waves-effect waves-light" data-walk='ecology'><input type="checkbox" id="ecology" class="filter" onclick="filter(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
+					<li class="active waves-effect waves-light" data-walk='citizens'><input type="checkbox" id="citizens" class="filter" onclick="filter(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
+					<li class="active waves-effect waves-light" data-walk='political'><input type="checkbox" id="political" class="filter" onclick="filter(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
+					<li class="active waves-effect waves-light" data-walk='art'><input type="checkbox" id="art" class="filter" onclick="filter(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
+					<li class="active waves-effect waves-light" data-walk='intervetion'><input type="checkbox" id="intervention" class="filter" onclick="filter(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
+					<li class="active waves-effect waves-light" data-walk='history'><input type="checkbox" id="history" class="filter" onclick="filter(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
+					<li class="active waves-effect waves-light" data-walk='urban'><input type="checkbox" id="urban" class="filter" onclick="filter(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
+					<li class="active waves-effect waves-dark" data-walk='sport'><input type="checkbox" id="sport" class="dark" onclick="filter(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
+					<li class="active waves-effect waves-light" data-walk='miscellaneous'><input type="checkbox" id="miscellaneous" class="filter" onclick="filter(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
+					<li class="active waves-effect waves-light" data-walk='uncategorized'><input type="checkbox" id="uncategorized" class="filter" onclick="filter(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li>
 				</ul>
 				</div>
 		 	</li>
@@ -94,18 +95,32 @@
 			</ul> -->
 
 		  </ul>
-		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large"><i class="mdi-navigation-menu"></i></a>
+		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large waves-effect waves-light"><i class="mdi-navigation-menu"></i></a>
 		</nav>		
 		
 		<!-- <a class="dropdown-button" href="#" data-activates="dropdown1">Drop Me!</a><ul id="dropdown1" class="dropdown-content"><li><a href="#!">one</a></li><li><a href="#!">two</a></li><li class="divider"></li><li><a href="#!">three</a></li></ul> -->
 		
 		<div class="row">
- 		<div id='map' class='custom-popup'></div>
- 		<div class="touchtobegin noselect">
- 		</div>
-		<!-- <div id='inputs'></div> -->
-		
-		
+	 		<div id='map' class='custom-popup noselect'></div>
+	 		<div class="touchtobegin noselect"></div>
+		</div>
+		<div class="navigation-pane z-depth-1">
+			<div id="slider"></div>
+			<div class="mode waves-effect waves-light">
+				<div id="bike"><i class="material-icons">directions_bike</i></div>
+				<div id="walk"><i class="material-icons">directions_walk</i></div>
+				<div id="car"><i class="material-icons">directions_car</i></div>
+        		<div id="duration">2 min</div>
+			</div>
+			<div class="instructions">
+				<div id="steps"></div>
+        		<div id="maneuver">Continue on Flinders Street</div>
+        	<div id="distance">2.35k</div>
+			            
+			</div>
+			<div id="direction">
+        			a
+    		</div>
 		</div>
 
 		
@@ -115,7 +130,8 @@
 
 		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
 		<script src='bouncemarker.js'></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+		<script src="materialize.js"></script>
+		<script type="text/javascript" src="nouislider.js"></script>
 		<script type="text/javascript">
 
 		
@@ -123,23 +139,68 @@
 
 		$(document).ready(function() {
 
+			activateMap(false, false);
+			
+			$('.touchtobegin').text((is_touch_device() ? 'TOUCH TO START' : 'CLICK TO START' )).show()
+
 			$('#search').keyup(search);
 
-			$('.touchtobegin').text((is_touch_device() ? 'TOUCH HERE' : 'CLICK HERE' )).show().click(function(){
-				activateMap(true);
-				$(this).hide()
-			})
-
-			$('#menu').click(function(){
+			$('.touchtobegin').click(function(){
 				if (!map.dragging.enable()){
-					activateMap(true)
 					$('.touchtobegin').hide();
+					activateMap(true, true)
+					
 				}
 			})
 
-			activateMap(false);
+			$('#menu').click(function(){
+				if (!map.dragging._enabled){
+					$('.touchtobegin').hide()
+					activateMap(true, true);
+				}
+			});
 
 			$('.journey-menu').hide();
+
+			
+			var slider = $('#slider')[0]
+
+			var settings = {
+			   start: 20,
+			   connect: "lower",
+			   step: 1,
+			   range: {
+			     'min': 0,
+			     'max': 100
+			   },
+			   format: wNumb({
+			     decimals: 0
+			   })
+			  }
+
+			noUiSlider.create(slider, settings);
+			bindValue();
+
+
+			function bindValue ( ) {
+				slider.noUiSlider.on('update', function( values, handle ) {
+					// update something 
+					// updateSliderValue.innerHTML = values[handle];
+				});
+			}
+
+				
+			function rebuildSlider (start, min, max) {
+				val = slider.noUiSlider.get();
+				slider.noUiSlider.destroy();
+				// Create a slider with the new options.
+				settings.range.min = min
+				settings.range.max = max
+				settings.start = start;
+				noUiSlider.create(slider, settings);
+				bindValue();
+			}
+
 
 		    window.onkeydown = function(e) {
 		        if (e.keyCode == 9) {
@@ -182,7 +243,7 @@
 		        }
 		    })
 
-		    function activateMap(state){
+		    function activateMap(state, bounce){
 		    	if (!state){
 			    	map.dragging.disable();
 					map.touchZoom.disable();
@@ -193,6 +254,7 @@
 					if (map.tap) map.tap.disable();
 				} else {
 					$('#map').css("pointer-events","auto");
+					if (bounce) bounceMarkers()
 					map.dragging.enable();
 					map.touchZoom.enable();
 					map.doubleClickZoom.enable();
@@ -216,8 +278,15 @@
 		        }
 		    });
 
-		})
+		    $('#step').click(function(){
+		    	console.log(steps)
+		    	// console.log(step.maneuver.location.coordinates)
+		    	// map.panTo(L.GeoJSON.coordsToLatLng(step.maneuver.location.coordinates));
 
+		    });
+
+		})
+		
 		// GLOBAL VARS AND INITIALIZATION
 		
 		L.mapbox.accessToken = 'pk.eyJ1IjoiZWRhbndlaXMiLCJhIjoiY2lmMTVtdWQ0MDRsOHNkbTV2OXd3cDNwNiJ9.MxWj73wGNEvrPSjsh6TJjw';
@@ -225,8 +294,12 @@
 		var map = L.mapbox.map('map').setView([-37.8163, 144.9634], 15);
 		map.attributionControl.setPosition('bottomleft');
 		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-		    attribution: 'Designed and coded by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://aila.org.au">AILA Victoria</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+		    attribution: 'Designed and coded by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>.'
 		}).addTo(map);
+
+		// custom overlay doesnt work when zoome out.
+		// var imageBounds = [[-70, -118], [70, 170]];
+		// L.imageOverlay("img/overlay.png", imageBounds, {opacity:0.5}).addTo(map);
 
 		L.control.fullscreen().addTo(map);
 
@@ -235,7 +308,6 @@
 		var journeyLayer = L.mapbox.featureLayer()
 		var allLayers = L.featureGroup([journeyLayer, featureLayer, locationLayer]).addTo(map)
 		var jfLayers = L.featureGroup([journeyLayer])
-		var bounce = true; // Bounce markers on map when true
 		var toast = true; // don't repeat more toasts when false
 		var esc = false; // hide side-nav when true
 		var journey = []; // Stores array of markers added to journey 
@@ -244,7 +316,7 @@
 		var geojson;
 		var maxWaypoints = 26;
 		var touchToStart = true;
-
+		var route;
 
 
 		// GET GEOJSON DATA FROM GITHUB USING AJAX
@@ -263,7 +335,7 @@
 		        // filter : filter
 		    })
 		    geojson.addTo(map)
-		    readJourney(getParameterByName('j')) // Example query get.
+    		readJourney(getParameterByName('j')) // Example query get.
 		}
 		getData().done(handleData);
 
@@ -396,14 +468,14 @@
 		    
 
 		    // Style Popup and create HTML
-		    card = '<div class="card" id="' + feature.properties.PK + '">' +
+		    card = '<div class="card noselect" id="' + feature.properties.PK + '">' +
 		        '<div class="card-image waves-effect waves-block waves-light">' +
 		        '<img class="activator" src="' + (feature.properties.photo ? feature.properties.photo : "img/landscape.jpg") + '"/>' +
 		        '</div>' +
 		        '<div class="card-content">' +
-		        '<span class="card-title grey-text text-darken-4">' +
-		        '<i class="material-icons right dropdown-activator" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
-		        '<p>' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '</a>' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
+		        '<span class="card-title grey-text text-darken-4 select">' +
+		        '<i class="material-icons right dropdown-activator noselect" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
+		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '</a>' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >')+
 		           '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>'+
  				'<li class="addToJourney">' +
@@ -411,9 +483,9 @@
 		           +'<li><span class="activator"><i class="material-icons more-icon">more_horiz</i>Read more</span></li></ul>' +
 		        '</div>' +
 		        '<div class="card-reveal">' +
-		        '<span class="card-title grey-text text-darken-4">' +
-		        '<i class="material-icons right">close</i>' + feature.properties.project + '</span>' + ((feature.properties.address) ? '<p class="address">' + feature.properties.address + '</p>' : '') +
-		        '<p class="project-description">' + feature.properties.description + '</p></div></div>'
+		        '<span class="card-title grey-text text-darken-4 select">' +
+		        '<i class="material-icons right noselect">close</i>' + feature.properties.project + '</span>' + ((feature.properties.address) ? '<p class="address select">' + feature.properties.address + '</p>' : '') +
+		        '<p class="project-description select">' + feature.properties.description + '</p></div></div>'
 
 
 		       // HAMMER.JS NOT CURRRENTLY WORKING. 
@@ -440,7 +512,10 @@
 		        journey.push(layer);
 		        last_added = layer
 		        
-		        if (window.location.href == 'http://xime.com.au/thejourney15-app/') updateURI() /// use this to start saving and loading route.
+		        if( ( window.location.href.indexOf("xime.com.au") > -1 ) || (window.location.href.indexOf("localhost") > -1 ) ){
+		        	
+		        	updateURI() /// use this to start saving and loading route.	
+		        } 
 
 		        if (journey.length>1) $('.journey-menu').show();
 
@@ -456,6 +531,7 @@
 		        layer.bindPopup(card);
 		        featureLayer.removeLayer(layer)
 		        layer.setIcon(L.icon(icon)).addTo(featureLayer)
+		        layer.setOpacity(0)
 				
 		    };
 
@@ -464,16 +540,18 @@
 		        Materialize.toast("Take a break! Or start another journey - 26 sites is the limit.", 6000)
 		    }
 
-		    if (bounce == true) {
-		        layer.bounce()
-		    };
+		    
 
 
 		}
 
 
-		
-
+		function bounceMarkers(){
+			featureLayer.eachLayer(function(feature){
+				feature.setOpacity(1);
+				feature.bounce();
+			})
+		}
 		function openDropdown(e) {
 		    $('.leaflet-popup-content .card').css("overflow", "visible")
 
@@ -515,8 +593,36 @@
 		            directions.addWaypoint(i - 2, waypoint)
 		        }
 		        directions.query();
+		        directions.on('load', function (e) {
+		        	displayNav(e);
+		        	
+		        })
 		    }
 		}
+
+		function displayNav(e){
+			
+			$('.navigation-pane').css({"display":"table", "opacity": 1}).addClass("animated");
+
+
+
+			route = e.routes[0]
+			steps = route.steps
+			console.log(steps)
+
+			var dur = duration(route.duration);
+			var dis = metric(route.distance);
+			
+			$('#duration').html(dur)
+			$('#distance').html(dis)
+
+			$('.navigation-pane').css("display", "table")
+
+		};
+
+
+	    
+
 
 		function getMarker(pk) {
 		    var got_marker;
@@ -534,7 +640,7 @@
 		};
 
 		function addToJourney(e, pk) {
-		    bounce = false;
+		    
 		    if(e){
 		    	$(e).html('<i class="material-icons" style="color:green;">check</i> Added')
 		    }
@@ -616,7 +722,9 @@
 
 		allLayers.eachLayer(function(layer) {
 		    layer.on('click', function(e) {
-		        e.layer.openPopup();
+		        if (is_touch_device){
+		        	e.layer.openPopup();
+		        }
 		        // console.log(directions.queryURL())
 		    });
 		});
@@ -637,7 +745,7 @@
 		locationLayer.on('mouseover', function(e) {
 		    e.layer.openPopup();
 		}).on('click', function(e) {
-		    e.layer.openPopup();
+		       if (is_touch_device) e.layer.openPopup();
 		});
 
 		locationLayer.on('mouseout', function(e) {})
@@ -691,7 +799,7 @@
 		}
 
 		function search() {
-		    bounce = false;
+		    
 
 		    ($('#search').val() ? $('#close_search').css("display", 'inline') : $('#close_search').css("display", 'none'))
 
@@ -739,7 +847,7 @@
 		map.on('locationfound', function(e) {
 		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
 		    map.fitBounds(e.bounds).setZoom(14);
-		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found You<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i> Found You <a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
 		    var l_geojson = {
 		        type: "FeatureCollection",
 		        features: [{
@@ -803,6 +911,31 @@
 		            return url;
 		    }
 		}
+
+		function duration(s) {
+	        var m = Math.floor(s / 60),
+	            h = Math.floor(m / 60);
+	        s %= 60;
+	        m %= 60;
+	        if (h === 0 && m === 0) return s + ' s';
+	        if (h === 0) return m + ' min';
+	        return h + ' h ' + m + ' min';
+	    }
+
+	    function imperial (m) {
+	        var mi = m / 1609.344;
+	        if (mi >= 100) return mi.toFixed(0) + ' mi';
+	        if (mi >= 10) return mi.toFixed(1) + ' mi';
+	        if (mi >= 0.1) return mi.toFixed(2) + ' mi';
+	        return (mi * 5280).toFixed(0) + ' ft';
+	    }
+
+	    function metric (m) {
+	        if (m >= 100000) return (m / 1000).toFixed(0) + ' km';
+	        if (m >= 10000) return (m / 1000).toFixed(1) + ' km';
+	        if (m >= 100) return (m / 1000).toFixed(2) + ' km';
+	        return m.toFixed(0) + ' m';
+	    }
 
 
 		function getParameterByName(name) {
