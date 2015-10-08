@@ -19,6 +19,21 @@ Todo
 - [x] disable all interaction with map (not just zoom) until touchbutton is pressed.
 - [x] make touch here button responsive to mobile (smaller padding)
 
+- [x] make button to change journey type.
+- [x] create new full screen icon
+- [x] regex the slash out of isntructions.
+- [x] download all photos
+- [ ] less jerky motion
+- [ ] option to close navigation -pane
+- [x] make menu collapse smaller
+- [ ] color grading
+- [ ] get rid of category.
+- [ ] proportion the slider to distance
+- [ ] put something useful in bubble.
+- [ ] move to the ftp
+- [ ] test the loading query params
+- [ ] create share my journey button
+- [ ] create an about collapse with explanation of site.
 
 
 
@@ -36,26 +51,23 @@ Todo
 - [x] Star/bookmark this pin
 - [x] Load/Share your journey link
 
-- [ ] clear filters button in side nav.
 - [ ] Create introduction help overlay, for first time actions.
-- [ ] Make 'next directions' appeear 
 - [ ] Create custom map tiles
-- [ ] Download and resize all images.
-- [ ] Show image placeholder
-- [ ] Fade images in once loaded.
 - [ ] Add spinner or fake photo behind images
-- [ ] Add calculating route toast.
-- [ ] mapbox cache tiles.
+- [ ] Fade images in once loaded.
+- [ ] Download and resize all images.
+- [ ] clear filters button in side nav.
+- [ ] Show image placeholder
 - [ ] Pinch zoom to open modal with image.
 - [ ] Swipe popup to show next marker.
-- [ ] represent theme filters in two columns
+- [ ] Twitter popoup, instead of new window
 
 
 **Routes**
 
 - [x] Create optimized round-trip route based on your location.
-- [ ] Route directions
-- [ ] Choose Walk, Cycle, Drive.
+- [x] Route directions
+- [x] Choose Walk, Cycle, Drive.
 - [ ] Nearest site to me
 - [ ] Drop pin to suggest site
 
