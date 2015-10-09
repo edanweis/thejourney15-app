@@ -12,7 +12,7 @@
 		<link rel='stylesheet' href='mapbox.directions.css' type='text/css' />
 		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 		<link rel='stylesheet' href='style.css' type='text/css' />
-		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' />
+		<!-- <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/leaflet.fullscreen.css' rel='stylesheet' /> -->
 		<script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js' type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="nouislider.css">
 		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
@@ -38,68 +38,33 @@
 		  		</div>
 		  	</li>
 		  	<li class="nav-subheading divider"></li>
-		  	<!-- <ul class="collapsible" data-collapsible="expandable"> 
-		 	<li class="journey-menu">
-				<div class="collapsible-header" data-position="top" data-tooltip="Get directions to visit these sites"><i class="material-icons">navigation</i> <span onclick="createJourney()">Start your Journey</span></div>
-				<div class="collapsible-body">
-					<div id='directions'>
-						<div id='routes'></div>
-						<div id='instructions'></div>
-						<div id='errors'></div>
-					</div>	
-				</div>
-				</li>
-			</ul> -->
 			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate()"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+
 			
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="filter-menu">
 		 		<div class="collapsible-header" data-position="top" data-tooltip="Select the guided tour routes by theme"><strong><i class="material-icons">filter_list</i> Filter by theme</strong></div>
 				<div class="collapsible-body">
 					<ul>
-					<li class="active waves-effect waves-light" data-walk='ecology'><input type="checkbox" id="ecology" class="filter" onclick="filter(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology</label></li>
-					<li class="active waves-effect waves-light" data-walk='citizens'><input type="checkbox" id="citizens" class="filter" onclick="filter(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Citizens</label></li>
-					<li class="active waves-effect waves-light" data-walk='political'><input type="checkbox" id="political" class="filter" onclick="filter(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political</label></li>
-					<li class="active waves-effect waves-light" data-walk='art'><input type="checkbox" id="art" class="filter" onclick="filter(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art</label></li>
-					<li class="active waves-effect waves-light" data-walk='intervetion'><input type="checkbox" id="intervention" class="filter" onclick="filter(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Intervention</label></li>
-					<li class="active waves-effect waves-light" data-walk='history'><input type="checkbox" id="history" class="filter" onclick="filter(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">History</label></li>
-					<li class="active waves-effect waves-light" data-walk='urban'><input type="checkbox" id="urban" class="filter" onclick="filter(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban</label></li>
-					<li class="active waves-effect waves-dark" data-walk='sport'><input type="checkbox" id="sport" class="dark" onclick="filter(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">Sport</label></li>
-					<li class="active waves-effect waves-light" data-walk='miscellaneous'><input type="checkbox" id="miscellaneous" class="filter" onclick="filter(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li>
+					<li class="active waves-effect waves-light" data-walk='ecology'><input type="checkbox" id="ecology" class="filter" onclick="filter(this)" data-walk='ECOLOGY IN THE CITY (environmental remediation)' /><label class="filter-label" for="ecology">Ecology in the City</label></li>
+					<li class="active waves-effect waves-light" data-walk='citizens'><input type="checkbox" id="citizens" class="filter" onclick="filter(this)" data-walk="LANDSCAPES FOR CITIZENS - remembrance, recreation, children's spaces, returning space to citizens"/><label class="filter-label" for="citizens">Landscapes for Citizens</label></li>
+					<li class="active waves-effect waves-light" data-walk='political'><input type="checkbox" id="political" class="filter" onclick="filter(this)" data-walk="POLITICAL LANDSCAPES (civic demonstration & community events)"/><label class="filter-label" for="political">Political Landscapes</label></li>
+					<li class="active waves-effect waves-light" data-walk='art'><input type="checkbox" id="art" class="filter" onclick="filter(this)" data-walk="ART IN THE LANDSCAPE & LANDSCAPE AS ART"/><label class="filter-label" for="art">Art in the Landscape</label></li>
+					<li class="active waves-effect waves-light" data-walk='intervetion'><input type="checkbox" id="intervention" class="filter" onclick="filter(this)" data-walk="LANDSCAPE INTERVENTIONS - new opportunities for landscapes"/><label class="filter-label" for="intervention">Landscape Interventions</label></li>
+					<li class="active waves-effect waves-light" data-walk='history'><input type="checkbox" id="history" class="filter" onclick="filter(this)" data-walk="HISTORIC LANDSCAPES"/><label class="filter-label" for="history">Historic Landscapes</label></li>
+					<li class="active waves-effect waves-light" data-walk='urban'><input type="checkbox" id="urban" class="filter" onclick="filter(this)" data-walk="THE COGS OF THE CITY / URBAN MECHANICS (moving people - tram / bus / bike / car / walk / boat)"/><label class="filter-label" for="urban">Urban Mechanics - the Cogs of the City</label></li>
+					<li class="active waves-effect waves-dark" data-walk='sport'><input type="checkbox" id="sport" class="dark" onclick="filter(this)" data-walk="A SPORTING CITY"/><label class="filter-label-dark" for="sport">A Sporting City</label></li>
+					<!-- <li class="active waves-effect waves-light" data-walk='miscellaneous'><input type="checkbox" id="miscellaneous" class="filter" onclick="filter(this)" data-walk="MISCELLANEOUS"/><label class="filter-label" for="miscellaneous">Miscellaneous</label></li> -->
 					<!-- <li class="active waves-effect waves-light" data-walk='uncategorized'><input type="checkbox" id="uncategorized" class="filter" onclick="filter(this)" data-walk="uncategorized"/><label class="filter-label" for="uncategorized">Uncategorized</label></li> -->
 				</ul>
 				</div>
 		 	</li>
 			</ul>
-			
-		 	<!-- <li class=""><i class="material-icons">help</i> Help</li>
-				
-			<ul class="collapsible" data-collapsible="expandable"> 
-		 	<li class="">
-				<div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
-				<div class="collapsible-body">
-
-				</div>
-				</li>
-			</ul> -->
-
-
-			<!-- <li class="divider"></li> -->
-			<!-- <li class=""><span><i class="material-icons">bookmark</i> Bookmark this journey</span></li> -->
-
-			<!-- <ul class="collapsible" data-collapsible="expandable"> 
-		 	<li class="">
-				<div class="collapsible-header"><i class="material-icons">help</i> Help</div>
-				<div class="collapsible-body"></div>
-				</li>
-			</ul> -->
-
 		  </ul>
-		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large waves-effect waves-light"><i class="mdi-navigation-menu"></i></a>
+		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large waves-effect waves-light tooltipped" data-position="left" data-tooltip="Menu"><i class="mdi-navigation-menu"></i></a>
 		</nav>		
-		
-		<!-- <a class="dropdown-button" href="#" data-activates="dropdown1">Drop Me!</a><ul id="dropdown1" class="dropdown-content"><li><a href="#!">one</a></li><li><a href="#!">two</a></li><li class="divider"></li><li><a href="#!">three</a></li></ul> -->
-		
+			<!-- <div id="attribution" class="noselect noevents"><p>Designed and developed by <a href="http://twitter.com/edanweis" target="_blank" >@edanweis</a>. Map tiles by <a href="http://stamen.com">Stamen Design</a></p></div> -->
+			<div class="fullscreen waves-effect waves-light tooltipped" data-position="right" data-tooltip=""><a href="http://thejourney.aila.org.au/map" target="_top"><i class="material-icons">fullscreen</i></a></div>
 		<div class="row">
 	 		<div id='map' class='custom-popup noselect'></div>
 	 		<div class="touchtobegin noselect"></div>
@@ -107,7 +72,7 @@
 		<div class="navigation-pane z-depth-1">
 			<div id="slider-bg"></div>
 			<div id="slider" class="events"></div>
-			<div class="mode waves-effect waves-light events">
+			<div class="mode waves-effect waves-light events tooltipped" data-position="bottom" data-tooltip="Change transport mode">
 				<div id="walking" class="transport events active"><i class="material-icons">directions_walk</i></div>
 				<div id="cycling" class="transport events"><i class="material-icons">directions_bike</i></div>
 				<div id="driving" class="transport events"><i class="material-icons">directions_car</i></div>
@@ -129,7 +94,7 @@
 		<script src='mapbox.directions.js'></script>
 		
 
-		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.4/Leaflet.fullscreen.min.js'></script>
+		
 		<script src='bouncemarker.js'></script>
 		<script src="materialize.js"></script>
 		<script type="text/javascript" src="nouislider.js"></script>
@@ -141,35 +106,49 @@
 		$(document).ready(function() {
 
 			
+			if(inIframe()){
+				$('.fullscreen a').attr('href', 'http://thejourney.aila.org.au/map')
+				$('button-collapse').addClass('iframe')
+				$('.fullscreen').attr('data-tooltip', 'Enter Fullscreen');
+				$('.fullscreen').tooltip()
 
-			activateMap(false, false);
-			
-			$('.touchtobegin').text((is_touch_device() ? 'TOUCH TO START' : 'CLICK TO START' )).show()
+			} else{
+				$('.fullscreen i').html("fullscreen_exit");
+				$('.fullscreen a').attr('href', 'http://thejourney.aila.org.au');
+				$('.fullscreen').attr('data-tooltip', 'Back to The Journey Website');
+				$('.fullscreen').tooltip()
+			}
 
-			$('#search').keyup(search);
+		    activateMap(false, false);
 
-			$('.touchtobegin').click(function(){
-				if (!map.dragging.enable()){
-					$('.touchtobegin').hide();
-					activateMap(true, true)
-					
-				}
-			})
+		    $('.touchtobegin').text((is_touch_device() ? 'TOUCH TO START' : 'CLICK TO START')).show()
 
-			$('#menu').click(function(){
-				if (!map.dragging._enabled){
-					$('.touchtobegin').hide()
-					activateMap(true, true);
-				}
-			});
+		    $('#search').keyup(search);
 
-			$('.journey-menu').hide();
+		    $('.touchtobegin').click(function() {
+		        if (!map.dragging.enable()) {
+		            $('.touchtobegin').hide();
+		            activateMap(true, true)
 
-			
-			var slider = $('#slider')[0]
+		        }
+		    })
 
-			noUiSlider.create(slider, range_settings);
-			bindValue();		
+
+
+		    $('#menu').click(function() {
+		        if (!map.dragging._enabled) {
+		            $('.touchtobegin').hide()
+		            activateMap(true, true);
+		        }
+		    });
+
+		    $('.journey-menu').hide();
+
+
+		    var slider = $('#slider')[0]
+
+		    noUiSlider.create(slider, range_settings);
+		    bindValue();
 
 		    window.onkeydown = function(e) {
 		        if (e.keyCode == 9) {
@@ -178,7 +157,7 @@
 		    }
 
 		    $(".button-collapse").sideNav({
-		        menuWidth: ($(window).width() > 768 ? 300 : 200 ), // Default is 240
+		        menuWidth: ($(window).width() > 768 ? 300 : 200), // Default is 240
 		        edge: 'right', // Choose the horizontal origin
 		        closeOnClick: false
 		        // closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor);
@@ -191,42 +170,37 @@
 
 		    $('#menu').click(function() {
 		        toast = true;
-		        if (!is_touch_device()){
-		        	 $('#search').focus();
-		         }
-		        	
+		        if (!is_touch_device()) {
+		            $('#search').focus();
+		        }
+
 		    })
 
 		    $('.collapsible').collapsible({
-		        accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		        accordion: false 
 		    });
 
 		    $('.tooltipped').tooltip({
 		        delay: 450,
 		    });
 
-		    $('.instructions').click(function(){
-		    	slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
+		    $('.instructions').click(function() {
+		        slider.noUiSlider.set(parseInt(slider.noUiSlider.get()) + 1);
 		    })
 
 
-		    // $('.transport').bind("click", function(e){
-		    // 	$(e.target).addClass("animated fadeOutLeft").removeClass('active')
-		    // 	$(e.target).next('.transport').addClass("animated fadeInRight active");
-		    // })
-			
-			$(".mode").click(function() {
-			    var $selected = $("div.active").removeClass("active");
-			    var divs = $selected.parent().children('.transport');
-			    divs.eq((divs.index($selected) + 1) % divs.length).addClass("active");
-				currentProfile = $("div.active").attr('id')
-				directions.profile = 'mapbox.'+currentProfile;
-				$('#maneuver').html("")
-				$('#distance').html("")
-				$('#duration').html("&nbsp")
-				$('.direction-icon').attr('src', "img/blank.svg")
-				createJourney();
-			});
+		    $(".mode").click(function() {
+		        var $selected = $("div.active").removeClass("active");
+		        var divs = $selected.parent().children('.transport');
+		        divs.eq((divs.index($selected) + 1) % divs.length).addClass("active");
+		        currentProfile = $("div.active").attr('id')
+		        directions.profile = 'mapbox.' + currentProfile;
+		        $('#maneuver').html("")
+		        $('#distance').html("")
+		        $('#duration').html("&nbsp")
+		        $('.direction-icon').attr('src', "img/blank.svg")
+		        createJourney();
+		    });
 
 
 		    $(document).click(function(event) {
@@ -238,37 +212,38 @@
 		        }
 		    })
 
-		    function activateMap(state, bounce){
-		    	if (!state){
-			    	map.dragging.disable();
-					map.touchZoom.disable();
-					map.doubleClickZoom.disable();
-					map.scrollWheelZoom.disable();
-					$('#map').css("pointer-events","none");
-					// Disable tap handler, if present.
-					if (map.tap) map.tap.disable();
-				} else {
-					$('#map').css("pointer-events","auto");
-					if (bounce) bounceMarkers()
-					map.dragging.enable();
-					map.touchZoom.enable();
-					map.doubleClickZoom.enable();
-					map.scrollWheelZoom.enable();
-					// Enable tap handler, if present.
-					if (map.tap) map.tap.enable();
-				}
+		    function activateMap(state, bounce) {
+		        if (!state) {
+		            map.dragging.disable();
+		            map.touchZoom.disable();
+		            map.doubleClickZoom.disable();
+		            map.scrollWheelZoom.disable();
+		            $('#map').css("pointer-events", "none");
+		            // Disable tap handler, if present.
+		            if (map.tap) map.tap.disable();
+		        } else {
+		            $('#map').css("pointer-events", "auto");
+		            if (bounce) bounceMarkers()
+		            map.dragging.enable();
+		            map.touchZoom.enable();
+		            map.doubleClickZoom.enable();
+		            map.scrollWheelZoom.enable();
+		            // Enable tap handler, if present.
+		            if (map.tap) map.tap.enable();
+		        }
 		    }
 
-		    var from_tweet = getParameterByName('p').replace('#', '').replace('/','')
-		    if (from_tweet){
-			    featureLayer.eachLayer(function(marker) {
-			        if (marker.feature.properties.PK == from_tweet) {
-			            marker.openPopup();getLatLng()
-			            map.setView(marker.getLatLng())
-			            return
-			        }
-			    })
-			}
+		    // var from_tweet = getParameterByName('p').replace('#', '').replace('/', '')
+		    // if (from_tweet) {
+		    //     featureLayer.eachLayer(function(marker) {
+		    //         if (marker.feature.properties.PK == from_tweet) {
+		    //             marker.openPopup();
+		    //             getLatLng()
+		    //             map.setView(marker.getLatLng())
+		    //             return
+		    //         }
+		    //     })
+		    // }
 
 		    $(document).keyup(function(e) {
 		        // if (e.keyCode == 13) $('.save').click();     // enter
@@ -284,31 +259,29 @@
 		        }
 		    });
 
-		    $('#step').click(function(){
-		    	// map.panTo(L.GeoJSON.coordsToLatLng(step.maneuver.location.coordinates));
-
-		    });
-
 		})
-		
 
-		// GLOBAL VARS AND INITIALIZATION
-		
-		L.mapbox.accessToken = 'pk.eyJ1IjoiZWRhbndlaXMiLCJhIjoiY2lmMTVtdWQ0MDRsOHNkbTV2OXd3cDNwNiJ9.MxWj73wGNEvrPSjsh6TJjw';
-		
-		var map = L.mapbox.map('map', null, {zoomControl : false}).setView([-37.8163, 144.9634], 15);
-		map.attributionControl.setPosition('bottomleft');
+		 // GLOBAL VARS AND INITIALIZATION
+
+		 L.mapbox.accessToken = 'pk.eyJ1IjoiZWRhbndlaXMiLCJhIjoiY2lmMTVtdWQ0MDRsOHNkbTV2OXd3cDNwNiJ9.MxWj73wGNEvrPSjsh6TJjw';
+
+		var map = L.mapbox.map('map', null, {
+		    zoomControl: false
+		}).setView([-37.8163, 144.9634], 15);
+		map.attributionControl.setPosition('topleft');
 		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-		    attribution: 'Designed and coded by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>.'
+		    attribution: 'Developed by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>.'
 		}).addTo(map);
 
 		map.zoomControl = false;
 
-		// custom overlay doesnt work when zoome out.
-		// var imageBounds = [[-70, -118], [70, 170]];
-		// L.imageOverlay("img/overlay.png", imageBounds, {opacity:0.5}).addTo(map);
+		 // custom overlay doesn't work when zoomed out.
+		 // var imageBounds = [[-70, -118], [70, 170]];
+		 // L.imageOverlay("img/overlay.png", imageBounds, {opacity:0.5}).addTo(map);
 
-		L.control.fullscreen().addTo(map);
+		// L.control.fullscreen().setPosition("topleft").addTo(map);
+
+		// global vars
 
 		var featureLayer = L.mapbox.featureLayer()
 		var locationLayer = L.mapbox.featureLayer()
@@ -325,26 +298,26 @@
 		var touchToStart = true;
 		var route;
 		var range_settings = {
-			   start: 0,
-			   connect: "lower",
-			   step: 1,
-			   range: {
-			     'min': 0,
-			     'max': 100
-			   },
-			   format: wNumb({
-			     decimals: 0
-			   })
-			  }
+		    start: 0,
+		    connect: "lower",
+		    step: 1,
+		    range: {
+		        'min': 0,
+		        'max': 100
+		    },
+		    format: wNumb({
+		        decimals: 0
+		    })
+		}
 		var nav_directions;
 		var currentProfile = 'walking';
-		// GET GEOJSON DATA FROM GITHUB USING AJAX
+		 // GET GEOJSON DATA FROM GITHUB USING AJAX
 
 		function getData() {
 		    return $.ajax({
 		        type: 'GET',
 		        dataType: 'json',
-		        url: "https://rawgit.com/edanweis/thejourney15/master/thejourney15_ew_4.geojson" //"thejourney15_ew_1.geojson" // REMEMBER TO CHANGE THIS TO AILA-VIC MASTER REPO.
+		        url: 'https://rawgit.com/aila-vic/thejourney15/master/thejourney15_ew_5.geojson'
 		    });
 		}
 
@@ -354,15 +327,15 @@
 		        // filter : filter
 		    })
 		    geojson.addTo(map)
-    		readJourney(getParameterByName('j')) // Example query get.
+		    readJourney(getParameterByName('j')) // Example query get.
 		}
 		getData().done(handleData);
 
-		
-		// INITIALIZE DIRECTIONS
+
+		 // INITIALIZE DIRECTIONS
 
 		var directions = L.mapbox.directions({
-		    profile: 'mapbox.'+currentProfile, // ability to change this
+		    profile: 'mapbox.' + currentProfile, // ability to change this
 		    units: 'metric'
 		});
 		var directionsLayer = L.mapbox.directions.layer(directions)
@@ -377,7 +350,7 @@
 		    .addTo(map);
 
 
-		// BIND LAYER ADD FUNCTION TO EACH MARKER (LAYER/FEATURE)
+		 // BIND LAYER ADD FUNCTION TO EACH MARKER (LAYER/FEATURE)
 
 		function onEachFeature(feature, layer) {
 		    layer.on({
@@ -386,7 +359,7 @@
 		}
 
 
-		// SET ICON FOR DIFFERENT CONTEXTS (PERSON, JOURNEY, STANDARD)
+		 // SET ICON FOR DIFFERENT CONTEXTS (PERSON, JOURNEY, STANDARD)
 
 		function getIcon(layer) {
 		    var feature = layer.feature
@@ -415,13 +388,9 @@
 		        case "A SPORTING CITY":
 		            var fill_color = 'yellow';
 		            break;
-		        case "MISCELLANEOUS":
-		            var fill_color = 'pink';
-		            break;
-		        // case "uncategorized":
-		        //     var fill_color = 'black';
+		        // case "MISCELLANEOUS":
+		        //     var fill_color = 'pink';
 		        //     break;
-
 		        default:
 		            var fill_color = 'black';
 		    }
@@ -465,7 +434,7 @@
 		}
 
 
-		// LAYER ADD CALLS AS NEW MARKERS ARE ADDED
+		 // LAYER ADD CALLS AS NEW MARKERS ARE ADDED
 
 		function onLayerAdd(feature, layer) {
 		    var icon = getIcon(layer);
@@ -479,70 +448,36 @@
 
 		    }
 		    var content_person = '<div class="card-panel white" id=' + feature.properties.PK + '><span class="">You are Here!</span></div>'
-		    var tweetsubject = (feature.properties.designer ? feature.properties.designer : feature.properties.project )
-		    var hashTag = encodeURIComponent(tweetsubject.replace(/\,\s/g, '~').replace(/\s/g, '').replace(/\~/g, ' ')) //.toProperCase()
-		    
+		    var tweetsubject = (feature.properties.designer ? feature.properties.designer : feature.properties.project)
+		    if (feature.properties.designer || feature.properties.project) {
+		        var hashTag = encodeURIComponent(tweetsubject.replace(/\,\s/g, '~').replace(/\s/g, '').replace(/\~/g, ' ')) //.toProperCase()
+		    }
+
 		    // format the url for a tweet (get rid of j parameter and create p (or pk) parameter)
-		    var uri = encodeURIComponent(UpdateQueryString("j",null, UpdateQueryString("p",feature.properties.PK)))
-		    
+		    // var uri = encodeURIComponent(UpdateQueryString("j",null, UpdateQueryString("p",feature.properties.PK)))
+		    var uri = 'http://thejourney.aila.org.au/map?j='+feature.properties.PK
+		    // var uri = 'http://thejourney.aila.org.au'
 
 		    // Style Popup and create HTML
 		    card = '<div class="card noselect" id="' + feature.properties.PK + '">' +
 		        '<div class="card-image waves-effect waves-block waves-light">' +
-		        // '<img class="activator" src="' + (feature.properties.photo ? feature.properties.photo : "img/landscape.jpg") + '"/>' +
-		        '<img class="activator" src="img/photos/'+ feature.properties.PK+'.jpg"/>' +
+		    // '<img class="activator" src="' + (feature.properties.photo ? feature.properties.photo : "img/landscape.jpg") + '"/>' +
+		    '<img class="activator" src="img/photos/' + feature.properties.PK + '.jpg"/>' +
 		        '</div>' +
 		        '<div class="card-content">' +
 		        '<span class="card-title grey-text text-darken-4 select">' +
 		        '<i class="material-icons right dropdown-activator noselect" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
-		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '" target="_blank">'+feature.properties.designer +
+		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '" target="_blank">' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2">' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
-		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >')+
-		           '<li><a href="https://twitter.com/intent/tweet?url='+uri+'&text=Check out '+hashTag+' @TheJourney — Interactive Landscape Tour Map'+'" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>'+
- 				'<li class="addToJourney">' +
-		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>'
-		           +'<li><span class="activator"><i class="material-icons more-icon">more_horiz</i>Read more</span></li></ul>' +
+		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >') +
+		        '<li><a href="https://twitter.com/intent/tweet?url=' + uri + '&text=Check out ' + hashTag + ' @TheJourney — Interactive Landscape Tour Map' + '" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>' +
+		        '<li class="addToJourney">' +
+		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><span class="activator"><i class="material-icons more-icon">more_horiz</i>Read more</span></li></ul>' +
 		        '</div>' +
 		        '<div class="card-reveal">' +
 		        '<span class="card-title grey-text text-darken-4 select">' +
 		        '<i class="material-icons right noselect">close</i>' + feature.properties.project + '</span>' + ((feature.properties.address) ? '<p class="address select">' + feature.properties.address + '</p>' : '') +
 		        '<p class="project-description select">' + feature.properties.description + '</p></div></div>'
-
-
-		       // HAMMER.JS NOT CURRRENTLY WORKING. 
-
-		       // var cd = $('<div/>').html(c).contents();
-		  //      // var card = $('<div/>').html(c).contents()[0];
-		  //      var mc = new Hammer.Manager(dir);
-				// var swipe = new Hammer.Swipe();
-				// // add to the Manager
-				// mc.add([swipe]);
-				// mc.on("swipe", function(ev) {
-				//     alert('pinched')
-				// });			
-
-		  // //   var hammertime = new Hammer(dir);
-				// // hammertime.on('swipe', function(ev) {
-				// // });
-
-		  //   	var dir = $('.instructions')[0]
-		  //    	// var mc = new Hammer.Manager(dir);
-				// var mc = new Hammer(dir)
-				// // add to the Manager
-				// // mc.add([swipe]);
-				// mc.on("swipe", function(ev) {
-				//     slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
-				//     alert(slider.noUiSlider.get())
-				// });			
-
-		       //Swipe
-		       // var dir = $('.navigation-pane')[0]
-			    // Hammer(dir).on("swipeleft", function() {
-		    	//     // slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
-		    	//     slider.noUiSlider.set(parseInt(slider.noUiSlider.get())+1);
-				   //  // alert(slider.noUiSlider.get())
-			    //     // alert('you swiped')
-			    // });
 
 		    //it's been added to the journey layer
 		    if (feature.properties.addedToJourney) {
@@ -553,13 +488,15 @@
 		        featureLayer.removeLayer(layer)
 		        journey.push(layer);
 		        last_added = layer
-		        
-		        if( ( window.location.href.indexOf("xime.com.au") > -1 ) || (window.location.href.indexOf("localhost") > -1 ) ){
-		        	
-		        	updateURI() /// use this to start saving and loading route.	
-		        } 
 
-		        if (journey.length>1) $('.journey-menu').show();
+		        if ((window.location.href.indexOf("xime.com.au") > -1) || (window.location.href.indexOf("localhost") > -1)) {
+
+		            updateURI() /// use this to start saving and loading route.	
+		        } else if (window.location.href.indexOf("thejourney.aila.org.au") > -1) {
+		            updateURI('parent')
+		        }
+
+		        if (journey.length > 1) $('.journey-menu').show();
 
 		        // it is the location person icon
 		    } else if (feature.properties.person) {
@@ -574,7 +511,7 @@
 		        featureLayer.removeLayer(layer)
 		        layer.setIcon(L.icon(icon)).addTo(featureLayer)
 		        layer.setOpacity(0)
-				
+
 		    };
 
 		    // check if max waypoints reached
@@ -582,18 +519,19 @@
 		        Materialize.toast("Take a break! Or start another journey - 26 sites is the limit.", 6000)
 		    }
 
-		    
+
 
 
 		}
 
 
-		function bounceMarkers(){
-			featureLayer.eachLayer(function(feature){
-				feature.setOpacity(1);
-				feature.bounce();
-			})
+		function bounceMarkers() {
+		    featureLayer.eachLayer(function(feature) {
+		        feature.setOpacity(1);
+		        feature.bounce();
+		    })
 		}
+
 		function openDropdown(e) {
 		    $('.leaflet-popup-content .card').css("overflow", "visible")
 
@@ -622,7 +560,7 @@
 
 		function createJourney() {
 		    if (journey.length == 1) {
-				destroyNav();
+		        destroyNav();
 		        directions._unload();
 		        // tell the user only 1 marker has been selected.
 		    } else if (journey.length >= 2) {
@@ -636,104 +574,106 @@
 		            directions.addWaypoint(i - 2, waypoint)
 		        }
 		        directions.query();
-		        directions.on('load', function (e) {
-		        	nav_directions = e;
-		        	displayNav(e);
+		        directions.on('load', function(e) {
+		            nav_directions = e;
+		            displayNav(e);
 		        })
 		    }
 		}
 
-		function displayNav(){			
-			route = nav_directions.routes[0]
-			steps = route.steps
-			rebuildSlider(0, steps.length)
-			var dur = duration(route.duration);
-			var dis = metric(route.distance);
-			$('#duration').html(dur)
-			$('#distance').html(dis)
-			$('.mapbox-marker-drag-icon-step').css('display', 'block');
-			$('.navigation-pane').css({"display":"table"}).addClass("animated fadeInUp");
+		function displayNav() {
+		    route = nav_directions.routes[0]
+		    steps = route.steps
+		    rebuildSlider(0, steps.length)
+		    var dur = duration(route.duration);
+		    var dis = metric(route.distance);
+		    $('#duration').html(dur)
+		    $('#distance').html(dis)
+		    $('.mapbox-marker-drag-icon-step').css('display', 'block');
+		    $('.navigation-pane').css({
+		        "display": "table"
+		    }).addClass("animated fadeInUp");
 		};
 
-		function destroyNav(){
-			$('.mapbox-marker-drag-icon-step').css('display', 'none');
-			$('.navigation-pane').css({"display":"none"}).removeClass("animated fadeInUp");
+		function destroyNav() {
+		    $('.mapbox-marker-drag-icon-step').css('display', 'none');
+		    $('.navigation-pane').css({
+		        "display": "none"
+		    }).removeClass("animated fadeInUp");
 		}
 
-		function rebuildSlider (min, max) {
-				val = slider.noUiSlider.get();
-				slider.noUiSlider.destroy();
-				// Create a slider with the new options.
-				range_settings.range.min = min
-				range_settings.range.max = max -1
-				// range_settings.limit = max - 1
-				// range_settings.start = start;
-				noUiSlider.create(slider, range_settings);
-				bindValue();
-			}
-
-		function bindValue ( ) {
-			slider.noUiSlider.on('update', function( value, handle ) {
-				// update something 
-				updateDirections(value)
-				// updateSliderValue.innerHTML = values[handle];
-			});
+		function rebuildSlider(min, max) {
+		    val = slider.noUiSlider.get();
+		    slider.noUiSlider.destroy();
+		    // Create a slider with the new options.
+		    range_settings.range.min = min
+		    range_settings.range.max = max - 1
+		    // range_settings.limit = max - 1
+		    // range_settings.start = start;
+		    noUiSlider.create(slider, range_settings);
+		    bindValue();
 		}
 
-		function getSiteNames(){
-			siteNames = []
-			for (var i = 0; i < nav_directions.routes[0].steps.length; i++) {
-		       var type = nav_directions.routes[0].steps[i].maneuver.type;
-		       if ((type == 'waypoint')||(type == 'arrive')){
-		       		siteNames.push(i)
-		       } 
+		function bindValue() {
+		    slider.noUiSlider.on('update', function(value, handle) {
+		        // update something 
+		        updateDirections(value)
+		        // updateSliderValue.innerHTML = values[handle];
+		    });
+		}
+
+		function getSiteNames() {
+		    siteNames = []
+		    for (var i = 0; i < nav_directions.routes[0].steps.length; i++) {
+		        var type = nav_directions.routes[0].steps[i].maneuver.type;
+		        if ((type == 'waypoint') || (type == 'arrive')) {
+		            siteNames.push(i)
+		        }
 		    }
 		    return siteNames
 		}
 
-		function updateDirections(value){
-			if (nav_directions){
-				// console.log(nav_directions)
-				var siteNames = getSiteNames()
-				try { 
-				var distance =  metric(nav_directions.routes[0].steps[value].distance)
-				}
-				catch(e){
-					var distance = ''
-				}
-				var instruction = nav_directions.routes[0].steps[value].maneuver.instruction;
-				var type = nav_directions.routes[0].steps[value].maneuver.type
-				var index = siteNames.indexOf(parseInt(value))
+		function updateDirections(value) {
+		    if (nav_directions) {
+		        // console.log(nav_directions)
+		        var siteNames = getSiteNames()
+		        try {
+		            var distance = metric(nav_directions.routes[0].steps[value].distance)
+		        } catch (e) {
+		            var distance = ''
+		        }
+		        var instruction = nav_directions.routes[0].steps[value].maneuver.instruction;
+		        var type = nav_directions.routes[0].steps[value].maneuver.type
+		        var index = siteNames.indexOf(parseInt(value))
 
-				instruction = $('<div>'+instruction+'</div>').text().split("/")[0]
+		        instruction = $('<div>' + instruction + '</div>').text().split("/")[0].split("(")[0]
 
-				if ((type == 'waypoint')){
-					instruction = "You have reached your "+ ordinalInWord(index+1)+' site.'
-				}
+		        if ((type == 'waypoint')) {
+		            instruction = "You have reached your " + ordinalInWord(index + 1) + ' site.'
+		        }
 
-				if ((type == 'arrive')){
-					instruction = "You have reached your final site"
-				}
+		        if ((type == 'arrive')) {
+		            instruction = "You have visited your last site"
+		        }
 
-				var heading = nav_directions.routes[0].steps[value].direction
+		        var heading = nav_directions.routes[0].steps[value].direction
 
-				var d = 'img/d-'+nav_directions.routes[0].steps[value].maneuver.type.replace(/\s+/g, '-').toLowerCase() + ( ((heading)&&(value==0)) ? '-'+heading : '')+'-icon.svg';
-				
-				var latlng = L.latLng(nav_directions.routes[0].steps[value].maneuver.location.coordinates[1],nav_directions.routes[0].steps[value].maneuver.location.coordinates[0])
-				
-				if(value >=1){
-				map.setView(latlng, 18)
-				} else{
-					map.setView(latlng)
-				}
+		        var d = 'img/d-' + nav_directions.routes[0].steps[value].maneuver.type.replace(/\s+/g, '-').toLowerCase() + (((heading) && (value == 0)) ? '-' + heading : '') + '-icon.svg';
 
-				$('#maneuver').html(instruction)
-				$('#distance').html(distance)
-				$('.direction-icon').attr('src', d)
-				directions.highlightStep(nav_directions.routes[0].steps[value]);
-				// $('#direction').html()
-			}
-			
+		        var latlng = L.latLng(nav_directions.routes[0].steps[value].maneuver.location.coordinates[1], nav_directions.routes[0].steps[value].maneuver.location.coordinates[0])
+
+		        if (value >= 1) {
+		            map.setView(latlng)
+		        } else {
+		            map.setView(latlng)
+		        }
+
+		        $('#maneuver').html(instruction)
+		        $('#distance').html(distance)
+		        $('.direction-icon').attr('src', d)
+		        directions.highlightStep(nav_directions.routes[0].steps[value]);
+		        // $('#direction').html()
+		    }
 
 		}
 
@@ -753,11 +693,11 @@
 		};
 
 		function addToJourney(e, pk) {
-		    
-		    if(e){
-		    	$(e).html('<i class="material-icons" style="color:green;">check</i> Added')
+
+		    if (e) {
+		        $(e).html('<i class="material-icons" style="color:green;">check</i> Added')
 		    }
-		    
+
 		    featureLayer.eachLayer(function(marker) {
 		        if ((marker.feature.properties.PK == pk) && (marker !== last_added)) {
 		            var m_geojson = marker.toGeoJSON();
@@ -769,16 +709,16 @@
 		    });
 		}
 
-		function readJourney(journey){
-			if (journey){				
-				var route = journey.split(',');
-				featureLayer.eachLayer(function(marker) {
-					var pk = marker.feature.properties.PK
-					if (route.indexOf(String(pk)) !== -1){
-						addToJourney('', pk)
-					}
-				})
-			}
+		function readJourney(journey) {
+		    if (journey) {
+		        var route = journey.split(',');
+		        featureLayer.eachLayer(function(marker) {
+		            var pk = marker.feature.properties.PK
+		            if (route.indexOf(String(pk)) !== -1) {
+		                addToJourney('', pk)
+		            }
+		        })
+		    }
 		}
 
 		function removeFromJourney(e, pk) {
@@ -810,7 +750,7 @@
 		    return journey_sorted
 		};
 
-		
+
 
 		 // add hover to Popup windows
 		allLayers.eachLayer(function(layer) {
@@ -829,12 +769,12 @@
 		        });
 		    });
 		});
-		
+
 
 		allLayers.eachLayer(function(layer) {
 		    layer.on('click', function(e) {
-		        if (is_touch_device()){
-		        	e.layer.openPopup();
+		        if (is_touch_device()) {
+		            e.layer.openPopup();
 		        }
 		    });
 		});
@@ -850,23 +790,23 @@
 		    })
 		});
 
-		
+
 
 		locationLayer.on('mouseover', function(e) {
 		    e.layer.openPopup();
 		}).on('click', function(e) {
-		       if (is_touch_device()) e.layer.openPopup();
+		    if (is_touch_device()) e.layer.openPopup();
 		});
 
 		locationLayer.on('mouseout', function(e) {})
 
-		featureLayer.on('mouseover', function(e) {
+		 featureLayer.on('mouseover', function(e) {
 		    e.layer.openPopup();
 		})
 
-		 
 
-		// FILTER
+
+		 // FILTER
 
 		function filter(e) {
 
@@ -882,12 +822,12 @@
 		    var filters = []
 		    var categories_filtered = document.getElementsByClassName('filtered')
 		    var categories_all = document.getElementsByClassName('filter')
-		    
-		    if (categories_filtered.length == 0){
-		    	var categories = categories_all;
-			} else {
-				var categories = categories_filtered
-			}
+
+		    if (categories_filtered.length == 0) {
+		        var categories = categories_all;
+		    } else {
+		        var categories = categories_filtered
+		    }
 
 		    for (var i = 0; i < categories.length; i++) {
 		        filters.push(categories[i].dataset.walk);
@@ -909,7 +849,7 @@
 		}
 
 		function search() {
-		    
+
 
 		    ($('#search').val() ? $('#close_search').css("display", 'inline') : $('#close_search').css("display", 'none'))
 
@@ -941,23 +881,23 @@
 		    $('#close_search').css('display', 'none');
 		}
 
-		// FIND THE USER'S LOCATION
+		 // FIND THE USER'S LOCATION
 
-		// if (!navigator.geolocation) {
-		//     geolocate.innerHTML = '<i class="material-icons">gps_off</i> Geolocation is not available <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
-		// } else {
-		//     geolocate.onclick = function(e) {
-		//         e.preventDefault();
-		//         e.stopPropagation();
-		        
-		//     };
-		// }
+		 // if (!navigator.geolocation) {
+		 //     geolocate.innerHTML = '<i class="material-icons">gps_off</i> Geolocation is not available <a href="#" id="geolocate" class="try-again" style="display:inline;">(try again)</a>';
+		 // } else {
+		 //     geolocate.onclick = function(e) {
+		 //         e.preventDefault();
+		 //         e.stopPropagation();
+
+		 //     };
+		 // }
 		 // Once we've got a position, zoom and center the map
 		 // on it, and add a single marker.
 		map.on('locationfound', function(e) {
 		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
 		    map.fitBounds(e.bounds).setZoom(14);
-		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i>'+ ( $(window).width() < 768 ? 'Found': 'Found You')+'<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i>' + ($(window).width() < 768 ? 'Found' : 'Found You') + '<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
 		    var l_geojson = {
 		        type: "FeatureCollection",
 		        features: [{
@@ -981,7 +921,7 @@
 		 // If the user chooses not to allow their location
 		 // to be shared, display an error message.
 		map.on('locationerror', function() {
-		    geolocate.innerHTML = '<i class="material-icons">error</i> Is your GPS enabled? <a href="#" id="geolocate" class="try-again" style="display:inline; font-size:0.8em">(try again)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">error</i>' + ($(window).width() < 768 ? 'No GPS' : 'Is your GPS enabled?') + '<a href="#" onclick="map.locate()" id="geolocate" class="try-again" style="display:inline; font-size:0.8em"> try again</a>';
 		})
 
 
@@ -989,11 +929,17 @@
 
 
 
-		// UTILITY FUNCTIONS
+		 // UTILITY FUNCTIONS
 
 
 		function UpdateQueryString(key, value, url) {
-		    if (!url) url = window.location.href;
+
+		    if (inIframe()) {
+		        if (!url) url = window.location.href;
+		    } else {
+		        if (!url) url = window.location.href;
+		    }
+
 		    var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
 		        hash;
 
@@ -1003,49 +949,47 @@
 		        else {
 		            hash = url.split('#');
 		            url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
-		            if (typeof hash[1] !== 'undefined' && hash[1] !== null) 
+		            if (typeof hash[1] !== 'undefined' && hash[1] !== null)
 		                url += '#' + hash[1];
 		            return url;
 		        }
-		    }
-		    else {
+		    } else {
 		        if (typeof value !== 'undefined' && value !== null) {
 		            var separator = url.indexOf('?') !== -1 ? '&' : '?';
 		            hash = url.split('#');
 		            url = hash[0] + separator + key + '=' + value;
-		            if (typeof hash[1] !== 'undefined' && hash[1] !== null) 
+		            if (typeof hash[1] !== 'undefined' && hash[1] !== null)
 		                url += '#' + hash[1];
 		            return url;
-		        }
-		        else
+		        } else
 		            return url;
 		    }
 		}
 
 		function duration(s) {
-	        var m = Math.floor(s / 60),
-	            h = Math.floor(m / 60);
-	        s %= 60;
-	        m %= 60;
-	        if (h === 0 && m === 0) return s + ' s';
-	        if (h === 0) return m + ' min';
-	        return h + ' h ' + m + ' min';
-	    }
+		    var m = Math.floor(s / 60),
+		        h = Math.floor(m / 60);
+		    s %= 60;
+		    m %= 60;
+		    if (h === 0 && m === 0) return s + ' s';
+		    if (h === 0) return m + ' min';
+		    return h + ' h ' + m + ' min';
+		}
 
-	    function imperial (m) {
-	        var mi = m / 1609.344;
-	        if (mi >= 100) return mi.toFixed(0) + ' mi';
-	        if (mi >= 10) return mi.toFixed(1) + ' mi';
-	        if (mi >= 0.1) return mi.toFixed(2) + ' mi';
-	        return (mi * 5280).toFixed(0) + ' ft';
-	    }
+		function imperial(m) {
+		    var mi = m / 1609.344;
+		    if (mi >= 100) return mi.toFixed(0) + ' mi';
+		    if (mi >= 10) return mi.toFixed(1) + ' mi';
+		    if (mi >= 0.1) return mi.toFixed(2) + ' mi';
+		    return (mi * 5280).toFixed(0) + ' ft';
+		}
 
-	    function metric (m) {
-	        if (m >= 100000) return (m / 1000).toFixed(0) + ' km';
-	        if (m >= 10000) return (m / 1000).toFixed(1) + ' km';
-	        if (m >= 100) return (m / 1000).toFixed(2) + ' km';
-	        return m.toFixed(0) + ' m';
-	    }
+		function metric(m) {
+		    if (m >= 100000) return (m / 1000).toFixed(0) + ' km';
+		    if (m >= 10000) return (m / 1000).toFixed(1) + ' km';
+		    if (m >= 100) return (m / 1000).toFixed(2) + ' km';
+		    return m.toFixed(0) + ' m';
+		}
 
 
 		function getParameterByName(name) {
@@ -1056,12 +1000,12 @@
 		}
 
 		function is_touch_device() {
-		  return 'ontouchstart' in window // works on most browsers 
-		      || 'onmsgesturechange' in window; // works on ie10
+		    return 'ontouchstart' in window // works on most browsers 
+		        || 'onmsgesturechange' in window; // works on ie10
 		};
 
-		function ordinalInWord( cardinal ) {
-		    var ordinals = [ 'zeroth', 'first', 'second', 'third' /* and so on up to "twentieth" */ ];
+		function ordinalInWord(cardinal) {
+		    var ordinals = ['zeroth', 'first', 'second', 'third' /* and so on up to "twentieth" */ ];
 		    var tens = {
 		        20: 'twenty',
 		        30: 'thirty',
@@ -1073,31 +1017,44 @@
 		        50: 'fiftieth' /* and so on */
 		    };
 
-		    if( cardinal <= 20 ) {                    
-		        return ordinals[ cardinal ];
+		    if (cardinal <= 20) {
+		        return ordinals[cardinal];
 		    }
 
-		    if( cardinal % 10 === 0 ) {
-		        return ordinalTens[ cardinal ];
+		    if (cardinal % 10 === 0) {
+		        return ordinalTens[cardinal];
 		    }
 
-		    return tens[ cardinal - ( cardinal % 10 ) ] + ordinals[ cardinal % 10 ];
+		    return tens[cardinal - (cardinal % 10)] + ordinals[cardinal % 10];
 		}
 
-		String.prototype.toProperCase = function () {
-		    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		String.prototype.toProperCase = function() {
+		    return this.replace(/\w\S*/g, function(txt) {
+		        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		    });
 		};
 
-		function updateURI(){
-			var bookmark = $.map(journey, function(obj){
-				if(obj.feature.properties.PK !==0) return obj.feature.properties.PK
-			}).join(',');
-	        uri = UpdateQueryString('j',bookmark)
-	        var currentState = window.history.state;
-	        if (window.history.replaceState) {
-			   window.history.replaceState(currentState, document.title, uri);
-			}
+		function updateURI(parent) {
+		    if (parent) {
+
+		    }
+		    var bookmark = $.map(journey, function(obj) {
+		        if (obj.feature.properties.PK !== 0) return obj.feature.properties.PK
+		    }).join(',');
+		    uri = UpdateQueryString('j', bookmark)
+		    var currentState = window.parent.history.state;
+		    if (window.parent.history.replaceState) {
+		        window.parent.history.replaceState(currentState, document.title, uri);
+		    }
 		};
+
+		function inIframe() {
+		    try {
+		        return window.self !== window.top;
+		    } catch (e) {
+		        return true;
+		    }
+		}
 
 		function distance(lat1, lon1, lat2, lon2) {
 		    var p = 0.017453292519943295; // Math.PI / 180
@@ -1112,7 +1069,7 @@
 		(function($, Hammer, dataAttr) {
 		    function hammerify(el, options) {
 		        var $el = $(el);
-		        if(!$el.data(dataAttr)) {
+		        if (!$el.data(dataAttr)) {
 		            $el.data(dataAttr, new Hammer($el[0], options));
 		        }
 		    }

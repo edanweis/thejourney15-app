@@ -224,6 +224,23 @@
 
 .noUi-target .noUi-active .range-label span {
 }
+
+.range-label:before{
+	content:"O";
+	font-size: 42px;
+	color:transparent;
+	/*opacity: 0 !important;*/
+	margin-left: -45px !important;
+	margin-top: -20px !important;
+	color:transparent !important;
+	z-index: 9999;
+	background-color: transparent;
+	padding:1.5em;
+	border-radius: 50%;
+	
+
+
+}
 .noUi-target .range-label {
   position: absolute;
   height: 40px;
@@ -245,7 +262,7 @@
 .range-label span {
   width: 100%;
   text-align: center;
-  color: #fff;
+  color: #f6653c !important;
   font-size: 12px;
   transform: rotate(45deg);
   opacity: 0;
@@ -255,5 +272,5 @@
   transition: opacity .25s cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
 .noUi-active .range-label span {
-  opacity: 1;
+  opacity: 0;
 }
