@@ -39,7 +39,7 @@
 		  	</li>
 		  	<li class="nav-subheading divider"></li>
 			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate()"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
-
+			<li class="" data-position="top" data-tooltip="Get Google directions"><a href="#" target="_blank" id="googledirections" onclick="googleURL()"><img src="img/gmap.png" class="gmap-icon"><strong> Get Directions in Google Map</strong></a></li>
 			
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="filter-menu">
@@ -130,8 +130,6 @@
 
 		        }
 		    })
-
-
 
 		    $('#menu').click(function() {
 		        if (!map.dragging._enabled) {
@@ -457,7 +455,9 @@
 		    // var uri = 'http://thejourney.aila.org.au'
 
 		    // Style Popup and create HTML
-		    card = '<div class="card noselect" id="' + feature.properties.PK + '">' +
+		    card = ' <div class="popup-close noselect" onclick="getMarker('+feature.properties.PK+', true).closePopup();"><i class="material-icons noselect">close</i></div>'
+
+		    +'<div class="card noselect" id="' + feature.properties.PK + '">' +
 		        '<div class="card-image waves-effect waves-block waves-light">' +
 		    // '<img class="activator" src="' + (feature.properties.photo ? feature.properties.photo : "img/landscape.jpg") + '"/>' +
 		    '<img class="activator" src="img/photos/' + feature.properties.PK + '.jpg"/>' +
@@ -465,8 +465,8 @@
 		        '<div class="card-content">' +
 		        '<span class="card-title grey-text text-darken-4 select">' +
 		        '<i class="material-icons right dropdown-activator noselect" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
-		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '" target="_blank">' + feature.properties.designer +
-		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2">' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank">' + feature.properties.designer +
+		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer +
+		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2">' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >') +
 		        '<li><a href="https://twitter.com/intent/tweet?url=' + uri + '&text=Check out ' + hashTag + ' @TheJourney — Interactive Landscape Tour Map' + '" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>' +
 		        '<li class="addToJourney">' +
@@ -520,8 +520,16 @@
 		}
 
 
+		function googleURL(){
+			var url = "https://www.google.com/maps/dir/Current+Location";
+			for (var i = 0; i < journey.length; i++) {
+					url = url.concat("/"+journey[i].getLatLng().lat+','+journey[i].getLatLng().lng)
+		        }
+		    return url
+		}
+
 		function bounceMarkers() {
-		    featureLayer.eachLayer(function(feature) {
+		 featureLayer.eachLayer(function(feature) {   
 		        feature.setOpacity(1);
 		        feature.bounce();
 		    })
@@ -552,7 +560,7 @@
 		    $('#' + activate).toggle();
 
 		}
-
+		
 		function createJourney() {
 		    if (journey.length == 1) {
 		        destroyNav();
@@ -562,10 +570,10 @@
 		        directions._unload();
 		        var journey_sorted = findClosest(journey, user_location);
 
-		        directions.setOrigin(getMarker(journey_sorted[0]).getLatLng())
-		        directions.setDestination(getMarker(journey_sorted[1]).getLatLng())
+		        directions.setOrigin(getMarker(journey_sorted[0]).getLatLng(), false)
+		        directions.setDestination(getMarker(journey_sorted[1]).getLatLng(), false)
 		        for (i = 2; i < journey_sorted.length; ++i) {
-		            var waypoint = getMarker(journey_sorted[i]).getLatLng();
+		            var waypoint = getMarker(journey_sorted[i], false).getLatLng();
 		            directions.addWaypoint(i - 2, waypoint)
 		        }
 		        directions.query();
@@ -574,9 +582,14 @@
 		            displayNav(e);
 		        })
 		    }
+		    
 		}
 
 		function displayNav() {
+			//update get google directions link
+		    $('#googledirections').attr('href', googleURL())
+		    $('#googledirections').show();
+
 		    route = nav_directions.routes[0]
 		    steps = route.steps
 		    rebuildSlider(0, steps.length)
@@ -586,14 +599,18 @@
 		    $('#distance').html(dis)
 		    $('.mapbox-marker-drag-icon-step').css('display', 'block');
 		    $('.navigation-pane').css({
-		        "display": "table"
+		        "display": "table",
+		        "pointer-events":"all"
 		    }).addClass("animated fadeInUp");
 		};
 
 		function destroyNav() {
+			$('#googledirections').hide();
 		    $('.mapbox-marker-drag-icon-step').css('display', 'none');
+
 		    $('.navigation-pane').css({
-		        "display": "none"
+		        "display": "none",
+		        "pointer-events":"none !important"
 		    }).removeClass("animated fadeInUp");
 		}
 
@@ -672,8 +689,17 @@
 
 		}
 
-		function getMarker(pk) {
+		function getMarker(pk, feature_layer) {
 		    var got_marker;
+		    if (feature_layer){	
+			    featureLayer.eachLayer(function(marker) {
+			        if (marker.feature.properties.PK == pk) {
+			            got_marker = marker
+			        }
+			    })
+			    return got_marker
+		    }
+
 		    journeyLayer.eachLayer(function(marker) {
 		        if (marker.feature.properties.PK == pk) {
 		            got_marker = marker
@@ -892,7 +918,7 @@
 		map.on('locationfound', function(e) {
 		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
 		    map.fitBounds(e.bounds).setZoom(14);
-		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i>' + ($(window).width() < 768 ? 'Found' : 'Found You') + '<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i>' + ($(window).width() < 768 ? 'Found' : 'Found You ') + '<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
 		    var l_geojson = {
 		        type: "FeatureCollection",
 		        features: [{
