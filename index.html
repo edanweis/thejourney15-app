@@ -92,9 +92,6 @@
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src='mapbox.directions.js'></script>
-		
-
-		
 		<script src='bouncemarker.js'></script>
 		<script src="materialize.js"></script>
 		<script type="text/javascript" src="nouislider.js"></script>
@@ -107,13 +104,14 @@
 
 			
 			if(inIframe()){
-				$('.fullscreen a').attr('href', 'http://thejourney.aila.org.au/map')
-				$('button-collapse').addClass('iframe')
+				$('.fullscreen a').attr('href', 'http://thejourney.aila.org.au/map');
+				$('button-collapse').addClass('iframe');
+				$('.fullscreen i').text("fullscreen");
 				$('.fullscreen').attr('data-tooltip', 'Enter Fullscreen');
-				$('.fullscreen').tooltip()
+				$('.fullscreen').tooltip();
 
 			} else{
-				$('.fullscreen i').html("fullscreen_exit");
+				$('.fullscreen i').text("fullscreen_exit");
 				$('.fullscreen a').attr('href', 'http://thejourney.aila.org.au');
 				$('.fullscreen').attr('data-tooltip', 'Back to The Journey Website');
 				$('.fullscreen').tooltip()
@@ -489,12 +487,9 @@
 		        journey.push(layer);
 		        last_added = layer
 
-		        if ((window.location.href.indexOf("xime.com.au") > -1) || (window.location.href.indexOf("localhost") > -1)) {
-
-		            updateURI() /// use this to start saving and loading route.	
-		        } else if (window.location.href.indexOf("thejourney.aila.org.au") > -1) {
-		            updateURI('parent')
-		        }
+		        
+				updateURI() /// use this to start saving and loading route.	
+		        
 
 		        if (journey.length > 1) $('.journey-menu').show();
 
@@ -1034,18 +1029,18 @@
 		    });
 		};
 
-		function updateURI(parent) {
-		    if (parent) {
-
-		    }
-		    var bookmark = $.map(journey, function(obj) {
+		function updateURI() {
+		    if (!inIframe()) {
+		    	var bookmark = $.map(journey, function(obj) {
 		        if (obj.feature.properties.PK !== 0) return obj.feature.properties.PK
-		    }).join(',');
-		    uri = UpdateQueryString('j', bookmark)
-		    var currentState = window.parent.history.state;
-		    if (window.parent.history.replaceState) {
-		        window.parent.history.replaceState(currentState, document.title, uri);
+			    	}).join(',');
+			    uri = UpdateQueryString('j', bookmark)
+			    var currentState = window.parent.history.state;
+			    if (window.parent.history.replaceState) {
+			        window.parent.history.replaceState(currentState, document.title, uri);
+			    }
 		    }
+		    
 		};
 
 		function inIframe() {
