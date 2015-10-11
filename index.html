@@ -38,9 +38,8 @@
 		  		</div>
 		  	</li>
 		  	<li class="nav-subheading divider"></li>
-			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate()"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
 			<li class="" data-position="top" data-tooltip="Get Google directions"><a href="#" target="_blank" id="googledirections" onclick="googleURL()"><img src="img/gmap.png" class="gmap-icon"><strong> Get Directions in Google Map</strong></a></li>
-			
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="filter-menu">
 		 		<div class="collapsible-header" data-position="top" data-tooltip="Select the guided tour routes by theme"><strong><i class="material-icons">filter_list</i> Filter by theme</strong></div>
@@ -60,6 +59,9 @@
 				</div>
 		 	</li>
 			</ul>
+			<li class="nav-subheading divider"></li>
+			<div class="att" id="attribution">Developed by <a href="http://twitter.com/edanweis">@edanweis</a></span> Map tiles by <a href="http://stamen.com">Stamen Design</a></div>
+
 		  </ul>
 		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large waves-effect waves-light tooltipped" data-position="left" data-tooltip="Menu"><i class="mdi-navigation-menu"></i></a>
 		</nav>		
@@ -195,7 +197,7 @@
 		        $('#distance').html("")
 		        $('#duration').html("&nbsp")
 		        $('.direction-icon').attr('src', "img/blank.svg")
-		        createJourney();
+		        createJourney(true);
 		    });
 
 
@@ -242,7 +244,11 @@
 		    // }
 
 		    $(document).keyup(function(e) {
-		        // if (e.keyCode == 13) $('.save').click();     // enter
+		        if (e.keyCode == 13){
+		        	$('.button-collapse').sideNav('hide');
+		        	$('#search').blur();
+		        }
+
 		        if (e.keyCode == 27) {
 		            $('#search').blur();
 		            // activateMap(false);
@@ -264,9 +270,9 @@
 		var map = L.mapbox.map('map', null, {
 		    zoomControl: false
 		}).setView([-37.8163, 144.9634], 15);
-		map.attributionControl.setPosition('topleft');
+		map.attributionControl.setPosition('bottomright');
 		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-		    attribution: 'Developed by <a href="http://twitter.com/edanweis">@edanweis</a>, Map tiles by <a href="http://stamen.com">Stamen Design</a>.'
+		    attribution: ''
 		}).addTo(map);
 
 		map.zoomControl = false;
@@ -293,6 +299,7 @@
 		var maxWaypoints = 26;
 		var touchToStart = true;
 		var route;
+		var navDisplayed = false;
 		var range_settings = {
 		    start: 0,
 		    connect: "lower",
@@ -313,7 +320,8 @@
 		    return $.ajax({
 		        type: 'GET',
 		        dataType: 'json',
-		        url: 'https://rawgit.com/aila-vic/thejourney15/master/thejourney15_ew_5.geojson'
+		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_9.geojson'
+
 		    });
 		}
 
@@ -392,7 +400,7 @@
 		    }
 
 		    if (feature.properties.addedToJourney) {
-		        iconUrl = (feature.properties.photo ? feature.properties.photo : "img/landscape.png"); //"img/ic_location_selected.svg"
+		        iconUrl = "img/photos/"+feature.properties.PK+".jpg";
 		        w = 64;
 		        h = 64;
 		        iax = 28;
@@ -455,7 +463,7 @@
 		    // var uri = 'http://thejourney.aila.org.au'
 
 		    // Style Popup and create HTML
-		    card = ' <div class="popup-close noselect" onclick="getMarker('+feature.properties.PK+', true).closePopup();"><i class="material-icons noselect">close</i></div>'
+		    card = ' <div id="card-wrapper"><div class="popup-close noselect" onclick="getMarker('+feature.properties.PK+', true).closePopup();"><i class="material-icons noselect">close</i></div>'
 
 		    +'<div class="card noselect" id="' + feature.properties.PK + '">' +
 		        '<div class="card-image waves-effect waves-block waves-light">' +
@@ -475,7 +483,7 @@
 		        '<div class="card-reveal">' +
 		        '<span class="card-title grey-text text-darken-4 select">' +
 		        '<i class="material-icons right noselect">close</i>' + feature.properties.project + '</span>' + ((feature.properties.address) ? '<p class="address select">' + feature.properties.address + '</p>' : '') +
-		        '<p class="project-description select">' + feature.properties.description + '</p></div></div>'
+		        '<p class="project-description select">' + feature.properties.description + '</p></div></div></div>'
 
 		    //it's been added to the journey layer
 		    if (feature.properties.addedToJourney) {
@@ -561,7 +569,7 @@
 
 		}
 		
-		function createJourney() {
+		function createJourney(draw_route) {
 		    if (journey.length == 1) {
 		        destroyNav();
 		        directions._unload();
@@ -586,6 +594,7 @@
 		}
 
 		function displayNav() {
+			navDisplayed = true
 			//update get google directions link
 	    	$('#googledirections').attr('href', googleURL())
 	    	$('#googledirections').show();
@@ -606,6 +615,7 @@
 		};
 
 		function destroyNav() {
+			navDisplayed = false;
 			$('#googledirections').hide();
 		    $('.mapbox-marker-drag-icon-step').css('display', 'none');
 
@@ -649,7 +659,7 @@
 		function updateDirections(value) {
 		    if (nav_directions) {
 		        // console.log(nav_directions)
-		        var siteNames = getSiteNames()
+		        
 		        try {
 		            var distance = metric(nav_directions.routes[0].steps[value].distance)
 		        } catch (e) {
@@ -657,11 +667,13 @@
 		        }
 		        var instruction = nav_directions.routes[0].steps[value].maneuver.instruction;
 		        var type = nav_directions.routes[0].steps[value].maneuver.type
-		        var index = siteNames.indexOf(parseInt(value))
+		        
 
 		        instruction = $('<div>' + instruction + '</div>').text().split("/")[0].split("(")[0]
 
 		        if ((type == 'waypoint')) {
+		        	var siteNames = getSiteNames()
+		        	var index = siteNames.indexOf(parseInt(value))
 		            instruction = "You have reached your " + ordinalInWord(index + 1) + ' site.'
 		        }
 
@@ -675,11 +687,21 @@
 
 		        var latlng = L.latLng(nav_directions.routes[0].steps[value].maneuver.location.coordinates[1], nav_directions.routes[0].steps[value].maneuver.location.coordinates[0])
 
-		        if (value >= 1) {
-		            map.setView(latlng)
-		        } else {
-		            map.setView(latlng)
-		        }
+		        
+
+			    map.setView(latlng, map.getZoom(), {
+			        pan: {
+			            animate: true,
+			            duration: 1,
+			            easeLinearity:0.25,
+			            noMoveStart:true
+			        },
+			        zoom: {
+			            animate: true
+			        }
+			    });
+			
+            
 
 		        $('#maneuver').html(instruction)
 		        $('#distance').html(distance)
@@ -726,7 +748,7 @@
 		            m_geojson.properties.addedToJourney = true;
 		            geojson.addData(m_geojson)
 		            last_added = marker;
-		            createJourney();
+		            createJourney(true);
 		        }
 		    });
 		}
@@ -750,7 +772,7 @@
 		        if (marker.feature.properties.PK == pk) {
 		            if (marker !== last_added) {}
 		            journey.splice($.inArray(marker, journey), 1);
-		            createJourney();
+		            createJourney(true);
 		            var m_geojson = marker.toGeoJSON();
 		            journeyLayer.removeLayer(marker);
 		            m_geojson.properties.addedToJourney = false;
@@ -919,7 +941,7 @@
 		map.on('locationfound', function(e) {
 		    user_location = L.latLng(e.latlng.lat, e.latlng.lng)
 		    map.fitBounds(e.bounds).setZoom(14);
-		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i>' + ($(window).width() < 768 ? 'Found' : 'Found You ') + '<a href="#" id="geolocate" class="try-again" style="display:inline;">(update)</a>';
+		    geolocate.innerHTML = '<i class="material-icons">gps_fixed</i>' + ($(window).width() < 768 ? 'Found' : 'Found You ') + '<a href="#" id="geolocate" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})" class="try-again" style="display:inline;">(update)</a>';
 		    var l_geojson = {
 		        type: "FeatureCollection",
 		        features: [{
@@ -935,7 +957,8 @@
 		        }]
 		    }
 		    geojson.addData(l_geojson)
-		    createJourney();
+		    // if (!navDisplayed) createJourney();
+		    createJourney(false);
 		    $('.button-collapse').sideNav('hide');
 
 		});
@@ -943,7 +966,7 @@
 		 // If the user chooses not to allow their location
 		 // to be shared, display an error message.
 		map.on('locationerror', function() {
-		    geolocate.innerHTML = '<i class="material-icons">error</i>' + ($(window).width() < 768 ? 'No GPS' : 'Is your GPS enabled?') + '<a href="#" onclick="map.locate()" id="geolocate" class="try-again" style="display:inline; font-size:0.8em"> try again</a>';
+		    geolocate.innerHTML = '<i class="material-icons">error</i>' + ($(window).width() < 768 ? 'No GPS' : 'Is your GPS enabled?') + '<a href="#" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})" id="geolocate" class="try-again" style="display:inline; font-size:0.8em"> try again</a>';
 		})
 
 

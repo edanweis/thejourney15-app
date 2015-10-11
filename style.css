@@ -1,7 +1,7 @@
 body {
 margin:0;
 padding:0;
-overflow-x:hidden;
+overflow:hidden;
 }
 
 .fullscreen{
@@ -31,6 +31,32 @@ overflow-x:hidden;
 #googledirections{
 	display: none;
 }
+
+.side-nav div.att{
+	margin-top: 2em;
+	margin-left: 1.8em;
+	font-size:12px;
+	color:#444;
+	line-height: 12px;
+/*position:relative !important;	*/
+/*white-space: nowrap !important;*/
+}
+.side-nav div.att a{
+	font-size:12px;
+	display: inline;
+	line-height: 1.2em;
+	padding: 0;
+}
+
+.side-nav div.att a{
+	color:#3887BE;
+
+}
+
+.side-nav div.att a:hover{
+	color:#63b6e5;
+}
+
 
 .card-link-icon{
 	position: relative;
@@ -127,8 +153,8 @@ overflow-x:hidden;
 	font-family: 'Material Icons';
 	background-color: white;
 	position: absolute;
-	width:32px;
-	height:32px;
+	width:34px;
+	height:34px;
 	top: 10px;
 	right: 0;
 	padding:0.1em 0em 0.4em .3em;
@@ -334,11 +360,20 @@ li i{
 
 
 .side-nav .collapsible-header{
-	margin: 0rem 0rem 0 1rem !important;
+	margin: 1rem 0rem 0rem 1rem !important;
+}
+
+.side-nav ul.collapsible{
+	margin-bottom: 0.5em;
 }
 
 .more-icon{
 	margin-right:8px;
+}
+
+.side-nav li.search{
+	padding-top: 0.6em;
+	padding-bottom: 0.6em;
 }
 
 .side-nav li.search:hover i{
@@ -355,6 +390,7 @@ li i{
 
 .side-nav li {
 color:#444;
+line-height: 1em !important;
 }
 
 #routes li:hover, #routes li{
@@ -409,12 +445,12 @@ padding-right:0;
 color:inherit;
 margin-left:0;
 padding-left:0;
-line-height:1.4em;;
+/*line-height:1.4em;;*/
 }
 
 .side-nav li.divider {
 border-bottom:2px #ddd solid;
-margin-bottom:2em;
+/*margin-bottom:2em;*/
 }
 
 .side-nav .collapsible-header {
@@ -429,6 +465,7 @@ width:100%;
 /*height:78px;*/
 }
 
+
 .side-nav li.nav-subheading:hover,.side-nav li.nav-subheading.active:hover {
 background-color:transparent;
 }
@@ -439,11 +476,11 @@ color:#65B6FF;
 }
 
 [type="checkbox"]+label{
-width:100% !important;
-height:63px !important;;
+width:100% !important;;
 padding:0px 0px 0px 40px;
 margin:8px 0px 0px 0px !important;
 padding-top:2px;
+height:63px !important;
 }
 
 .dark{
@@ -731,7 +768,7 @@ margin:0;
 clear:both;
 color:rgba(0,0,0,0.87);
 cursor:pointer;
-line-height:1.5rem;
+/*line-height:1.5rem;*/
 width:100%;
 text-align:left;
 text-transform:none;
@@ -982,7 +1019,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6653c', end
 .navigation-pane{
 display: none;
 opacity: 0;
-display: table;
 position: absolute;
 left: 50%;
 -webkit-transform: translateX(-50%);
@@ -1141,8 +1177,12 @@ pointer-events: none !important;
 }
 
 .leaflet-container .leaflet-control-attribution{
-	left:64px !important;
+	display: none !important;
 	top:0px;
+	left:-20px !important;
+	font-size: 12px !important;
+	line-height: 12px !important;
+	z-index: 0 !important;
 
 }
 
@@ -1183,8 +1223,8 @@ pointer-events: none !important;
 
 @media only screen and (max-width: 640px) {
 	.leaflet-container .leaflet-control-attribution{
-		left:80px !important;
-		top:-10px;
+		/*left:80px !important;
+		top:-10px;*/
 	}
 }
 
