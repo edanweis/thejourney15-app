@@ -27,6 +27,44 @@ overflow:hidden;
 	content:" ";
 }
 
+.send-button, .send-button:hover{
+	background-color: #f6653c;
+	box-shadow: none;
+	margin:2em 0em 0 3em !important; 
+}
+
+.modal-content i{
+	color:#AFAFAF;
+}
+
+textarea:focus:not([readonly])+label{
+	color:#9e9e9e !important;
+}
+
+textarea:focus:not([readonly]), input:focus:not([readonly]){
+	border-bottom: 1px solid #444 !important;
+	box-shadow: 0 1px 0 0 #ddd !important;
+}
+
+.modal .modal-content{
+	padding:24px 12px 12px 12px !important;
+}
+
+textarea.materialize-textarea:focus.valid{
+	border-color: #ddd !important;
+}
+
+.modal-content i.active{
+	color:#444 !important;
+}
+
+textarea:focus:not([readonly])+label{
+	/*color:#f6653c !important;*/
+}
+
+.input-field label.active{
+color:#f6653c !important;	
+}
 
 #googledirections{
 	display: none;
@@ -249,6 +287,7 @@ top:0;
 bottom:0;
 width:100%;
 pointer-events:none;
+z-index:0;
 }
 
 .leaflet-marker-icon,.leaflet-marker-shadow {
@@ -351,7 +390,7 @@ nav{
 }
 
 nav *{
-	pointer-events:auto;
+pointer-events:auto;
 }
 
 li i{
@@ -380,7 +419,7 @@ li i{
 	color:#f6653c;
 }
 
-.side-nav li.search input{
+.side-nav li.search input[type="checkbox"]{
 	color:#444;
 }
 
@@ -653,7 +692,11 @@ background-color:rgba(0,0,0,0.2)!important;
 
 
 .whereami{
-	margin-top:0.5em;
+	margin-top:1em;;
+}
+
+.whereami a{
+	top: 0;
 }
 #slide-out li.search .search-wrapper input#search {
 display:inline-block;

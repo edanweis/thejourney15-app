@@ -38,7 +38,7 @@
 		  		</div>
 		  	</li>
 		  	<li class="nav-subheading divider"></li>
-			<li class="whereami" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
 			<li class="" data-position="top" data-tooltip="Get Google directions"><a href="#" target="_blank" id="googledirections" onclick="googleURL()"><img src="img/gmap.png" class="gmap-icon"><strong> Get Directions in Google Map</strong></a></li>
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="filter-menu">
@@ -59,24 +59,21 @@
 				</div>
 		 	</li>
 			</ul>
+			<li class="nav-subheading divider"></li>
+			
+			<li class=""><a href="#feedbackModal" class="modal-trigger"><i class="material-icons">feedback</i> Feedback</a></li>
+			<div class="att" id="attribution">Developed by <a href="http://twitter.com/edanweis">@edanweis</a></span> Map tiles by <a href="http://stamen.com">Stamen Design</a></div>
+		  </ul>
+		  
 
-			<ul class="collapsible" data-collapsible="expandable"> 
+		<!-- <ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="">
-				<div class="collapsible-header"><i class="material-icons">settings</i> Feedback</div>
+				<div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
 				<div class="collapsible-body">
-					<form action="//formspree.io/your@email.com"
-					      method="POST">
-					    <input type="text" name="name">
-					    <input type="email" name="_replyto">
-					    <input type="submit" value="Send">
-					</form>
 				</div>
 				</li>
-			</ul>
-			<li class="nav-subheading divider"></li>
-			<div class="att" id="attribution">Developed by <a href="http://twitter.com/edanweis">@edanweis</a></span> Map tiles by <a href="http://stamen.com">Stamen Design</a></div>
+			</ul> -->
 
-		  </ul>
 		  <a href="#" id="menu" data-activates="slide-out" class="button-collapse right show-on-large waves-effect waves-light tooltipped" data-position="left" data-tooltip="Menu"><i class="mdi-navigation-menu"></i></a>
 		</nav>		
 			<!-- <div id="attribution" class="noselect noevents"><p>Designed and developed by <a href="http://twitter.com/edanweis" target="_blank" >@edanweis</a>. Map tiles by <a href="http://stamen.com">Stamen Design</a></p></div> -->
@@ -104,6 +101,50 @@
         			<img src="" class="direction-icon" />
     		</div>
 		</div>
+		<div id="feedbackModal" class="modal">
+			    <div class="modal-content">
+			    	<div class="row">
+				    <form class="col s12" action="//formspree.io/edanweis@gmail.com" method="POST">
+				      <div class="row">
+				        <div class="input-field col s12">
+				          <i class="material-icons prefix">message</i>
+				          <input id="message" type="text" name="message" class="">
+				          <label for="message">Your message</label>
+				        </div>
+				        <div class="input-field col s12">
+				          <i class="material-icons prefix">email</i>
+				          <input id="email" type="email" name="_replyto" class="">
+				          <label for="email">Reply email (optional)</label>
+				          <input id="submit_redirect" type="hidden" name="_next" value="map"/>
+				          <input type="submit" value="Send" id="feedback-submit" class="modal-close btn waves-effect waves-light send-button">
+				        </div>
+				      </div>
+				    </form>
+				  </div>
+			      	<!-- <div class="row">
+			      <form action="//formspree.io/edanweis@gmail.com" method="POST">
+			      	<div class="input-field col s2">
+			      		<i class="material-icons prefix">message</i>
+					    <input placeholder="Your message" type="text" name="message" id="message">
+					    <label for="message">Your message</label>
+				    </div>
+				    <div class="input-field col s10">
+				    	<i class="material-icons prefix">email</i>
+					    <input type="email" name="_replyto">
+					    <label for="message">Your message</label>
+					</div>
+				    </div> -->
+				    <div class="row">
+				    	<div class="col s12">
+					    
+					    </div>
+					</div>
+					</form>
+			    </div>	
+			    <!-- <div class="modal-footer">
+			      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+			    </div> -->
+			  </div>
 
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -162,10 +203,27 @@
 		    noUiSlider.create(slider, range_settings);
 		    bindValue();
 
+		     $('.modal-trigger').leanModal({
+			      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+			      opacity: 0, // Opacity of modal background
+			      in_duration: 300, // Transition in duration
+			      out_duration: 200, // Transition out duration
+			      ready: function() {  }, // Callback for Modal open
+			      complete: function() { 
+
+			       } // Callback for Modal close
+			    }
+			  );
+			
+			$('#feedback-submit').click(function(){
+				Materialize.toast('Message Sent. Thank you for your feedback!', 4000)
+
+			})    
+
 		    window.onkeydown = function(e) {
-		        if (e.keyCode == 9) {
-		            e.preventDefault();
-		        }
+		        // if (e.keyCode == 9) {
+		        //     e.preventDefault();
+		        // }
 		    }
 
 		    $(".button-collapse").sideNav({
@@ -334,7 +392,7 @@
 		    return $.ajax({
 		        type: 'GET',
 		        dataType: 'json',
-		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_12.geojson'
+		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_14.geojson'
 
 		    });
 		}
@@ -1113,6 +1171,8 @@
 			    if (window.parent.history.replaceState) {
 			        window.parent.history.replaceState(currentState, document.title, uri);
 			    }
+			 $('#submit_redirect').attr('value', String(window.location.href))
+
 		    }
 		    
 		};
