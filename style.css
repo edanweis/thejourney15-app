@@ -37,11 +37,11 @@ overflow:hidden;
 	color:#AFAFAF;
 }
 
-textarea:focus:not([readonly])+label{
+.modal-content textarea:focus:not([readonly])+label{
 	color:#9e9e9e !important;
 }
 
-textarea:focus:not([readonly]), input:focus:not([readonly]){
+.modal-content textarea:focus:not([readonly]), input:focus:not([readonly]){
 	border-bottom: 1px solid #444 !important;
 	box-shadow: 0 1px 0 0 #ddd !important;
 }
@@ -50,7 +50,7 @@ textarea:focus:not([readonly]), input:focus:not([readonly]){
 	padding:24px 12px 12px 12px !important;
 }
 
-textarea.materialize-textarea:focus.valid{
+.modal-content textarea.materialize-textarea:focus.valid{
 	border-color: #ddd !important;
 }
 
@@ -702,9 +702,10 @@ background-color:rgba(0,0,0,0.2)!important;
 display:inline-block;
 font-weight:300;
 height:45px;
-border:0;
+border:0 !important;
 font-size:16px;
 margin-right:-15px;
+box-shadow:none !important;
 
 }
 
@@ -712,8 +713,10 @@ li.search:hover {
 background-color:#FFF!important;
 }
 
-input#search:focus {
+input#search:focus, input#search, input#search.active, input:focus:not([readonly]){
 outline-width:0;
+border: 0 !important;
+box-shadow: 0 !important;
 }
 
 .filter-label {
