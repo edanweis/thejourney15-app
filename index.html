@@ -18,8 +18,8 @@
 		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
 		 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 		 <meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content="@TheJourney">
-		<meta name="twitter:creator" content="@TheJourney">
+		<meta name="twitter:site" content="#THEJOURNEY2015">
+		<meta name="twitter:creator" content="#THEJOURNEY2015">
 		<meta name="twitter:title" content="The Journey 2015">
 		<meta name="twitter:description" content="Interactive Landscape Tour Map">
 		<meta name="twitter:image" content="http://thejourney.aila.org.au/wp-content/uploads/2015/09/The_Journey-Logo-Colour.png">
@@ -467,7 +467,7 @@
 
 		    +'<div class="card noselect" id="' + feature.properties.PK + '">' +
 		        '<div class="card-image waves-effect waves-block waves-light">' +
-		    // '<img class="activator" src="' + (feature.properties.photo ? feature.properties.photo : "img/landscape.jpg") + '"/>' +
+		    // '<img class="activator" src=	"' + (feature.properties.photo ? feature.properties.photo : "img/landscape.jpg") + '"/>' +
 		    '<img class="activator" src="img/photos/' + feature.properties.PK + '.jpg"/>' +
 		        '</div>' +
 		        '<div class="card-content">' +
@@ -476,7 +476,7 @@
 		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2">' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer +
 		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >') +
-		        '<li><a href="https://twitter.com/intent/tweet?url=' + uri + '&text=Check out ' + hashTag + ' @TheJourney — Interactive Landscape Tour Map' + '" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>' +
+		        '<li><a href="https://twitter.com/intent/tweet?url=' + uri + '&text=Check out ' + hashTag + ' #THEJOURNEY2015 — Interactive Landscape Tour Map' + '" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>' +
 		        '<li class="addToJourney">' +
 		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><span class="activator"><i class="material-icons more-icon">more_horiz</i>Read more</span></li></ul>' +
 		        '</div>' +
