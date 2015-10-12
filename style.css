@@ -651,6 +651,10 @@ transition-duration:.3s;
 background-color:rgba(0,0,0,0.2)!important;
 }
 
+
+.whereami{
+	margin-top:0.5em;
+}
 #slide-out li.search .search-wrapper input#search {
 display:inline-block;
 font-weight:300;

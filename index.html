@@ -38,7 +38,7 @@
 		  		</div>
 		  	</li>
 		  	<li class="nav-subheading divider"></li>
-			<li class="" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
+			<li class="whereami" data-position="top" data-tooltip="Locate yourself on the map"><a href="#" onclick="map.locate({watch:true,enableHighAccuracy:true, setView: true})"id="geolocate"><i class="material-icons" >gps_not_fixed</i><strong> Where am I?</strong></a></li>
 			<li class="" data-position="top" data-tooltip="Get Google directions"><a href="#" target="_blank" id="googledirections" onclick="googleURL()"><img src="img/gmap.png" class="gmap-icon"><strong> Get Directions in Google Map</strong></a></li>
 			<ul class="collapsible" data-collapsible="expandable"> 
 		 	<li class="filter-menu">
@@ -58,6 +58,20 @@
 				</ul>
 				</div>
 		 	</li>
+			</ul>
+
+			<ul class="collapsible" data-collapsible="expandable"> 
+		 	<li class="">
+				<div class="collapsible-header"><i class="material-icons">settings</i> Feedback</div>
+				<div class="collapsible-body">
+					<form action="//formspree.io/your@email.com"
+					      method="POST">
+					    <input type="text" name="name">
+					    <input type="email" name="_replyto">
+					    <input type="submit" value="Send">
+					</form>
+				</div>
+				</li>
 			</ul>
 			<li class="nav-subheading divider"></li>
 			<div class="att" id="attribution">Developed by <a href="http://twitter.com/edanweis">@edanweis</a></span> Map tiles by <a href="http://stamen.com">Stamen Design</a></div>
