@@ -320,7 +320,7 @@
 		    return $.ajax({
 		        type: 'GET',
 		        dataType: 'json',
-		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_9.geojson'
+		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_10.geojson'
 
 		    });
 		}
@@ -415,8 +415,8 @@
 		        iconUrl = "img/ic_location_on_black_24px_" + fill_color + ".svg";
 		        w = 32;
 		        h = 32;
-		        iax = 11;
-		        iay = 32;
+		        iax = 15;
+		        iay = 38;
 		        pax = 0;
 		        pay = -32;
 		        sax = 12;
@@ -446,12 +446,12 @@
 		    var icon_person = {
 		        "iconUrl": "img/ic_person_pin_50px.svg",
 		        "iconSize": [50, 50], // size of the icon
-		        "iconAnchor": [25, 50], // point of the icon which will correspond to marker's location
+		        "iconAnchor": [28, 25], // point of the icon which will correspond to marker's location
 		        "popupAnchor": [-5, 50], // point from which the popup should open relative to the iconAnchor
 		        "className": "dot"
 
 		    }
-		    var content_person = '<div class="card-panel white" id=' + feature.properties.PK + '><span class="">You are Here!</span></div>'
+		    var content_person = '<div class="card-panel white person-card" id=' + feature.properties.PK + '><span class="">You are Here!</span></div>'
 		    var tweetsubject = (feature.properties.designer ? feature.properties.designer : feature.properties.project)
 		    if (feature.properties.designer || feature.properties.project) {
 		        var hashTag = encodeURIComponent(tweetsubject.replace(/\,\s/g, '~').replace(/\s/g, '').replace(/\~/g, ' ')) //.toProperCase()
@@ -503,9 +503,19 @@
 
 		        // it is the location person icon
 		    } else if (feature.properties.person) {
-		        layer.setIcon(L.icon(icon_person)).addTo(locationLayer)
-		        layer.bindPopup(content_person);
-		        journey.push(layer);
+	    		locationLayer.removeLayer(layer)
+	    		// journey.push(layer);		
+	    		var jindex = $.inArray(layer, journey)
+	    		// console.log(jindex)
+	    		// journey.splice(jindex, 1)
+	    		// console.log(journey[0])
+	        	layer.setIcon(L.icon(icon_person)).addTo(locationLayer)
+	        	layer.bindPopup(content_person);
+	        	journey.push(layer);
+	        	// console.log(journey)
+		    		
+
+		        
 		        // layer.openPopup();
 		    }
 		    // its a standard layer/marker/feature.
