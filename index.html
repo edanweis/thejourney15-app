@@ -575,7 +575,10 @@
 
 		        // it is the location person icon
 		    } else if (feature.properties.person) {
-	    		locationLayer.removeLayer(layer)
+	    		// locationLayer.removeLayer(layer)
+	    		locationLayer.clearLayers();
+	    		var index = journey.indexOf(layer);
+				journey.splice(index, 1);
 	    		// journey.push(layer);		
 	    		var jindex = $.inArray(layer, journey)
 	    		// console.log(jindex)
@@ -583,6 +586,7 @@
 	    		// console.log(journey[0])
 	        	layer.setIcon(L.icon(icon_person)).addTo(locationLayer)
 	        	layer.bindPopup(content_person);
+
 	        	journey.push(layer);
 	        	// console.log(journey)
 		    		
