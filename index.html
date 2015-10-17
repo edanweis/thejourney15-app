@@ -104,7 +104,7 @@
 		<div id="feedbackModal" class="modal">
 			    <div class="modal-content">
 			    	<div class="row">
-				    <form class="col s12" action="//formspree.io/edanweis@gmail.com" method="POST">
+				    <form id="feedbackform" class="col s12">
 				      <div class="row">
 				        <div class="input-field col s12">
 				          <i class="material-icons prefix">message</i>
@@ -113,9 +113,9 @@
 				        </div>
 				        <div class="input-field col s12">
 				          <i class="material-icons prefix">email</i>
-				          <input id="email" type="email" name="_replyto" class="">
+				          <input id="email" type="email" name="email" class="">
 				          <label for="email">Reply email (optional)</label>
-				          <input id="submit_redirect" type="hidden" name="_next" value="map"/>
+				          <!-- <input id="submit_redirect" type="hidden" name="_next"/> -->
 				          <a type="submit" value="Send" id="feedback-submit" class="modal-close btn waves-effect waves-light send-button">Send</a>
 				        </div>
 				      </div>
@@ -197,6 +197,37 @@
 
 		    $('.journey-menu').hide();
 
+		    $('#submit_redirect').attr('value', window.location.href)
+
+		    // $('#feedbackform').ajaxForm({url: '//formspree.io/edanweis@gmail.com', type: 'post'})
+
+		    $('#feedback-submit').click(function() {       
+			    $('#feedbackform').submit();
+			});
+
+		    // this is the id of the form
+		    $("#feedbackform").submit(function() {
+
+		        var url = "//formspree.io/edanweis@gmail.com"; // the script where you handle the form input.
+
+		        $.ajax({
+		               type: "POST",
+		               url: url,
+		               crossDomain: true,
+		               dataType: 'json',
+		               headers: {
+		                   'Accept': 'application/json',
+		                   'Content-Type': 'application/x-www-form-urlencoded'
+		               },
+		               data: $("#feedbackform").serialize(), // serializes the form's elements.
+		               success: function(data)
+		               {
+		                   Materialize.toast('Message Sent. Thank you for your feedback!', 4000)
+		               }
+		             });
+
+		        return false; // avoid to execute the actual submit of the form.
+		    });
 
 		    var slider = $('#slider')[0]
 
@@ -214,13 +245,7 @@
 			       } // Callback for Modal close
 			    }
 			  );
-			
-			$('#feedback-submit').click(function(){
-				// Todo: proper validation checking.
-				if ( ($('input#message').val().length >0)  && ( $('input#email').val().length >0) ){
-					Materialize.toast('Message Sent. Thank you for your feedback!', 4000)
-				}
-			})    
+			   
 
 		    window.onkeydown = function(e) {
 		        // if (e.keyCode == 9) {
