@@ -23,6 +23,18 @@ overflow:hidden;
 	display: inline;
 }
 
+.send-button{
+	vertical-align: middle;
+	color:#fff;
+}
+
+.side-nav a.modal-trigger{
+	line-height: 28px !important;
+	padding-top: 0.5em ;
+	text-indent: -1.5em;
+	margin-left: 3em;
+}
+
 .leaflet-map-pane{
 	content:" ";
 }

@@ -61,7 +61,7 @@
 			</ul>
 			<li class="nav-subheading divider"></li>
 			
-			<li class=""><a href="#feedbackModal" class="modal-trigger"><i class="material-icons">feedback</i> Feedback</a></li>
+			<li class=""><a href="#feedbackModal" class="modal-trigger"><i class="material-icons">feedback</i> Report errors &amp; feedback</a></li>
 			<div class="att" id="attribution">Developed by <a href="http://twitter.com/edanweis">@edanweis</a></span> Map tiles by <a href="http://stamen.com">Stamen Design</a></div>
 		  </ul>
 		  
@@ -116,7 +116,7 @@
 				          <input id="email" type="email" name="_replyto" class="">
 				          <label for="email">Reply email (optional)</label>
 				          <input id="submit_redirect" type="hidden" name="_next" value="map"/>
-				          <input type="submit" value="Send" id="feedback-submit" class="modal-close btn waves-effect waves-light send-button">
+				          <a type="submit" value="Send" id="feedback-submit" class="modal-close btn waves-effect waves-light send-button">Send</a>
 				        </div>
 				      </div>
 				    </form>
@@ -216,7 +216,10 @@
 			  );
 			
 			$('#feedback-submit').click(function(){
-				Materialize.toast('Message Sent. Thank you for your feedback!', 4000)
+
+				if ( ($('input#message').val().length >0)  && ( $('input#email').val().length >0) ){
+					Materialize.toast('Message Sent. Thank you for your feedback!', 4000)
+				}
 
 			})    
 
