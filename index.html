@@ -419,7 +419,7 @@
 		    return $.ajax({
 		        type: 'GET',
 		        dataType: 'json',
-		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_14.geojson'
+		        url: 'https://raw.githubusercontent.com/aila-vic/thejourney15/master/thejourney15_ew_15.geojson'
 
 		    });
 		}
@@ -560,7 +560,7 @@
 		    // var uri = encodeURIComponent(UpdateQueryString("j",null, UpdateQueryString("p",feature.properties.PK)))
 		    var uri = 'http://thejourney.aila.org.au/map?j='+feature.properties.PK
 		    // var uri = 'http://thejourney.aila.org.au'
-
+		    
 		    // Style Popup and create HTML
 		    card = ' <div id="card-wrapper"><div class="popup-close noselect" onclick="getMarker('+feature.properties.PK+', true).closePopup();"><i class="material-icons noselect">close</i></div>'
 
@@ -572,10 +572,23 @@
 		        '<div class="card-content">' +
 		        '<span class="card-title grey-text text-darken-4 select">' +
 		        '<i class="material-icons right dropdown-activator noselect" data-activates="dropdown1" onclick="openDropdown(this)">menu</i>' + feature.properties.project + '</span>' +
-		        '<p class="select">' + ((feature.properties.url) ? '<a href="' + feature.properties.url + '" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer +
-		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2">' : '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer +
-		            '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >') +
-		        '<li><a href="https://twitter.com/intent/tweet?url=' + uri + '&text=Check out ' + hashTag + ' #THEJOURNEY2015 — Interactive Landscape Tour Map' + '" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>' +
+
+
+
+
+		        '<p class="select">' + 
+
+		        ((feature.properties.url) ? 
+
+		        '<a href="' + feature.properties.url + '" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer + '</a></p><ul id="dropdown1" class="dropdown z-depth-2">' :
+
+		        
+		         (feature.properties.url!=="" ? '<a href="http://www.google.com/search?q=' + encodeURIComponent(feature.properties.designer) + '%20site:au&btnI" target="_blank"><i class="material-icons card-link-icon">link</i>' + feature.properties.designer + '</a></p><ul id="dropdown1" class="dropdown z-depth-2" >' : '</p><ul id="dropdown1" class="dropdown z-depth-2" >' ))
+
+
+
+
+		        + '<li><a href="https://twitter.com/intent/tweet?url=' + uri + '&text=Check out ' + hashTag + ' #THEJOURNEY2015 — Interactive Landscape Tour Map' + '" onclick="window.open(this.href);return false;"><img src="img/twitter.svg" class="twitter-icon" /> Tweet location</a></li>' +
 		        '<li class="addToJourney">' +
 		        ((feature.properties.addedToJourney) ? '<span class="addToJourney" onclick="removeFromJourney(this,' + feature.properties.PK + ')"><i class="material-icons" style="color:red">remove</i> Remove this site</span>' : '<span class="addToJourney" onclick="addToJourney(this,' + feature.properties.PK + ')"><i class="material-icons green-text">add</i> Add to Journey</span>') + '</li>' + '<li><span class="activator"><i class="material-icons more-icon">more_horiz</i>Read more</span></li></ul>' +
 		        '</div>' +
